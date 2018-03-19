@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.IAdmin">
+    <!--管理员登录-->
+    <select id="getUser"  resultType="Admin">
+        select * from `admin` where username = #{0} and password = #{1}
+    </select>
+    <!--获取是否上传-->
+    <select id="getResultList" resultType="cheer_result">
+        select * from cheer_info
+    </select>
+    <!--上传啦啦队员信息-->
+    <insert id="insertCheerPlayer" parameterType="HashMap" keyProperty="id" >
+       INSERT INTO cheer_player(classId,playerName,introduce,ImgUrl)
+        VALUES(#{classId}, #{playerName}, #{introduce}, #{img})
+    </insert>
+    <!--上传啦啦队信息-->
+    <update id="insertCheerInfo" parameterType="HashMap" keyProperty="id" >
+        UPDATE cheer_info set slogan = #{slogan} ,introduce = #{introduce} ,video =#{video},firstImg =#{firstImg},playImg1 =#{playImg1},playImg2=#{playImg2},playImg3=#{playImg3},result=1
+       WHERE classId = #{classId}
+    </update>
+    <!--上传题目-->
+    <insert id="updateQuestion" parameterType="question" keyProperty="id">
+        insert into question (title,A,B,C,D,answer,kind) values(#{title},#{A},#{B},#{C},#{D},#{answer},#{kind})
+    </insert>
+    <!--获取题目数量-->
+    <select id="getQuestionNum" resultType="question_num" >
+        select kind, count(question) AS total from question group by kind
+    </select>
+    <!--获取题目列表-->
+    <select id="getQuestionList" resultType="question" parameterType="int">
+        SELECT questionId,title,A,B,C,D,answer,kind FROM question where binary kind = #{kind}
+    </select>
+    <!--删除题目-->
+    <delete id="delQuestionById" parameterType="int">
+        DELETE  from question where questionId = #{questionId}
+    </delete>
+    <!--查询题目-->
+    <select id="getQuestionByKey" parameterType="String" resultType="question">
+        select * from question where concat(title,A,B,C,D,answer) like CONCAT('%',#{key},'%') ORDER by questionId ASC
+    </select>
+    <!--更新题目-->
+    <update id="updateQuestionById" parameterType="question" keyProperty="id">
+        UPDATE  question  SET title =#{title} ,A=#{A},B=#{B},C=#{C},D=#{D},answer=#{answer},kind=#{kind}where questionId = #{questionId}
+    </update>
+
+</mapper>
