@@ -22,7 +22,9 @@ public class adminServlet extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         System.out.println(username+password);
-        HttpSession session = req.getSession();
+        HttpSession session = req.getSession(true);
+        System.out.println(session);
+        System.out.println(session.getId());
         JsonUtil jsonUtil = new JsonUtil();
         String str = null;
         //查询session中的admin

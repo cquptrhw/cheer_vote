@@ -48,5 +48,6 @@
 
     <mappers>
         <mapper resource="Mapper/Admin.xml" />
+        <mapper resource="Mapper/Message.xml" />
     </mappers>
 </configuration>
