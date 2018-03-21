@@ -21,36 +21,36 @@ import java.util.List;
 public class QuestionServlet extends HttpServlet {
     private static AdminService adminService = new AdminServiceImp();
     //上传题目
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String str = null;
-        req.setCharacterEncoding("utf-8");
-        HttpSession session =  req.getSession();
-        int  res =adminService.isMainAdmin(session);
-        if(res == 1){
-            str = "请先登录";
-        }else if (res == 2){
-            str = "请使用主管理员账号进行此操作";
-        } else {
-            Question ques = new Question();
-            ques.setTitle(req.getParameter("question"));
-            ques.setA(req.getParameter("A"));
-            ques.setB(req.getParameter("B"));
-            ques.setC(req.getParameter("C"));
-            ques.setD(req.getParameter("D"));
-            ques.setAnswer(req.getParameter("answer"));
-            ques.setKind(req.getParameter("kind"));
-            int i = adminService.updateQuestion(ques);
-            if(i != 0){
-                str = "上传成功";
-            }else{
-                str = "上传失败";
-            }
-        }
-        resp.setContentType("text/html;charset=utf-8");
-        resp.getWriter().println(str);
-        return;
-    }
+//    @Override
+//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        String str = null;
+//        req.setCharacterEncoding("utf-8");
+//        HttpSession session =  req.getSession();
+//        int  res =adminService.isMainAdmin(session);
+//        if(res == 1){
+//            str = "请先登录";
+//        }else if (res == 2){
+//            str = "请使用主管理员账号进行此操作";
+//        } else {
+//            Question ques = new Question();
+//            ques.setTitle(req.getParameter("question"));
+//            ques.setA(req.getParameter("A"));
+//            ques.setB(req.getParameter("B"));
+//            ques.setC(req.getParameter("C"));
+//            ques.setD(req.getParameter("D"));
+//            ques.setAnswer(req.getParameter("answer"));
+//            ques.setKind(req.getParameter("kind"));
+//            int i = adminService.updateQuestion(ques);
+//            if(i != 0){
+//                str = "上传成功";
+//            }else{
+//                str = "上传失败";
+//            }
+//        }
+//        resp.setContentType("text/html;charset=utf-8");
+//        resp.getWriter().println(str);
+//        return;
+//    }
     //删除题目
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -113,7 +113,7 @@ public class QuestionServlet extends HttpServlet {
 
     //修改题目
     @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String str = null;
         req.setCharacterEncoding("utf-8");
         HttpSession session =  req.getSession();
@@ -122,19 +122,21 @@ public class QuestionServlet extends HttpServlet {
             str = "请先登录";
         }else if (res == 2){
             str = "请使用主管理员账号进行此操作";
-        } else {
+        }else{
             Question ques = new Question();
             ques.setTitle(req.getParameter("question"));
             ques.setA(req.getParameter("A"));
+            System.out.println("5"+ques.getA());
             ques.setB(req.getParameter("B"));
             ques.setC(req.getParameter("C"));
             ques.setD(req.getParameter("D"));
             ques.setAnswer(req.getParameter("answer"));
             ques.setKind(req.getParameter("kind"));
             ques.setQuestionId(Integer.parseInt(req.getParameter("questionId")));
+            System.out.println("5:"+req.getParameter("questionId"));
             int i = adminService.updateQuestionById(ques);
             if(i != 0){
-                str = "上传成功";
+                str = JsonUtil.toJSONString(ques);
             }else{
                 str = "上传失败";
             }

@@ -93,6 +93,9 @@ public class MessageController {
         String usersql = "select * from user_info where openId = ? ";
         String praiseSql = "select count(id) AS Num from content_praise where contentId = ?";
 
+
+
+
         PreparedStatement ptmt= null;
         PreparedStatement ptmt1 =null;
         PreparedStatement ptmt2 =null;

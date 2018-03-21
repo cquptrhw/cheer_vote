@@ -10,6 +10,7 @@
         <typeAlias alias="cheer_player" type="model.Cheer_player" />
         <typeAlias alias="question" type="dto.Question" />
         <typeAlias alias="question_num" type="dto.Question_num" />
+        <typeAlias alias="message_user" type="dto.Message_user"/>
     </typeAliases>
 
     <environments default="development">

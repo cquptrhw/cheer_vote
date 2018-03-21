@@ -6,4 +6,13 @@
         <insert id="updateMessage" parameterType="HashMap" keyProperty="id" useGeneratedKeys="true" >
                 INSERT INTO content_users (openId,classId,content) VALUES (#{openId}, #{classId}, #{content})
         </insert>
+        <insert id="praiseMessage" parameterType="String" keyProperty="id" >
+                INSERT INTO content_praise(openId,contentId) VALUES (#{0},#{1})
+        </insert>
+        <select id="getMessageList" resultType="message_user">
+                select a.content,a.contentId,a.created_time,b.nickName,b.headImgUrl
+                from(select * from content_users where classId = #{0} order by created_time desc LIMIT #{1},#{2})a ,
+                (select * from user_info )b
+                where a.openId = b.openId;
+        </select>
 </mapper>

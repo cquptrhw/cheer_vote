@@ -1,12 +1,10 @@
 package util;
 
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.json.JSONObject;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -77,17 +75,23 @@ public class EncryptUtil {
         return (new BASE64Encoder()).encodeBuffer(bt);
     }
 
+    //加密测试
     public static void main(String[] args) throws NoSuchAlgorithmException {
+        //数据封装进json
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("classId",1);
-        jsonObject.put("name","你好");
+        jsonObject.put("content","你好");
+        //将json转为string
         String data = jsonObject.toString();
-        long timeStamp = System.currentTimeMillis();
-        int nonce = 8;
-        System.out.println("base64 : " + encryptBASE64(data));
-        System.out.println("MAD5 :" + md5(data + timeStamp + nonce));
-        String str = sha1(md5(encryptBASE64(data) + timeStamp + nonce) + "cheer_vote");
-        System.out.println("base64 : " +str );
-        DataUtil.getData(timeStamp, String.valueOf(nonce),encryptBASE64(data),str);
+        //对string进行base64编码
+        String string1 = encryptBASE64(data);
+        //获取unix时间戳
+        String timeStamp = String.valueOf((System.currentTimeMillis()/1000));
+        //随机获取的字符串
+        String nonce = "a";
+        //获取到的signature
+        String  signature = EncryptUtil.sha1(EncryptUtil.md5(string1+timeStamp+nonce)+"cheer_vote");
+//        System.out.println("signature : " +str );
+//        DataUtil.getData(timeStamp,nonce,string1,str);
     }
 }

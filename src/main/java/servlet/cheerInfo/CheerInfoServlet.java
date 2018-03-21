@@ -23,7 +23,7 @@ public class CheerInfoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String str = null;
         UploadUtil uploadUtil = new UploadUtil();
-        HttpSession session =  request.getSession(false);
+        HttpSession session =  request.getSession();
         boolean res = adminService.isLogin(session);
         if(!res){
             str = "请先登录";

@@ -56,7 +56,6 @@ public  class AdminServiceImp implements AdminService {
         SqlSession session = sqlSessionFactoryUtil.getSqlSessionFactory().openSession();
         try {
             IAdmin iuser = session.getMapper(IAdmin.class);
-            System.out.println(username+password);
             user = iuser.getUser(username,password);
         } finally {
             session.close();

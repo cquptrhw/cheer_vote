@@ -83,23 +83,35 @@
     <servlet-name>GetQuestionListServlet</servlet-name>
     <url-pattern>/vote/admin/question_list/*</url-pattern>
   </servlet-mapping>
+  <!--留言-->
+  <servlet>
+  <display-name>MessageServlet</display-name>
+  <servlet-name>MessageServlet</servlet-name>
+  <servlet-class>servlet.message.MessageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  <servlet-name>MessageServlet</servlet-name>
+  <url-pattern>/vote/user/content</url-pattern>
+  </servlet-mapping>
+  <!--留言点赞-->
+  <servlet>
+    <display-name>PraiseMessageServlet</display-name>
+    <servlet-name>praiseMessage1Servlet</servlet-name>
+    <servlet-class>servlet.message.PraiseMessageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>praiseMessage1Servlet</servlet-name>
+    <url-pattern>/vote/user/content_praise/*</url-pattern>
+  </servlet-mapping>
+
+  <!--获取留言-->
+  <servlet-mapping>
+  <servlet-name>MessageServlet</servlet-name>
+  <url-pattern>/vote/user/content/*</url-pattern>
+  </servlet-mapping>
 
 
 
-
-
-
-
-  <!--&lt;!&ndash;留言&ndash;&gt;-->
-  <!--<servlet>-->
-  <!--<display-name>MessageServlet</display-name>-->
-  <!--<servlet-name>MessageServlet</servlet-name>-->
-  <!--<servlet-class>servlet.message.MessageServlet</servlet-class>-->
-  <!--</servlet>-->
-  <!--<servlet-mapping>-->
-  <!--<servlet-name>MessageServlet</servlet-name>-->
-  <!--<url-pattern>/vote/user/update/message</url-pattern>-->
-  <!--</servlet-mapping>-->
   <!--&lt;!&ndash;留言点赞&ndash;&gt;-->
   <!--<servlet>-->
   <!--<display-name>MessageServlet</display-name>-->
@@ -110,16 +122,7 @@
   <!--<servlet-name>Message1Servlet</servlet-name>-->
   <!--<url-pattern>/vote/user/praise/message</url-pattern>-->
   <!--</servlet-mapping>-->
-  <!--&lt;!&ndash;获取留言&ndash;&gt;-->
-  <!--&lt;!&ndash;<servlet>&ndash;&gt;-->
-  <!--&lt;!&ndash;<display-name>MessageServlet</display-name>&ndash;&gt;-->
-  <!--&lt;!&ndash;<servlet-name>MessageServlet</servlet-name>&ndash;&gt;-->
-  <!--&lt;!&ndash;<servlet-class>servlet.message.MessageServlet</servlet-class>&ndash;&gt;-->
-  <!--&lt;!&ndash;</servlet>&ndash;&gt;-->
-  <!--<servlet-mapping>-->
-  <!--<servlet-name>MessageServlet</servlet-name>-->
-  <!--<url-pattern>/vote/user/get/message</url-pattern>-->
-  <!--</servlet-mapping>-->
+
 
 
   <!--&lt;!&ndash;获取题目&ndash;&gt;-->

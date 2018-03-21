@@ -120,7 +120,7 @@ public class JedisUtil {
      */
     public static void returnResource(final Jedis jedis) {
         if (jedis != null && jedisPool != null) {
-            jedisPool.returnResource(jedis);
+            jedis.close();
         }
     }
 
