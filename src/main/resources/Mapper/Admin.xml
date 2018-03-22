@@ -26,7 +26,7 @@
     </insert>
     <!--获取题目数量-->
     <select id="getQuestionNum" resultType="question_num" >
-        select kind, count(question) AS total from question group by kind
+        select kind, count(title) AS total from question group by kind
     </select>
     <!--获取题目列表-->
     <select id="getQuestionList" resultType="question" parameterType="int">
@@ -42,7 +42,7 @@
     </select>
     <!--更新题目-->
     <update id="updateQuestionById" parameterType="question" keyProperty="id">
-        UPDATE  question  SET title =#{title} ,A=#{A},B=#{B},C=#{C},D=#{D},answer=#{answer},kind=#{kind}where questionId = #{questionId}
+        UPDATE  question  SET title =#{title} ,A=#{A},B=#{B},C=#{C},D=#{D},answer=#{answer},kind=#{kind} where questionId = #{questionId}
     </update>
 
 </mapper>

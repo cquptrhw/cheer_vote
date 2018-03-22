@@ -19,7 +19,10 @@ public class DataUtil {
         if(isTime(Long.parseLong(timestamp))){
             //检验数据的有效性
             String str = EncryptUtil.sha1(EncryptUtil.md5(string+timestamp+nonce)+"cheer_vote") ;
-            System.out.println(str);
+//            System.out.println(string);
+//            System.out.println(timestamp);
+//            System.out.println(nonce);
+//            System.out.println(str);
             if(singnature.equals(str)){
                 //解释string中的数据
                 String json = EncryptUtil.decryptBASE64(string);

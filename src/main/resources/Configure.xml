@@ -11,6 +11,7 @@
         <typeAlias alias="question" type="dto.Question" />
         <typeAlias alias="question_num" type="dto.Question_num" />
         <typeAlias alias="message_user" type="dto.Message_user"/>
+        <typeAlias alias="question_user" type="dto.Qusetion_user"/>
     </typeAliases>
 
     <environments default="development">
@@ -50,5 +51,6 @@
     <mappers>
         <mapper resource="Mapper/Admin.xml" />
         <mapper resource="Mapper/Message.xml" />
+        <mapper resource="Mapper/Question.xml" />
     </mappers>
 </configuration>

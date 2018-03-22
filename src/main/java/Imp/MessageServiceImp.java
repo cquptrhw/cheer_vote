@@ -89,16 +89,14 @@ public class MessageServiceImp implements MessageService {
     @Override
     public boolean isPraise(String openId ,String contentId) {
         String key="message :"+contentId;
-        Jedis jedis= JedisUtil.getJedis();
-        boolean i =jedis.sismember(key,openId);
+        boolean i =JedisUtil.getJedis().sismember(key,openId);
         return i;
     }
     //将用户插入点赞列表
     @Override
     public Long insertOpenIdToRedis(String openId, String contentId){
         String key="message :"+contentId;
-        Jedis jedis= JedisUtil.getJedis();
-        Long i =jedis.sadd(key,openId);
+        Long i =JedisUtil.getJedis().sadd(key,openId);
         return i;
     }
     //获取文章的点赞数

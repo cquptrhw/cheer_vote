@@ -2,7 +2,12 @@ package dto;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
-public class Question {
+/**
+ * @Author: REN
+ * @Description:
+ * @Date: Created in 0:20 2018/3/23
+ */
+public class Qusetion_user {
     @JSONField(name = "A")
     private String A;
     @JSONField(name = "B")
@@ -14,6 +19,7 @@ public class Question {
     private String answer;
     private String kind;
     private int questionId;
+    private int todayNum;
     private String title;
 
     public void setA(String A) {
@@ -65,10 +71,18 @@ public class Question {
         return questionId;
     }
 
+    public void setTodayNum(int todayNum) {
+        this.todayNum = todayNum;
+    }
+    public int getTodayNum() {
+        return todayNum;
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }
     public String getTitle() {
         return title;
     }
+
 }

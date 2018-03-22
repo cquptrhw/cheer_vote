@@ -7,7 +7,7 @@ package dto;
  */
 public class Question_num {
     public int total;
-    public int kind;
+    public String kind;
 
     public int getTotal() {
         return total;
@@ -17,11 +17,11 @@ public class Question_num {
         this.total = total;
     }
 
-    public int getKind() {
+    public String getKind() {
         return kind;
     }
 
-    public void setKind(int kind) {
+    public void setKind(String kind) {
         this.kind = kind;
     }
 }

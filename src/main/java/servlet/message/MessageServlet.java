@@ -1,8 +1,6 @@
 package servlet.message;
 
 import Imp.MessageServiceImp;
-import controller.MessageController;
-import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import service.MessageService;
@@ -16,8 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
-import java.util.HashMap;
+
 import java.util.Map;
 
 /**
@@ -39,6 +36,7 @@ public class MessageServlet extends HttpServlet {
         String timestamp = req.getParameter("timestamp");
         String nonce = req.getParameter("nonce");
         String signature = req.getParameter("signature");
+
 
         //验证是否登录
 //        HttpSession session = req.getSession();

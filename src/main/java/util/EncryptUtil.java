@@ -92,6 +92,6 @@ public class EncryptUtil {
         //获取到的signature
         String  signature = EncryptUtil.sha1(EncryptUtil.md5(string1+timeStamp+nonce)+"cheer_vote");
 //        System.out.println("signature : " +str );
-//        DataUtil.getData(timeStamp,nonce,string1,str);
+        DataUtil.getData(timeStamp,nonce,string1,signature);
     }
 }

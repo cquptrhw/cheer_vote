@@ -172,21 +172,21 @@ public  class AdminServiceImp implements AdminService {
         }
     }
 
-    public static void main(String[] args) throws SQLException, JSONException {
-        AdminService adminService = new AdminServiceImp();
-        Question ques = new Question();
-        ques.setTitle("question");
-        ques.setA("A");
-        ques.setB("B");
-        ques.setC("C");
-        ques.setD("D");
-        ques.setAnswer("answer");
-        ques.setKind("kind");
-        ques.setQuestionId(2);
-        int i = adminService.updateQuestionById(ques);
-
-        System.out.println(i);
-    }
+//    public static void main(String[] args) throws SQLException, JSONException {
+//        AdminService adminService = new AdminServiceImp();
+//        Question ques = new Question();
+//        ques.setTitle("question");
+//        ques.setA("A");
+//        ques.setB("B");
+//        ques.setC("C");
+//        ques.setD("D");
+//        ques.setAnswer("answer");
+//        ques.setKind("kind");
+//        ques.setQuestionId(2);
+//        int i = adminService.updateQuestionById(ques);
+//
+//        System.out.println(i);
+//    }
 
 
 }

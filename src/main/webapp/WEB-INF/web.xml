@@ -83,6 +83,12 @@
     <servlet-name>GetQuestionListServlet</servlet-name>
     <url-pattern>/vote/admin/question_list/*</url-pattern>
   </servlet-mapping>
+  <!--修改题目-->
+  <servlet-mapping>
+    <servlet-name>GetQuestionListServlet</servlet-name>
+    <url-pattern>/vote/admin/question_list</url-pattern>
+  </servlet-mapping>
+
   <!--留言-->
   <servlet>
   <display-name>MessageServlet</display-name>
@@ -110,18 +116,6 @@
   <url-pattern>/vote/user/content/*</url-pattern>
   </servlet-mapping>
 
-
-
-  <!--&lt;!&ndash;留言点赞&ndash;&gt;-->
-  <!--<servlet>-->
-  <!--<display-name>MessageServlet</display-name>-->
-  <!--<servlet-name>Message1Servlet</servlet-name>-->
-  <!--<servlet-class>servlet.message.PraiseMessageServlet</servlet-class>-->
-  <!--</servlet>-->
-  <!--<servlet-mapping>-->
-  <!--<servlet-name>Message1Servlet</servlet-name>-->
-  <!--<url-pattern>/vote/user/praise/message</url-pattern>-->
-  <!--</servlet-mapping>-->
 
 
 
