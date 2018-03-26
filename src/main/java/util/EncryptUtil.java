@@ -7,6 +7,7 @@ import sun.misc.BASE64Encoder;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Map;
 
 /**
  * @Author: REN
@@ -79,8 +80,8 @@ public class EncryptUtil {
     public static void main(String[] args) throws NoSuchAlgorithmException {
         //数据封装进json
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("classId",1);
-        jsonObject.put("content","你好");
+        jsonObject.put("questionId",1);
+        jsonObject.put("userAnswer","B");
         //将json转为string
         String data = jsonObject.toString();
         //对string进行base64编码
@@ -92,6 +93,10 @@ public class EncryptUtil {
         //获取到的signature
         String  signature = EncryptUtil.sha1(EncryptUtil.md5(string1+timeStamp+nonce)+"cheer_vote");
 //        System.out.println("signature : " +str );
-        DataUtil.getData(timeStamp,nonce,string1,signature);
+        Map map =DataUtil.getData(timeStamp,nonce,string1,signature);
+        System.out.println(JsonUtil.toJSONString(map));
+        System.out.println(string1);
+        System.out.println(timeStamp);
+        System.out.println(nonce);
     }
 }

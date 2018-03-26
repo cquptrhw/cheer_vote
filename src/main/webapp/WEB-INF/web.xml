@@ -119,26 +119,26 @@
 
 
 
-  <!--&lt;!&ndash;获取题目&ndash;&gt;-->
-  <!--<servlet>-->
-  <!--<display-name>AnswerServlet</display-name>-->
-  <!--<servlet-name>AnswerServlet</servlet-name>-->
-  <!--<servlet-class>servlet.answer.UserGetQuestionServlet</servlet-class>-->
-  <!--</servlet>-->
-  <!--<servlet-mapping>-->
-  <!--<servlet-name>AnswerServlet</servlet-name>-->
-  <!--<url-pattern>/vote/user/get/question</url-pattern>-->
-  <!--</servlet-mapping>-->
-  <!--&lt;!&ndash;获取答案&ndash;&gt;-->
-  <!--<servlet>-->
-  <!--<display-name>AnswerServlet</display-name>-->
-  <!--<servlet-name>Answer1Servlet</servlet-name>-->
-  <!--<servlet-class>servlet.answer.UserGetAnswerServlet</servlet-class>-->
-  <!--</servlet>-->
-  <!--<servlet-mapping>-->
-  <!--<servlet-name>Answer1Servlet</servlet-name>-->
-  <!--<url-pattern>/vote/user/get/answer</url-pattern>-->
-  <!--</servlet-mapping>-->
+  <!--获取题目-->
+  <servlet>
+  <display-name>AnswerServlet</display-name>
+  <servlet-name>AnswerServlet</servlet-name>
+  <servlet-class>servlet.answer.UserGetQuestionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  <servlet-name>AnswerServlet</servlet-name>
+  <url-pattern>/vote/user/question</url-pattern>
+  </servlet-mapping>
+  <!--获取答案-->
+  <servlet>
+  <display-name>AnswerServlet</display-name>
+  <servlet-name>Answer1Servlet</servlet-name>
+  <servlet-class>servlet.answer.UserGetAnswerServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  <servlet-name>Answer1Servlet</servlet-name>
+  <url-pattern>/vote/user/answer</url-pattern>
+  </servlet-mapping>
   <!--&lt;!&ndash;结束答题&ndash;&gt;-->
   <!--<servlet>-->
   <!--<display-name>AnswerServlet</display-name>-->

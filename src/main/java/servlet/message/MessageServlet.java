@@ -52,10 +52,10 @@ public class MessageServlet extends HttpServlet {
                 map.put("openId","LLL");  //将改为从seesion获取的openId插入
 //                System.out.println(JsonUtil.toJSONString(map));
                 //插入数据
-                Map<String,String> map1= messageService.updateMessage(map);
-                if (map1==null||map1.isEmpty()){
+                if (map==null||map.isEmpty()){
                     str = "请检查数据是否过期，或者数据被修改";
                 }else {
+                    Map<String,String> map1= messageService.updateMessage(map);
                     str = JsonUtil.toJSONString(map1);
                 }
             } catch (NoSuchAlgorithmException e) {

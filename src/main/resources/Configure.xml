@@ -52,5 +52,6 @@
         <mapper resource="Mapper/Admin.xml" />
         <mapper resource="Mapper/Message.xml" />
         <mapper resource="Mapper/Question.xml" />
+        <mapper resource="Mapper/Assistance.xml"/>
     </mappers>
 </configuration>

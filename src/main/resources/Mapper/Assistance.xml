@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.IAssistance">
+    <!--更新用户助力数-->
+    <update id="addUserAssistance"  keyProperty="id">
+        UPDATE user_assistance SET assistance =#{1} WHERE openId=#{0}
+    </update>
+    <!--查询用户的助力数-->
+    <select id="getUserAssistance" parameterType="String" resultType="Integer">
+        SELECT assistance from user_assistance WHERE binary openId = #{openId}
+    </select>
+    <!--往用户助力数表插入新数据-->
+    <insert id="insertUserAssistance" parameterType="String" keyProperty="id">
+        INSERT INTO user_assistance(openId,assistance) VALUES (#{openId},0)
+    </insert>
+</mapper>
