@@ -7,7 +7,7 @@
     <select id="getQuestionFromMysql" resultType="question_user" parameterType="int">
         select * from question WHERE kind =#{kind} ORDER BY RAND() LIMIT 10
     </select>
-    <!--从Mysql题目答案-->
+    <!--从Mysql获取题目答案-->
     <select id="getAnswerFromMysql" resultType="String" parameterType="String">
         SELECT answer FROM question WHERE questionId = #{questionId}
     </select>
