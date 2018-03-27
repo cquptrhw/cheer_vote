@@ -15,4 +15,11 @@
     <insert id="insertUserAssistance" parameterType="String" keyProperty="id">
         INSERT INTO user_assistance(openId,assistance) VALUES (#{openId},0)
     </insert>
+    <!--获取用户助力历史-->
+    <select id="getAssistanceHistory" parameterType="String" resultType="assistance_history">
+       SELECT a.assistance,a.groupId,b.distance,a.classId,d.className,k.groupName
+       FROM (select groupId, classId,sum(assistance) as assistance from cheer_assistance where openId = #{0}  group by classId order by assistance desc)a,
+       (SELECT classId ,sum(assistance) AS distance from cheer_assistance group by classId)b,(SELECT * from cheer_info)d,(SELECT groupName ,groupId from group_info)k
+       WHERE a.classId=b.classId and a.classId = d.classId and a.groupId = k.groupId
+    </select>
 </mapper>

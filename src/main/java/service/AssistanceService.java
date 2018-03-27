@@ -10,4 +10,6 @@ public interface AssistanceService {
     public Boolean addUserAssistance(String openId,int assistance);
     //获取用户的助力数
     public int  getUserAssistance(String openId);
+    //获取助力历史
+    public String getAssistanceHistory(String openId);
 }

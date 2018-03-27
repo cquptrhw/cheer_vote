@@ -13,6 +13,6 @@
                 select a.content,a.contentId,a.created_time,b.nickName,b.headImgUrl
                 from(select * from content_users where classId = #{0} order by created_time desc LIMIT #{1},#{2})a ,
                 (select * from user_info )b
-                where a.openId = b.openId;
+                where a.openId = b.openId
         </select>
 </mapper>

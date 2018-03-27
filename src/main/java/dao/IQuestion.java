@@ -3,6 +3,7 @@ package dao;
 
 import dto.Qusetion_user;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,8 @@ public interface IQuestion {
     public String getAnswerFromMysql(String questionId);
     //插入答题历史
     public int insertAnswerHistory(Map map);
-
-
-    }
+    //获取答题排行榜
+    public List<LuckUser> getUserRank(Timestamp startTime, Timestamp endTime);
+    //从Mysql获取今日答题数目
+    public int getTodayNumFromMysql(String openId,Timestamp startTime, Timestamp endTime);
+}

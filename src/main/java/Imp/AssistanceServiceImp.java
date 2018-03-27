@@ -1,6 +1,7 @@
 package Imp;
 
 import dao.IAssistance;
+import dto.Assistance_history;
 import org.apache.ibatis.session.SqlSession;
 
 import org.slf4j.Logger;
@@ -9,7 +10,10 @@ import service.AssistanceService;
 import servlet.answer.UserGetAnswerServlet;
 import util.Const;
 import util.JedisUtil;
+import util.JsonUtil;
 import util.SqlSessionFactoryUtil;
+
+import java.util.List;
 
 /**
  * @Author: REN
@@ -19,7 +23,7 @@ import util.SqlSessionFactoryUtil;
 public class AssistanceServiceImp implements AssistanceService {
     static SqlSessionFactoryUtil sqlSessionFactoryUtil;
     protected static Logger logger = LoggerFactory.getLogger(UserGetAnswerServlet.class);
-    //增加助力数
+    //修改助力数
     @Override
     public Boolean addUserAssistance(String openId, int assistance) {
         SqlSession session = sqlSessionFactoryUtil.getSqlSessionFactory().openSession();
@@ -37,7 +41,6 @@ public class AssistanceServiceImp implements AssistanceService {
         }
 
     }
-
     //获取用户的助力数
     @Override
     public int getUserAssistance(String openId) {
@@ -57,6 +60,7 @@ public class AssistanceServiceImp implements AssistanceService {
                     logger.error("错误原因 :插入失败");
                 }else {
                     assistance=0;
+
                 }
             }else{
                 assistance = k;
@@ -65,19 +69,30 @@ public class AssistanceServiceImp implements AssistanceService {
         }else{
             assistance = Integer.parseInt(num);
         }
+        //插入redis进行缓存
+        JedisUtil.getJedis().hset(Const.Assistance,openId, String.valueOf(assistance));
 
         return assistance;
     }
-//       public static void main(String[] args){
-//       AssistanceService assistanceService = new AssistanceServiceImp();
-//
-////        HashMap m1 = new HashMap();
-////        m1.put("openId", "8");
-////        m1.put("classId", "31");
-////        m1.put("content", "你好");
-//        int str  =assistanceService.getUserAssistance("aaaaE");
-//        System.out.println(str);
-//    }
+    //获取用户助力历史
+    @Override
+    public String getAssistanceHistory(String openId) {
+        SqlSession session = sqlSessionFactoryUtil.getSqlSessionFactory().openSession();
+        IAssistance iAssistance = session.getMapper(IAssistance.class);
+        List<Assistance_history> assistance_historyList=iAssistance.getAssistanceHistory(openId);
+        String str = JsonUtil.toJSONString(assistance_historyList);
+        System.out.println(str);
+        return str;
+    }
+       public static void main(String[] args){
+       AssistanceService assistanceService = new AssistanceServiceImp();
+
+//        HashMap m1 = new HashMap();
+//        m1.put("openId", "8");
+//        m1.put("classId", "31");
+//        m1.put("content", "你好");
+        String str = assistanceService.getAssistanceHistory("aaa");
+    }
 
 
 }

@@ -15,5 +15,15 @@
     <insert id="insertAnswerHistory" parameterType="Map" keyProperty="id">
         INSERT INTO question_history (openId,questionId,userAnswer,rightAnswer,status) VALUES (#{openId},#{questionId},#{userAnswer},#{rightAnswer},#{status})
     </insert>
+    <!--获取答题榜-->
+    <select id="getUserRank" resultType="luckUser">
+        SELECT a.openId ,a.rightNum,b.nickName,b.headImgUrl
+        from
+        (SELECT openId,count(status='1'OR NULL ) as rightNum FROM question_history WHERE create_time between #{0} and #{1} GROUP BY openId ORDER BY rightNum DESC LIMIT 10)a,
+        (SELECT * FROM user_info)b WHERE a.openId=b.openId
+    </select>
+    <select id="getTodayNumFromMysql" resultType="int">
+        SELECT count(id) AS todayNUM FROM question_history where openId = #{0} and created_time BETWEEN #{1} and #{2}
+    </select>
 
 </mapper>

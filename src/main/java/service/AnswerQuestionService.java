@@ -11,8 +11,10 @@ import java.util.Map;
  * @Date: Created in 23:24 2018/3/22
  */
 public interface AnswerQuestionService {
-    //判断今天答题数目
+    //从redis获取今天答题数目
     public int getTodayNum(String openId);
+    //从mysql获取今日答题数目
+    public int getTodayNumFromMysql(String openId);
     //从Redis获取题目
     String getQuestionFromRedis(String openId, int todayNum);
     //从Mysql获取题目
@@ -25,5 +27,7 @@ public interface AnswerQuestionService {
     public boolean addAnswerHistory(Map map);
     //判断用户是否答过此题
     public boolean isAnswer(Map map);
+    //获取用户答题榜单
+    public String getUserRank();
 
 }

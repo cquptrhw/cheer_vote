@@ -1,5 +1,9 @@
 package dao;
 
+import dto.Assistance_history;
+
+import java.util.List;
+
 /**
  * @Author: REN
  * @Description:
@@ -12,4 +16,6 @@ public interface IAssistance {
     Integer getUserAssistance(String openId);
     //往用户助力数表插入新数据
     int insertUserAssistance(String openId);
+    //获取助力历史
+    List<Assistance_history> getAssistanceHistory(String openId);
 }

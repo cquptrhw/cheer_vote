@@ -14,10 +14,10 @@ public class UserGetQuestionServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //根据session中openId获取openId
-        String openId = "5agaigdagdaoda";
+        String openId = "5agaigd";
         String str = null;
         int todayNum = answerQuestionService.getTodayNum(openId);
-        if(todayNum>=17||todayNum<0){
+        if(todayNum>=50||todayNum<0){
             str="超过今日答题数目";
             resp.setContentType("text/html;charset=utf-8");
             resp.getWriter().println(str);

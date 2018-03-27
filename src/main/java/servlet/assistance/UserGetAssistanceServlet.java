@@ -1,9 +1,9 @@
-package servlet.answer;
+package servlet.assistance;
 
-import Imp.AnswerQuestionServiceImp;
-import controller.AnswerController;
+import Imp.AssistanceServiceImp;
+import controller.AssistanceController;
 import org.json.JSONException;
-import service.AnswerQuestionService;
+import service.AssistanceService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,13 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class GetUserRankServlet extends HttpServlet{
-    private  static  AnswerQuestionService answerQuestionService = new AnswerQuestionServiceImp();
+public class UserGetAssistanceServlet extends HttpServlet {
+    private static AssistanceService assistanceService = new AssistanceServiceImp();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String str = answerQuestionService.getUserRank();
-
+        String openId = "k";
+        int str = assistanceService.getUserAssistance(openId);
         resp.setContentType("text/html;charset=utf-8");
         resp.getWriter().println(str);
         return;

@@ -1,10 +1,12 @@
 package Imp;
 import dao.IQuestion;
+import dao.LuckUser;
 import dto.Qusetion_user;
 import org.apache.ibatis.session.SqlSession;
 import service.AnswerQuestionService;
 import util.*;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -24,11 +26,26 @@ public class AnswerQuestionServiceImp implements AnswerQuestionService {
         String num = JedisUtil.getJedis().hget(Const.todayNum,openId);
         int todayNum =0;
         if(num == null || num.isEmpty()){
-            return todayNum;
+            todayNum =getTodayNumFromMysql(openId);
         }else{
-            return Integer.parseInt(num);
+            todayNum= Integer.parseInt(num);
         }
+        return todayNum;
     }
+    //从mysql获取今日答题数
+    @Override
+    public int getTodayNumFromMysql(String openId) {
+        SqlSession session = sqlSessionFactoryUtil.getSqlSessionFactory().openSession();
+        IQuestion iQuestion = session.getMapper(IQuestion.class);
+        final Time time = new Time();
+        Timestamp[]timeArray = time.getTimePeriod();
+        int todayNum = iQuestion.getTodayNumFromMysql(openId,timeArray[0],timeArray[1]);
+        session.close();
+        JedisUtil.getJedis().hset(Const.todayNum,openId,String.valueOf(todayNum));
+        JedisUtil.getJedis().pexpire(Const.todayNum,Time.getTimeDiff());
+        return todayNum;
+    }
+
     //从Redis获取题目
     @Override
     public String getQuestionFromRedis(String openId, int todayNum) {
@@ -97,7 +114,6 @@ public class AnswerQuestionServiceImp implements AnswerQuestionService {
         session.close();
         return str;
     }
-
     //加入答题历史
     @Override
     public boolean addAnswerHistory(Map map) {
@@ -109,7 +125,9 @@ public class AnswerQuestionServiceImp implements AnswerQuestionService {
         //往redis中插入答题记录
         String openId = String.valueOf(map.get("openId"));
         String questionId = String.valueOf(map.get("questionId"));
+        long diff = Time.getTimeDiff();
         Long res = JedisUtil.getJedis().sadd(Const.IsAnswer+openId,questionId);
+        JedisUtil.getJedis().pexpire(Const.IsAnswer+openId,diff);
         if(i != 1 || res != 1){
             logger.error("错误信息 :"+openId+"插入答题历史错误");
             return false;
@@ -127,15 +145,27 @@ public class AnswerQuestionServiceImp implements AnswerQuestionService {
         boolean res = JedisUtil.getJedis().sismember(Const.IsAnswer+openId,questionId);
         return res;
     }
+    //获取用户答题榜单
+    @Override
+    public String getUserRank() {
+        SqlSession session = sqlSessionFactoryUtil.getSqlSessionFactory().openSession();
+        IQuestion iQuestion = session.getMapper(IQuestion.class);
+        final Time time = new Time();
+        Timestamp[]timeArray = time.getTimePeriod();
+        List<LuckUser> luckUserList = iQuestion.getUserRank(timeArray[0],timeArray[1]);
+        String str = JsonUtil.toJSONString(luckUserList);
+        session.close();
+        return str;
+    }
 
-
+//
 //    public static void main(String[] args){
 //        AnswerQuestionService messageService = new AnswerQuestionServiceImp();
 ////        HashMap m1 = new HashMap();
 ////        m1.put("openId", "8");
 ////        m1.put("classId", "31");
 ////        m1.put("content", "你好");
-//        boolean str  = messageService.addUserAssistance("aaaa");
+//       int  str = messageService.getTodayNumFromMysql("a");
 //        System.out.println(str);
 //    }
 }

@@ -3,9 +3,7 @@ package Imp;
 import dao.LuckUser;
 import org.apache.ibatis.session.SqlSession;
 import service.GetLuckUserService;
-import util.JsonUtil;
-import util.SqlSessionFactoryUtil;
-import util.Time;
+import util.*;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -17,6 +15,7 @@ import java.util.List;
  */
 public class getLuckUserServiceImp implements GetLuckUserService {
     static SqlSessionFactoryUtil sqlSessionFactoryUtil;
+    //从mysql获取幸运用户
     @Override
     public String getLuckUser() {
         final Time time = new Time();
@@ -24,12 +23,38 @@ public class getLuckUserServiceImp implements GetLuckUserService {
         SqlSession session = sqlSessionFactoryUtil.getSqlSessionFactory().openSession();
         LuckUser luckUser = session.getMapper(LuckUser.class);
         List<LuckUser> luckUserList = luckUser.getLuckUser(timeArray[0],timeArray[1]);
+//        System.out.println(timeArray[0]+"..."+timeArray[1]);
         String str = JsonUtil.toJSONString(luckUserList);
-        System.out.println(timeArray[0]+"..."+timeArray[1]);
+        session.close();
+        return str;
+    }
+    //插入幸运用户
+    @Override
+    public int insertLuckUser(String user_list) {
+        SqlSession session = sqlSessionFactoryUtil.getSqlSessionFactory().openSession();
+        LuckUser luckUser = session.getMapper(LuckUser.class);
+        int i = luckUser.insertLuckUser(user_list);
+        session.close();
+        return  i;
+
+    }
+    //查询当日的幸运用户
+    @Override
+    public String getLuckUserList() {
+        String str = JedisUtil.getString(Const.LuckUser);
+        if(str== null||str.isEmpty()){
+            //如果从redis没有查到，就去mysql获取
+            SqlSession session = sqlSessionFactoryUtil.getSqlSessionFactory().openSession();
+            LuckUser luckUser = session.getMapper(LuckUser.class);
+           str =  luckUser.getLuckUserList();
+           //将查询结果插入redis
+            JedisUtil.setString(Const.LuckUser,str);
+        }
         return str;
     }
 
-        public static void main(String[] args){
+
+    public static void main(String[] args){
         GetLuckUserService getLuckUserService =new getLuckUserServiceImp();
         String str = getLuckUserService.getLuckUser();
 //        HashMap m1 = new HashMap();

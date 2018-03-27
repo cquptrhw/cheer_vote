@@ -13,6 +13,7 @@ public class Const {
     public static final String Answer = "Answer ";
     public static final String Assistance = "Assistance ";
     public static final String IsAnswer = "IsAnswer :";
+    public static final String LuckUser = "LuckUser :";
 
 
 

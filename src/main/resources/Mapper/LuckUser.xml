@@ -3,10 +3,19 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="dao.LuckUser">
+    <!--获取幸运用户-->
     <select id="getLuckUser" resultType="luckUser">
         SELECT a.openId ,a.rightNum,b.nickName,b.headImgUrl
         from
-        (SELECT openId,count(id) as rightNum FROM question_history WHERE create_time between #{0} and #{1} GROUP BY openId ORDER BY RAND() LIMIT 3)a,
+        (SELECT openId,count(status='1'OR NULL ) as rightNum FROM question_history WHERE create_time between #{0} and #{1} GROUP BY openId ORDER BY RAND() LIMIT 3)a,
         (SELECT * FROM user_info)b WHERE a.openId=b.openId
+    </select>
+    <!--插入幸运用户-->
+    <insert id="insertLuckUser" keyProperty="id" parameterType="String">
+        INSERT INTO user_luck (user_list) VALUES (#{0});
+    </insert>
+    <!--查询幸运用户-->
+    <select id="getLuckUserList" resultType="String">
+        SELECT user_list from user_luck ORDER by id  DESC limit 1
     </select>
 </mapper>

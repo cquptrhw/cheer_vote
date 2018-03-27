@@ -2,6 +2,8 @@ package Listener;
 
 import Imp.getLuckUserServiceImp;
 import service.GetLuckUserService;
+import util.Const;
+import util.JedisUtil;
 import util.Time;
 
 import javax.servlet.ServletContextEvent;
@@ -22,7 +24,7 @@ public class getLuckUser  implements ServletContextListener {
         System.out.println("tomcat listener start");
         //设置run方法的延迟启动时间
         final Time time = new Time();
-        long diff= time.getTimeDiff();
+        final long diff= time.getTimeDiff();
         System.out.println(diff);
         //设置自启方法 晚上八点获取幸运用户
         Timer timer = new Timer();
@@ -30,11 +32,14 @@ public class getLuckUser  implements ServletContextListener {
         GetLuckUserService getLuckUserService = new getLuckUserServiceImp();
             public void run() {
                  //得到幸运用户选取的时间段
-                getLuckUserService.getLuckUser();
-
+                String str = getLuckUserService.getLuckUser();
+                //写入redis
+                JedisUtil.setString(Const.LuckUser,str);
+                //写入mysql
+                getLuckUserService.insertLuckUser(str);
             }
 
-    }, 1000, 24*60*60*1000);
+    }, diff, 24*60*60*1000);
 }
 
 

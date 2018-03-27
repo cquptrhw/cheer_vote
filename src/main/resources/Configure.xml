@@ -13,6 +13,7 @@
         <typeAlias alias="message_user" type="dto.Message_user"/>
         <typeAlias alias="question_user" type="dto.Qusetion_user"/>
         <typeAlias alias="luckUser" type="dto.LuckUser"/>
+        <typeAlias alias="assistance_history" type="dto.Assistance_history"/>
     </typeAliases>
 
     <environments default="development">
