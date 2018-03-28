@@ -183,29 +183,25 @@
   <url-pattern>/vote/user/assistance</url-pattern>
   </servlet-mapping>
 
-  <!--&lt;!&ndash;为啦啦队增加助力数&ndash;&gt;-->
-  <!--<servlet>-->
-  <!--<display-name>AssistanceServlet</display-name>-->
-  <!--<servlet-name>AssistanceServlet</servlet-name>-->
-  <!--<servlet-class>servlet.assistance.UpdateCheerAssistanceServlet</servlet-class>-->
-  <!--</servlet>-->
-  <!--<servlet-mapping>-->
-  <!--<servlet-name>AssistanceServlet</servlet-name>-->
-  <!--<url-pattern>/vote/user/update/cheer/distance</url-pattern>-->
-  <!--</servlet-mapping>-->
+  <!--为啦啦队增加助力数-->
+  <servlet>
+  <display-name>UpdateCheerAssistanceServlet</display-name>
+  <servlet-name>UpdateCheerAssistanceServlet</servlet-name>
+  <servlet-class>servlet.assistance.UpdateCheerAssistanceServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  <servlet-name>UpdateCheerAssistanceServlet</servlet-name>
+  <url-pattern>/vote/user/cheer/distance</url-pattern>
+  </servlet-mapping>
 
-  <!--&lt;!&ndash;获取助力历史&ndash;&gt;-->
-  <!--<servlet>-->
-  <!--<display-name>AssistanceServlet</display-name>-->
-  <!--<servlet-name>Assistance3Servlet</servlet-name>-->
-  <!--<servlet-class>servlet.assistance.UserGetAssistanceHistoryServlet</servlet-class>-->
-  <!--</servlet>-->
-  <!--<servlet-mapping>-->
-  <!--<servlet-name>Assistance3Servlet</servlet-name>-->
-  <!--<url-pattern>/vote/user/get/assistance/history</url-pattern>-->
-  <!--</servlet-mapping>-->
-  <!--<servlet-mapping>-->
-  <!--<servlet-name>AssistanceServlet</servlet-name>-->
-  <!--<url-pattern>/vote/test/*</url-pattern>-->
-  <!--</servlet-mapping>-->
+  <!--获取助力历史-->
+  <servlet>
+  <display-name>AssistanceHistroyServlet</display-name>
+  <servlet-name>AssistanceHistoryServlet</servlet-name>
+  <servlet-class>servlet.assistance.UserGetAssistanceHistoryServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  <servlet-name>AssistanceHistoryServlet</servlet-name>
+  <url-pattern>/vote/user/assistance/history</url-pattern>
+  </servlet-mapping>
 </web-app>

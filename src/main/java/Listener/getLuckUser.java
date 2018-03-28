@@ -1,6 +1,6 @@
 package Listener;
 
-import Imp.getLuckUserServiceImp;
+import Imp.GetLuckUserServiceImp;
 import service.GetLuckUserService;
 import util.Const;
 import util.JedisUtil;
@@ -8,7 +8,6 @@ import util.Time;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import java.sql.Timestamp;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -29,7 +28,7 @@ public class getLuckUser  implements ServletContextListener {
         //设置自启方法 晚上八点获取幸运用户
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
-        GetLuckUserService getLuckUserService = new getLuckUserServiceImp();
+        GetLuckUserService getLuckUserService = new GetLuckUserServiceImp();
             public void run() {
                  //得到幸运用户选取的时间段
                 String str = getLuckUserService.getLuckUser();

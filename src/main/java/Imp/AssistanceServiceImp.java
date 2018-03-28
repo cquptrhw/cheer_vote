@@ -2,6 +2,8 @@ package Imp;
 
 import dao.IAssistance;
 import dto.Assistance_history;
+import dto.Cheer_assistance;
+import dto.user_assistance;
 import org.apache.ibatis.session.SqlSession;
 
 import org.slf4j.Logger;
@@ -13,6 +15,7 @@ import util.JedisUtil;
 import util.JsonUtil;
 import util.SqlSessionFactoryUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,20 +30,20 @@ public class AssistanceServiceImp implements AssistanceService {
     @Override
     public Boolean addUserAssistance(String openId, int assistance) {
         SqlSession session = sqlSessionFactoryUtil.getSqlSessionFactory().openSession();
-        int num = assistance+1;
         //更改mysql数据
         IAssistance iAssistance = session.getMapper(IAssistance.class);
-        int i = iAssistance.addUserAssistance(openId,num);
+        int i = iAssistance.addUserAssistance(openId,assistance);
         //更改redis数据
-        JedisUtil.getJedis().hset(Const.Assistance,openId, String.valueOf(num));
+        JedisUtil.getJedis().hset(Const.Assistance,openId, String.valueOf(assistance));
         session.close();
-        if(i!=0){
+        if(i!=1){
             return false;
         }else {
             return true;
         }
 
     }
+
     //获取用户的助力数
     @Override
     public int getUserAssistance(String openId) {
@@ -74,6 +77,7 @@ public class AssistanceServiceImp implements AssistanceService {
 
         return assistance;
     }
+
     //获取用户助力历史
     @Override
     public String getAssistanceHistory(String openId) {
@@ -81,17 +85,54 @@ public class AssistanceServiceImp implements AssistanceService {
         IAssistance iAssistance = session.getMapper(IAssistance.class);
         List<Assistance_history> assistance_historyList=iAssistance.getAssistanceHistory(openId);
         String str = JsonUtil.toJSONString(assistance_historyList);
-        System.out.println(str);
+//        System.out.println(str);
+        session.close();
         return str;
     }
-       public static void main(String[] args){
-       AssistanceService assistanceService = new AssistanceServiceImp();
 
-//        HashMap m1 = new HashMap();
-//        m1.put("openId", "8");
-//        m1.put("classId", "31");
-//        m1.put("content", "你好");
-        String str = assistanceService.getAssistanceHistory("aaa");
+    //增加啦啦队的助力数
+    @Override
+    public Boolean updateCheerAssistance(List<user_assistance> user_assistanceList){
+        SqlSession session = sqlSessionFactoryUtil.getSqlSessionFactory().openSession();
+        IAssistance iAssistance = session.getMapper(IAssistance.class);
+        int i = iAssistance.updateCheerAssistance(user_assistanceList);
+        if(i!=0){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    //获取啦啦队的助力数
+    @Override
+    public String getCheerDistance(List<Integer> list) {
+        SqlSession session = sqlSessionFactoryUtil.getSqlSessionFactory().openSession();
+        IAssistance iAssistance = session.getMapper(IAssistance.class);
+        List<Cheer_assistance> cheer_assistanceList =  iAssistance.getCheerDistance(list);
+        String str = JsonUtil.toJSONString(cheer_assistanceList);
+        return str;
+    }
+
+//    //判断用户是否有足够的助力数
+//    @Override
+//    public boolean isEnough(String openId, int acount) {
+//        int assistance = getUserAssistance(openId);
+//        if(assistance>=acount){
+//            return true;
+//        }
+//        return false;
+//    }
+
+
+    public static void main(String[] args){
+       AssistanceService assistanceService = new AssistanceServiceImp();
+        List<Integer> list = new ArrayList<Integer>();
+        list.add(7);
+        list.add(3);
+        list.add(1);
+        System.out.println(JsonUtil.toJSONString(list));
+        String str = assistanceService.getCheerDistance(list);
+        System.out.println(str);
     }
 
 

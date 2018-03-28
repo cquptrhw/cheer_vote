@@ -1,7 +1,9 @@
 package servlet.assistance;
 
+import Imp.AssistanceServiceImp;
 import controller.AssistanceController;
 import org.json.JSONException;
+import service.AssistanceService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,20 +18,11 @@ import java.sql.SQLException;
  * @Date: Created in 13:44 2018/3/13
  */
 public class UserGetAssistanceHistoryServlet extends HttpServlet {
+    private static AssistanceService assistanceService = new AssistanceServiceImp();
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String openId = req.getParameter("openId");
-        AssistanceController assistanceController =new AssistanceController();
-        String str = null;
-        try {
-            str = assistanceController.getAssistanceHistoryByOpenId(openId);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String openId = "aaa";
+        String str = assistanceService.getAssistanceHistory(openId);
         resp.setContentType("text/html;charset=utf-8");
         resp.getWriter().println(str);
         return;

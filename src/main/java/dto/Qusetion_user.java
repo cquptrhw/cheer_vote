@@ -17,7 +17,6 @@ public class Qusetion_user {
     @JSONField(name = "D")
     private String D;
     private String answer;
-    private String kind;
     private int questionId;
     private int todayNum;
     private String title;
@@ -55,13 +54,6 @@ public class Qusetion_user {
     }
     public String getAnswer() {
         return answer;
-    }
-
-    public void setKind(String kind) {
-        this.kind = kind;
-    }
-    public String getKind() {
-        return kind;
     }
 
     public void setQuestionId(int questionId) {

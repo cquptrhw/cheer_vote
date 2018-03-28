@@ -1,6 +1,6 @@
 package servlet.answer;
 
-import Imp.getLuckUserServiceImp;
+import Imp.GetLuckUserServiceImp;
 import service.GetLuckUserService;
 
 import javax.servlet.ServletException;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class GetLuckUserServlet extends HttpServlet {
-    private static GetLuckUserService getLuckUserService = new getLuckUserServiceImp();
+    private static GetLuckUserService getLuckUserService = new GetLuckUserServiceImp();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String str = getLuckUserService.getLuckUserList();

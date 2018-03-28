@@ -1,6 +1,9 @@
 package util;
 
+import Imp.AssistanceServiceImp;
+import com.alibaba.fastjson.JSONArray;
 import org.json.JSONObject;
+import service.AssistanceService;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
@@ -79,11 +82,19 @@ public class EncryptUtil {
     //加密测试
     public static void main(String[] args) throws NoSuchAlgorithmException {
         //数据封装进json
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("questionId",1);
-        jsonObject.put("userAnswer","B");
+        com.alibaba.fastjson.JSONObject jsonObject =new com.alibaba.fastjson.JSONObject();
+        jsonObject.put("classId",2);
+        jsonObject.put("groupId",3);
+        jsonObject.put("num",5);
+        JSONArray jsonArray = new JSONArray();
+        jsonArray.add(jsonObject);
+        com.alibaba.fastjson.JSONObject jsonObject1 =new com.alibaba.fastjson.JSONObject();
+        jsonObject1.put("classId",2);
+        jsonObject1.put("groupId",7);
+        jsonObject1.put("num",5);
+        jsonArray.add(jsonObject1);
         //将json转为string
-        String data = jsonObject.toString();
+        String data = jsonArray.toString();
         //对string进行base64编码
         String string1 = encryptBASE64(data);
         //获取unix时间戳
@@ -93,10 +104,11 @@ public class EncryptUtil {
         //获取到的signature
         String  signature = EncryptUtil.sha1(EncryptUtil.md5(string1+timeStamp+nonce)+"cheer_vote");
 //        System.out.println("signature : " +str );
-        Map map =DataUtil.getData(timeStamp,nonce,string1,signature);
-        System.out.println(JsonUtil.toJSONString(map));
+        boolean res =DataUtil.getData(timeStamp,nonce,string1,signature);
+//        System.out.println(JsonUtil.toJSONString(map));
         System.out.println(string1);
         System.out.println(timeStamp);
         System.out.println(nonce);
+        System.out.println(signature);
     }
 }

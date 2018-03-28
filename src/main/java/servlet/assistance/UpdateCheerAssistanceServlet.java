@@ -1,8 +1,13 @@
 package servlet.assistance;
 
-import controller.AssistanceController;
-import org.json.JSONException;
-import org.json.JSONObject;
+import Imp.AssistanceServiceImp;
+import dto.user_assistance;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import service.AssistanceService;
+import util.DataUtil;
+import util.EncryptUtil;
+import util.JsonUtil;
 import util.isNumeric;
 
 import javax.servlet.ServletException;
@@ -10,71 +15,82 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
-
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 /**
  * @Author: REN
  * @Description:
  * @Date: Created in 13:40 2018/3/13
  */
 public class UpdateCheerAssistanceServlet extends HttpServlet{
+    protected static Logger logger = LoggerFactory.getLogger(UpdateCheerAssistanceServlet.class);
+    AssistanceService assistanceService = new AssistanceServiceImp();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");
-        String openId = req.getParameter("openId");
-        AssistanceController assistanceController = new AssistanceController();
+        //获取openId
+        String openId = "aaa";
+        //获取参数
+        String string = req.getParameter("string");
+        String timestamp = req.getParameter("timestamp");
+        String nonce = req.getParameter("nonce");
+        String signature = req.getParameter("signature");
         String str = null;
-        req.setCharacterEncoding("utf-8");
-
-        Map map = new HashMap(); //拉拉队和对应的助力数
+        //判断参数
         isNumeric isNum = new isNumeric();//验证是否有非法输入
-        int acount = 0; //请求中所有助力数的和
-        //遍历前段的字段和对应的值
-        Enumeration rnames = req.getParameterNames();
-        for (Enumeration e = rnames; e.hasMoreElements(); ) {
-            String classId = e.nextElement().toString();
-            String assistance = req.getParameter(classId);
-            if(classId.equals("openId"))
-                continue;
-
-            if (isNum.isNumeric(assistance)) {
-                acount = acount + Integer.parseInt(assistance);
-//                    System.out.println(acount);
-                map.put(classId, assistance);
-            } else {
-                JSONObject jsonObject = new JSONObject();
-                try {
-                    jsonObject.put("status", 400);
-                    jsonObject.put("message", "非法输入");
-                } catch (JSONException e1) {
-                    e1.printStackTrace();
-                }
-                str = jsonObject.toString();
-                resp.setContentType("text/html;charset=utf-8");
-                resp.getWriter().println(str);
-                return;
-            }
-        }
-        //判断是否超过自己具有的剩余的助力数目
-        boolean result = false;
+        List<Integer> groupIdList = new ArrayList<Integer>(); //拿出所有的groupId
+        int acount = 0;
         try {
-            result = assistanceController.isOverAssistance(openId,acount);
-            if(result){
-                str =assistanceController.updateCheerAssistance(map,openId,acount);
-            }else{
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("status", 400);
-                jsonObject.put("message", "非法输入");
-                str = jsonObject.toString();
+            boolean res = DataUtil.getData(timestamp,nonce,string,signature);
+            if (res){
+                String json = EncryptUtil.decryptBASE64(string);
+                List<user_assistance> user_assistanceList = JsonUtil.toList(json,user_assistance.class);
+                //加入openId,并判断num是否为数字
+                for (user_assistance user_assistance:user_assistanceList){
+
+                    String assistance = user_assistance.getNum();
+                    if (isNum.isNumeric(assistance)){
+                        acount = acount + Integer.parseInt(assistance);
+                        user_assistance.setOpenId(openId);
+                        groupIdList.add(user_assistance.getGroupId());
+                    }else{
+                        str = "非法字符";
+                        resp.setContentType("text/html;charset=utf-8");
+                        resp.getWriter().println(str);
+                        return;
+                    }
+                }
+                //判断用户的助力数是否足够
+                int assistance = assistanceService.getUserAssistance(openId);
+                if(assistance>=acount){
+                    boolean k  = assistanceService.updateCheerAssistance(user_assistanceList);
+                    if(k){
+                        //扣除用户助力数
+                        assistance = assistance -acount;
+                        boolean ress =assistanceService.addUserAssistance(openId,assistance);
+                        if(ress){
+                            //助力成功后，重新获取
+                            str = assistanceService.getCheerDistance(groupIdList);
+                        }else{
+                            str = "扣除助力数失败";
+                        }
+                    }else{
+                        str = "插入助力历史失败";
+                    }
+                }else{
+                    str = "助力数不足";
+                }
+
+            }else {
+                str = "请检查数据是否过期，或者数据被修改";
             }
-        } catch (SQLException e) {
+        } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
+            logger.error("错误信息"+e.getMessage());
         }
+
+
         resp.setContentType("text/html;charset=utf-8");
         resp.getWriter().println(str);
         return;

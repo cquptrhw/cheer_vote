@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import service.AnswerQuestionService;
 import service.AssistanceService;
 import util.DataUtil;
+import util.EncryptUtil;
 import util.JsonUtil;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -33,51 +34,58 @@ public class UserGetAnswerServlet extends HttpServlet{
         String rightAnswer ;
         String openId = "AAAA00";
         try {
-            Map map = DataUtil.getData(timestamp,nonce,string,signature);
-            //获取openId
-            map.put("openId",openId);
-            if (map==null||map.isEmpty()){
-                str = "请检查数据是否过期，或者数据被修改";
-                resp.setContentType("text/html;charset=utf-8");
-                resp.getWriter().println(str);
-            }else {
-                //判断用户是否已经答过此题
-                boolean re =answerQuestionService.isAnswer(map);
-                if(re){
-                    //答过此题
-                    str = "你今天答过此题了哦";
-                    resp.setContentType("text/html;charset=utf-8");
-                    resp.getWriter().println(str);
-                }else {    //没有答过
-                    //获取正确答案
-                    questionId = String.valueOf(map.get("questionId"));
-                    userAnswer = String.valueOf(map.get("userAnswer"));
-                    rightAnswer =answerQuestionService.getAnswerFromRedis(questionId);
-                    //插入正确答案
-                    map.put("rightAnswer",rightAnswer);
+           boolean res1 = DataUtil.getData(timestamp,nonce,string,signature);
+           if(res1){
 
-                    if(userAnswer.equals(rightAnswer)){
-                        //回答正确
-                        map.put("status",1);
-                        str = JsonUtil.toJSONString(map);
-                        //获取用户的助力数
-                        int assistance = assistanceService.getUserAssistance(openId);
-                        boolean res = assistanceService.addUserAssistance(openId,assistance);
-                        if(!res){
-                            logger.error("错误信息 ：更新分数错误");
-                        }
+               //获取数据
+               String json = EncryptUtil.decryptBASE64(string);
+               Map map= JsonUtil.stringToCollect(json);
+               map.put("openId",openId);
+               //判断用户是否已经答过此题
+               boolean re =answerQuestionService.isAnswer(map);
+               if(re){
+                   //答过此题
+                   str = "你今天答过此题了哦";
+                   resp.setContentType("text/html;charset=utf-8");
+                   resp.getWriter().println(str);
+               }else {    //没有答过
+                   //获取正确答案
+                   questionId = String.valueOf(map.get("questionId"));
+                   userAnswer = String.valueOf(map.get("userAnswer"));
+                   rightAnswer =answerQuestionService.getAnswerFromRedis(questionId);
+                   //插入正确答案
+                   map.put("rightAnswer",rightAnswer);
 
-                    }else{
-                        map.put("status",0);
-                        str = JsonUtil.toJSONString(map);
-                    }
-                    resp.setContentType("text/html;charset=utf-8");
-                    resp.getWriter().println(str);
-                    //插入答题历史
-                    answerQuestionService.addAnswerHistory(map);
-                }
+                   if(userAnswer.equals(rightAnswer)){
+                       //回答正确
+                       map.put("status",1);
+                       str = JsonUtil.toJSONString(map);
+                       //获取用户的助力数
+                       int assistance = assistanceService.getUserAssistance(openId);
+                       int num =assistance+1;
+                       boolean res = assistanceService.addUserAssistance(openId,num);
+                       if(!res){
+                           logger.error("错误信息 ：更新分数错误");
 
-            }
+                       }
+
+                   }else{
+                       map.put("status",0);
+                       str = JsonUtil.toJSONString(map);
+                   }
+                   resp.setContentType("text/html;charset=utf-8");
+                   resp.getWriter().println(str);
+                   //插入答题历史
+                   answerQuestionService.addAnswerHistory(map);
+               }
+
+
+           }else {
+               str = "请检查数据是否过期，或者数据被修改";
+               resp.setContentType("text/html;charset=utf-8");
+               resp.getWriter().println(str);
+           }
+
 
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();

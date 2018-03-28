@@ -22,4 +22,21 @@
        (SELECT classId ,sum(assistance) AS distance from cheer_assistance group by classId)b,(SELECT * from cheer_info)d,(SELECT groupName ,groupId from group_info)k
        WHERE a.classId=b.classId and a.classId = d.classId and a.groupId = k.groupId
     </select>
+    <!--为啦啦队增加助力数-->
+    <insert id="updateCheerAssistance" parameterType="List">
+        insert into
+        cheer_assistance(openId,classId,assistance,groupId)
+        values
+        <foreach collection="list" item="item" index="index"
+                 separator=",">
+            (#{item.openId},#{item.classId},#{item.num},#{item.groupId})
+        </foreach>
+    </insert>
+    <!--查询啦啦队的助力数-->
+    <select id="getCheerDistance" resultType="cheer_assistance" >
+        SELECT a.distance,b.groupName,a.groupId FROM (select groupId,sum(assistance) AS distance from cheer_assistance
+        <where>
+            groupId in <foreach collection="list" item="item" index="index" open="(" separator="," close=")">#{item}</foreach>
+        </where> GROUP BY groupId)a,(SELECT * FROM group_info )b WHERE a.groupId = b.groupId
+    </select>
 </mapper>

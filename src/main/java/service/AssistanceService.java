@@ -1,5 +1,9 @@
 package service;
 
+import dto.user_assistance;
+
+import java.util.List;
+
 /**
  * @Author: REN
  * @Description:
@@ -12,4 +16,10 @@ public interface AssistanceService {
     public int  getUserAssistance(String openId);
     //获取助力历史
     public String getAssistanceHistory(String openId);
+    //为拉拉队增加助力数
+    public Boolean updateCheerAssistance(List<user_assistance> user_assistanceList);
+//    //判断助力数是否够
+//    public boolean isEnough(String openId,int acount);
+    //获取啦啦队的助力数
+    public String getCheerDistance(List<Integer> list);
 }

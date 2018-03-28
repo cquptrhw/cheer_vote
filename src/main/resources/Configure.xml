@@ -14,6 +14,7 @@
         <typeAlias alias="question_user" type="dto.Qusetion_user"/>
         <typeAlias alias="luckUser" type="dto.LuckUser"/>
         <typeAlias alias="assistance_history" type="dto.Assistance_history"/>
+        <typeAlias alias="cheer_assistance" type="dto.Cheer_assistance"/>
     </typeAliases>
 
     <environments default="development">

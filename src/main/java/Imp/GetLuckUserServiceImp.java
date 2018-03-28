@@ -13,7 +13,7 @@ import java.util.List;
  * @Description:
  * @Date: Created in 23:52 2018/3/26
  */
-public class getLuckUserServiceImp implements GetLuckUserService {
+public class GetLuckUserServiceImp implements GetLuckUserService {
     static SqlSessionFactoryUtil sqlSessionFactoryUtil;
     //从mysql获取幸运用户
     @Override
@@ -55,7 +55,7 @@ public class getLuckUserServiceImp implements GetLuckUserService {
 
 
     public static void main(String[] args){
-        GetLuckUserService getLuckUserService =new getLuckUserServiceImp();
+        GetLuckUserService getLuckUserService =new GetLuckUserServiceImp();
         String str = getLuckUserService.getLuckUser();
 //        HashMap m1 = new HashMap();
 //        m1.put("openId", "8");

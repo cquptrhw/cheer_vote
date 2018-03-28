@@ -78,14 +78,16 @@ public class AnswerQuestionServiceImp implements AnswerQuestionService {
         for(; kind<=5; kind++) {
             List<Qusetion_user> list = iQuestion.getQuestionFromMysql(kind);
             for(Qusetion_user qusetion_user :list){
+                //将答案插入redis
+                String questionId = String.valueOf(qusetion_user.getQuestionId());
+                String answer = qusetion_user.getAnswer();
+                qusetion_user.setAnswer(null);
+                JedisUtil.getJedis().hset(key2, questionId,answer );
                 //将题目插入redis
                 num++;
                 String str = JsonUtil.toJSONString(qusetion_user);
                 JedisUtil.getJedis().hset(key,Const.questionField+num,str);
-                //将答案插入redis
-                String questionId = String.valueOf(qusetion_user.getQuestionId());
-                String answer = qusetion_user.getAnswer();
-                JedisUtil.getJedis().hset(key2, questionId,answer );
+
                 //设置过期时间
                 long diff = Time.getTimeDiff();
                 JedisUtil.getJedis().pexpire(key,diff);

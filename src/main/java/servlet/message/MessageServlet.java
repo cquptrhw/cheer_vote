@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import service.MessageService;
 import util.DataUtil;
+import util.EncryptUtil;
 import util.JsonUtil;
 
 import javax.servlet.ServletException;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -45,18 +47,21 @@ public class MessageServlet extends HttpServlet {
 //        if(user == null || user.isEmpty()){
 //            str = "请重新跳转";
 //        }else {
-            //检验数据的有效性
+
             try {
-                //获取json中的数据
-                Map<String,String> map =  DataUtil.getData(timestamp,nonce,string,signature);
-                map.put("openId","LLL");  //将改为从seesion获取的openId插入
-//                System.out.println(JsonUtil.toJSONString(map));
-                //插入数据
-                if (map==null||map.isEmpty()){
+                //检验数据的有效性
+               boolean res =  DataUtil.getData(timestamp,nonce,string,signature);
+               if(res){
+                   //获取数据
+                   Map<String,String> map;
+                   String json = EncryptUtil.decryptBASE64(string);
+                   map= JsonUtil.stringToCollect(json);
+                   map.put("openId","LLL");
+                   //插入数据
+                   Map<String,String> map1= messageService.updateMessage(map);
+                   str = JsonUtil.toJSONString(map1);
+               }else {
                     str = "请检查数据是否过期，或者数据被修改";
-                }else {
-                    Map<String,String> map1= messageService.updateMessage(map);
-                    str = JsonUtil.toJSONString(map1);
                 }
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();

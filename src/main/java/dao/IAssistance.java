@@ -1,6 +1,8 @@
 package dao;
 
 import dto.Assistance_history;
+import dto.Cheer_assistance;
+import dto.user_assistance;
 
 import java.util.List;
 
@@ -18,4 +20,8 @@ public interface IAssistance {
     int insertUserAssistance(String openId);
     //获取助力历史
     List<Assistance_history> getAssistanceHistory(String openId);
+    //为啦啦队增加助力数
+    int updateCheerAssistance(List<user_assistance> user_assistanceList);
+    //查询啦啦队的助力数
+    List<Cheer_assistance> getCheerDistance(List<Integer> list);
 }
