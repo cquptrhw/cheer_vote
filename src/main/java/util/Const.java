@@ -14,6 +14,7 @@ public class Const {
     public static final String Assistance = "Assistance ";
     public static final String IsAnswer = "IsAnswer :";
     public static final String LuckUser = "LuckUser :";
+    public static final String Group = "Group :";
 
 
 

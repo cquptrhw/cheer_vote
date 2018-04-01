@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.IPageInfo">
+    <!--获取啦啦队首页信息-->
+    <select id="getCheerFirstPage" resultType="cheer_firstPage">
+        SELECT className,slogan,firstImg FROM cheer_info
+    </select>
+    <!--获取拉拉队详情页信息-->
+    <select id="getCheerInfo" resultType="cheer_info">
+        SELECT  * from cheer_info ORDER BY RAND();
+    </select>
+    <!--获取启动页助力信息-->
+    <select id="getAssistanceRankInfo" resultType="Map">
+        select c.num,c.rank,d.total from
+        (select a.openId,a.num,(@rowNum:=@rowNum+1) as rank
+        from (select openId,sum(assistance)  as num from cheer_assistance where create_time  between #{1} and #{2} group By openId )a,
+        (Select (@rowNum :=0) ) b where openId =#{0} order by num desc) c,
+        (select openId,count(distinct(openId)) as total from cheer_assistance where create_time  between #{1} and #{2})d;
+    </select>
+
+</mapper>

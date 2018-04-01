@@ -27,11 +27,11 @@ public class QuestionServlet extends HttpServlet {
         req.setCharacterEncoding("utf-8");
         HttpSession session =  req.getSession();
         int  res =adminService.isMainAdmin(session);
-        if(res == 1){
-            str = "请先登录";
-        }else if (res == 2){
-            str = "请使用主管理员账号进行此操作";
-        } else {
+//        if(res == 1){
+//            str = "请先登录";
+//        }else if (res == 2){
+//            str = "请使用主管理员账号进行此操作";
+//        } else {
             Question ques = new Question();
             ques.setTitle(req.getParameter("question"));
             ques.setA(req.getParameter("A"));
@@ -46,7 +46,7 @@ public class QuestionServlet extends HttpServlet {
             }else{
                 str = "上传失败";
             }
-        }
+//        }
         resp.setContentType("text/html;charset=utf-8");
         resp.getWriter().println(str);
         return;

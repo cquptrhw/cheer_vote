@@ -74,16 +74,20 @@ public class UpdateCheerAssistanceServlet extends HttpServlet{
                             str = assistanceService.getCheerDistance(groupIdList);
                         }else{
                             str = "扣除助力数失败";
+                            logger.error("错误信息"+openId+"..."+str);
                         }
                     }else{
                         str = "插入助力历史失败";
+                        logger.error("错误信息"+openId+"..."+str);
                     }
                 }else{
                     str = "助力数不足";
+                    logger.error("错误信息"+openId+"..."+str);
                 }
 
             }else {
                 str = "请检查数据是否过期，或者数据被修改";
+                logger.error("错误信息"+openId+"..."+str);
             }
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();

@@ -3,6 +3,34 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
+  <filter>
+  <filter-name>CORS</filter-name>
+  <filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
+  <init-param>
+    <param-name>cors.allowOrigin</param-name>
+    <param-value>*</param-value>
+  </init-param>
+  <init-param>
+    <param-name>cors.supportedMethods</param-name>
+    <param-value>GET,POST,HEAD,PUT,DELETE</param-value>
+  </init-param>
+  <init-param>
+    <param-name>cors.supportedHeaders</param-name>
+    <param-value>Accept,Origin,X-Requested-With,Content-Type,Last-Modified</param-value>
+  </init-param>
+  <init-param>
+    <param-name>cors.exposedHeaders</param-name>
+    <param-value>Set-Cookie</param-value>
+  </init-param>
+  <init-param>
+    <param-name>cors.supportsCredentials</param-name>
+    <param-value>true</param-value>
+  </init-param>
+</filter>
+<filter-mapping>
+<filter-name>CORS</filter-name>
+<url-pattern>/*</url-pattern>
+</filter-mapping>
   <!--tomcat启动后自动启动获取幸运用户-->
   <listener>
     <listener-class>Listener.getLuckUser</listener-class>
@@ -196,12 +224,45 @@
 
   <!--获取助力历史-->
   <servlet>
-  <display-name>AssistanceHistroyServlet</display-name>
-  <servlet-name>AssistanceHistoryServlet</servlet-name>
-  <servlet-class>servlet.assistance.UserGetAssistanceHistoryServlet</servlet-class>
+    <display-name>AssistanceHistroyServlet</display-name>
+    <servlet-name>AssistanceHistoryServlet</servlet-name>
+    <servlet-class>servlet.assistance.UserGetAssistanceHistoryServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-  <servlet-name>AssistanceHistoryServlet</servlet-name>
-  <url-pattern>/vote/user/assistance/history</url-pattern>
+    <servlet-name>AssistanceHistoryServlet</servlet-name>
+    <url-pattern>/vote/user/assistance/history</url-pattern>
   </servlet-mapping>
+
+  <!--获取助力排行-->
+  <servlet>
+    <display-name>GroupRankServlet</display-name>
+    <servlet-name>GroupRankServlet</servlet-name>
+    <servlet-class>servlet.assistance.UserGetGroupRankServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GroupRankServlet</servlet-name>
+    <url-pattern>/vote/user/cheer/groupRank</url-pattern>
+  </servlet-mapping>
+
+  <!--啦啦队首页信息获取-->
+  <servlet>
+    <display-name>CheerFirstInfoServlet</display-name>
+    <servlet-name>CheerFirstInfoServlet</servlet-name>
+    <servlet-class>servlet.pageInfo.CheerPageFirstServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CheerFirstInfoServlet</servlet-name>
+    <url-pattern>/vote/user/cheer_info/firstPage</url-pattern>
+  </servlet-mapping>
+  <!--啦啦队详情页-->
+  <servlet>
+    <display-name>CheerInfoMainServlet</display-name>
+    <servlet-name>CheerInfoMainServlet</servlet-name>
+    <servlet-class>servlet.pageInfo.CheerInfoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CheerInfoMainServlet</servlet-name>
+    <url-pattern>/vote/user/cheer_info/main</url-pattern>
+  </servlet-mapping>
+
 </web-app>

@@ -3,11 +3,13 @@ package Imp;
 import dao.IAssistance;
 import dto.Assistance_history;
 import dto.Cheer_assistance;
+import dto.Group_rank;
 import dto.user_assistance;
 import org.apache.ibatis.session.SqlSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import redis.clients.jedis.Jedis;
 import service.AssistanceService;
 import servlet.answer.UserGetAnswerServlet;
 import util.Const;
@@ -107,10 +109,41 @@ public class AssistanceServiceImp implements AssistanceService {
     @Override
     public String getCheerDistance(List<Integer> list) {
         SqlSession session = sqlSessionFactoryUtil.getSqlSessionFactory().openSession();
+        SqlSession session1 = sqlSessionFactoryUtil.getSqlSessionFactory().openSession()
         IAssistance iAssistance = session.getMapper(IAssistance.class);
         List<Cheer_assistance> cheer_assistanceList =  iAssistance.getCheerDistance(list);
         String str = JsonUtil.toJSONString(cheer_assistanceList);
         return str;
+    }
+    //获取战队排行
+    @Override
+    public String getGroupRank(){
+        SqlSession session = sqlSessionFactoryUtil.getSqlSessionFactory().openSession();
+        IAssistance iAssistance = session.getMapper(IAssistance.class);
+        List<Group_rank> group_rankList= iAssistance.getGroupRank();
+        for (Group_rank group_rank:group_rankList){
+            String groupId = group_rank.getGroupId();
+            String group = getCheerNameByGroupId(groupId);
+            group_rank.setClassName(group);
+        }
+        String str = JsonUtil.toJSONString(group_rankList);
+        return str;
+    }
+    //获取战队成员
+    @Override
+    public String getCheerNameByGroupId(String groupId) {
+        //从redis中获取组队信息
+        String group = JedisUtil.getJedis().hget(Const.Group,groupId);
+
+        if(group==null||group.isEmpty()){   //判断redis中是否存在
+            SqlSession session = sqlSessionFactoryUtil.getSqlSessionFactory().openSession();
+            IAssistance iAssistance = session.getMapper(IAssistance.class);
+            List list= iAssistance.getCheerNameByGroupId(groupId);
+            group = JsonUtil.toJSONString(list);
+            JedisUtil.getJedis().hset(Const.Group,groupId,group);
+        }
+
+        return group;
     }
 
 //    //判断用户是否有足够的助力数
@@ -126,12 +159,12 @@ public class AssistanceServiceImp implements AssistanceService {
 
     public static void main(String[] args){
        AssistanceService assistanceService = new AssistanceServiceImp();
-        List<Integer> list = new ArrayList<Integer>();
-        list.add(7);
-        list.add(3);
-        list.add(1);
-        System.out.println(JsonUtil.toJSONString(list));
-        String str = assistanceService.getCheerDistance(list);
+//        List<Integer> list = new ArrayList<Integer>();
+//        list.add(7);
+//        list.add(3);
+//        list.add(1);
+//        System.out.println(JsonUtil.toJSONString(list));
+        String str = assistanceService.getGroupRank();
         System.out.println(str);
     }
 

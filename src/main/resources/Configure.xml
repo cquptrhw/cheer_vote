@@ -15,6 +15,10 @@
         <typeAlias alias="luckUser" type="dto.LuckUser"/>
         <typeAlias alias="assistance_history" type="dto.Assistance_history"/>
         <typeAlias alias="cheer_assistance" type="dto.Cheer_assistance"/>
+        <typeAlias alias="group_rank" type="dto.Group_rank"/>
+        <typeAlias alias="cheer_firstPage" type="dto.Cheer_firstPage"/>
+        <typeAlias alias="cheer_info" type="dto.Cheer_info"/>
+        <typeAlias alias="startPage" type="dto.StartPage"/>
     </typeAliases>
 
     <environments default="development">
@@ -57,5 +61,6 @@
         <mapper resource="Mapper/Question.xml" />
         <mapper resource="Mapper/Assistance.xml"/>
         <mapper resource="Mapper/LuckUser.xml"/>
+        <mapper resource="Mapper/PageInfo.xml"/>
     </mappers>
 </configuration>

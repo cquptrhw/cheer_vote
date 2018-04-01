@@ -2,8 +2,10 @@ package dao;
 
 import dto.Assistance_history;
 import dto.Cheer_assistance;
+import dto.Group_rank;
 import dto.user_assistance;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,4 +26,8 @@ public interface IAssistance {
     int updateCheerAssistance(List<user_assistance> user_assistanceList);
     //查询啦啦队的助力数
     List<Cheer_assistance> getCheerDistance(List<Integer> list);
+    //查询战队排行
+    List<Group_rank> getGroupRank();
+    //查询战队成员
+    List getCheerNameByGroupId(String groupId);
 }

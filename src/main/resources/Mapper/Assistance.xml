@@ -39,4 +39,15 @@
             groupId in <foreach collection="list" item="item" index="index" open="(" separator="," close=")">#{item}</foreach>
         </where> GROUP BY groupId)a,(SELECT * FROM group_info )b WHERE a.groupId = b.groupId
     </select>
+    <!--查询战队排行-->
+    <select id="getGroupRank" resultType="group_rank">
+        select a.distance,a.groupId,b.groupName
+        from(select sum(assistance) as distance,groupId from cheer_assistance group by groupId)a,
+        (select * from group_info)b
+        where a.groupId=b.groupId
+    </select>
+    <!--获取战队成员-->
+    <select id="getCheerNameByGroupId" resultType="String">
+        SELECT className from cheer_info where groupId = #{groupId}
+    </select>
 </mapper>

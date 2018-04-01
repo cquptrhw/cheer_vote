@@ -22,4 +22,8 @@ public interface AssistanceService {
 //    public boolean isEnough(String openId,int acount);
     //获取啦啦队的助力数
     public String getCheerDistance(List<Integer> list);
+    //获取战队排行
+    public String getGroupRank();
+    //获取战队成员
+    String getCheerNameByGroupId(String groupId);
 }

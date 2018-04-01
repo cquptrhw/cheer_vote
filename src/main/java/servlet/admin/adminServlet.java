@@ -6,11 +6,11 @@ import service.AdminService;
 import util.JsonUtil;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Map;
 
 ;
 
@@ -19,10 +19,25 @@ public class adminServlet extends HttpServlet {
     @Override
     //管理员登陆
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String username = req.getParameter("username");
-        String password = req.getParameter("password");
+        StringBuffer json = new StringBuffer();
+        String line = null;
+        try {
+            BufferedReader reader = req.getReader();
+            while((line = reader.readLine()) != null) {
+                json.append(line);
+            }
+        }
+        catch(Exception e) {
+            System.out.println(e.toString());
+        }
+        Map<String,String> map = JsonUtil.stringToCollect(String.valueOf(json));
+
+        String username = map.get("username");
+        String password = map.get("password");
         System.out.println(username+password);
         HttpSession session = req.getSession();
+        String sessionId = session.getId();
+        System.out.println(sessionId);
         JsonUtil jsonUtil = new JsonUtil();
         String str = null;
         //查询session中的admin
@@ -39,6 +54,12 @@ public class adminServlet extends HttpServlet {
             }
         }
         resp.setContentType("text/html;charset=utf-8");
-        resp.getWriter().println(str);
+        PrintWriter out = resp.getWriter();
+        out.print(str);
+        out.flush();
+        out.close();
+
     }
-}
+
+
+    }
