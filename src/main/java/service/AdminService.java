@@ -8,6 +8,7 @@ import dto.Question_num;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: REN
@@ -28,7 +29,7 @@ public interface AdminService{
      //上传啦啦队文件
      public int updateCheerInfo(HashMap<String, String> map);
      //题目上传
-     public int updateQuestion(Question question);
+     public int updateQuestion(Map<String,String> question);
      //获取题目数量
      public List<Question_num> getQuestionNum();
      //获取题目列表
@@ -38,7 +39,7 @@ public interface AdminService{
      //查询题目
      public  List<Question> getQuestionByKey(String key);
      //更新题目
-     public  int updateQuestionById(Question question);
+     public  int updateQuestionById(Map<String ,String> map);
 
 
 }

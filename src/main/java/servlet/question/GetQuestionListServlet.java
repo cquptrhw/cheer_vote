@@ -3,6 +3,7 @@ package servlet.question;
 import Imp.AdminServiceImp;
 import dto.Question;
 import service.AdminService;
+import util.GetStringBuffer;
 import util.JsonUtil;
 
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: REN
@@ -52,29 +54,32 @@ public class GetQuestionListServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String str = null;
         req.setCharacterEncoding("utf-8");
+        String json = GetStringBuffer.getString(req);
+        Map<String,String> map = JsonUtil.stringToCollect(json);
         HttpSession session =  req.getSession();
         int  res =adminService.isMainAdmin(session);
-        if(res == 1){
-            str = "请先登录";
-        }else if (res == 2){
-            str = "请使用主管理员账号进行此操作";
-        }else{
-            Question ques = new Question();
-            ques.setTitle(req.getParameter("question"));
-            ques.setA(req.getParameter("A"));
-            ques.setB(req.getParameter("B"));
-            ques.setC(req.getParameter("C"));
-            ques.setD(req.getParameter("D"));
-            ques.setAnswer(req.getParameter("answer"));
-            ques.setKind(req.getParameter("kind"));
-            ques.setQuestionId(Integer.parseInt(req.getParameter("questionId")));
-            int i = adminService.updateQuestionById(ques);
+//        if(res == 1){
+//            str = "请先登录";
+//        }else if (res == 2){
+//            str = "请使用主管理员账号进行此操作";
+//        }else{
+//            Question ques = new Question();
+//            ques.setTitle(req.getParameter("question"));
+//            ques.setA(req.getParameter("A"));
+//            ques.setB(req.getParameter("B"));
+//            ques.setC(req.getParameter("C"));
+//            ques.setD(req.getParameter("D"));
+//            ques.setAnswer(req.getParameter("answer"));
+//            ques.setKind(req.getParameter("kind"));
+//            ques.setQuestionId(Integer.parseInt(req.getParameter("questionId")));
+
+            int i = adminService.updateQuestionById(map);
             if(i != 0){
-                str = JsonUtil.toJSONString(ques);
+                str = JsonUtil.toJSONString(map);
             }else{
                 str = "上传失败";
             }
-        }
+//        }
         resp.setContentType("text/html;charset=utf-8");
         resp.getWriter().println(str);
         return;

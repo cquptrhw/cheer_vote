@@ -4,6 +4,8 @@ import Imp.MessageServiceImp;
 import controller.MessageController;
 import org.json.JSONException;
 import service.MessageService;
+import util.GetStringBuffer;
+import util.JsonUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * @Author: REN
@@ -23,7 +26,9 @@ public class PraiseMessageServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String str = null;
-        String contentId = req.getParameter("contentId");
+        String data = GetStringBuffer.getString(req);
+        Map<String,String> jsonMap = JsonUtil.stringToCollect(data);
+        String contentId = jsonMap.get("contentId");
         //判断是否登录，并获得openId
 //        HttpSession session = req.getSession();
 //        String sessionId = session.getId();

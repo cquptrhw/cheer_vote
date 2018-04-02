@@ -21,7 +21,7 @@ public interface MessageService {
     //获取文章的点赞数
     public Long getPraiseById(String contentId);
     //获取留言列表
-    public String getMessageList(String classId ,int page);
+    public String getMessageList(String classId ,Integer page);
     //获取分页
-    public int[] getPage(int page, int pageSize);
+    public int[] getPage(Integer page, int pageSize);
 }

@@ -18,5 +18,5 @@ public interface IPageInfo {
     //获取拉拉队信息
     List<Cheer_info>  getCheerInfo();
     //获取助力信息
-    Map<String, String> getAssistanceRankInfo(String openId, Timestamp startTime, Timestamp endTime);
+    Map<String, Integer> getAssistanceRankInfo(String openId, Timestamp startTime, Timestamp endTime);
 }

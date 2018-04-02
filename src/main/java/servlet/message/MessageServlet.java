@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import service.MessageService;
 import util.DataUtil;
 import util.EncryptUtil;
+import util.GetStringBuffer;
 import util.JsonUtil;
 
 import javax.servlet.ServletException;
@@ -32,12 +33,14 @@ public class MessageServlet extends HttpServlet {
     //上传留言
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String data = GetStringBuffer.getString(req);
+        Map<String,String> jsonMap = JsonUtil.stringToCollect(data);
         //获取参数
         String str = null;
-        String string = req.getParameter("string");
-        String timestamp = req.getParameter("timestamp");
-        String nonce = req.getParameter("nonce");
-        String signature = req.getParameter("signature");
+        String string = jsonMap.get("string");
+        String timestamp = jsonMap.get("timestamp");
+        String nonce = jsonMap.get("nonce");
+        String signature = jsonMap.get("signature");
 
 
         //验证是否登录

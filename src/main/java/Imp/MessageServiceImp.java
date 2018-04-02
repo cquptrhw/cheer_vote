@@ -111,9 +111,9 @@ public class MessageServiceImp implements MessageService {
     }
     //获取留言
     @Override
-    public String getMessageList(String classId, int page) {
+    public String getMessageList(String classId, Integer page) {
         String str = null;
-        int pageSize = 10;
+        int pageSize = 20;
         int[] array = getPage(page,pageSize);
         SqlSession session = sqlSessionFactoryUtil.getSqlSessionFactory().openSession();
         try {
@@ -132,10 +132,10 @@ public class MessageServiceImp implements MessageService {
         }
         return str;
     }
-
+    //获取页数
     @Override
-    public int[] getPage(int page, int pageSize) {
-        if(page == 0){
+    public int[] getPage(Integer page, int pageSize) {
+        if( page == null || page ==0 ){
             page = 1;
         }
         if(pageSize == 0){
@@ -146,6 +146,7 @@ public class MessageServiceImp implements MessageService {
         int[]  arrays = new int[2];
         arrays[0]=pageStart;
         arrays[1]=pageEnd;
+
         return arrays;
     }
 
@@ -156,7 +157,7 @@ public class MessageServiceImp implements MessageService {
 //        m1.put("openId", "8");
 //        m1.put("classId", "31");
 //        m1.put("content", "你好");
-        String str  = messageService.getMessageList("1",1);
+        String str  = messageService.getMessageList("1",null);
         System.out.println(str);
     }
 }

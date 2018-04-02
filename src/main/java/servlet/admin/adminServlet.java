@@ -2,14 +2,20 @@ package servlet.admin;
 
 import Imp.AdminServiceImp;
 import dto.MyAdmin;
+import oracle.jrockit.jfr.StringConstantPool;
 import service.AdminService;
+import util.GetStringBuffer;
 import util.JsonUtil;
 
+import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 import java.util.Map;
 
 ;
@@ -19,31 +25,20 @@ public class adminServlet extends HttpServlet {
     @Override
     //管理员登陆
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        StringBuffer json = new StringBuffer();
-        String line = null;
-        try {
-            BufferedReader reader = req.getReader();
-            while((line = reader.readLine()) != null) {
-                json.append(line);
-            }
-        }
-        catch(Exception e) {
-            System.out.println(e.toString());
-        }
-        Map<String,String> map = JsonUtil.stringToCollect(String.valueOf(json));
+        String json = GetStringBuffer.getString(req);
+        Map<String,String> map = JsonUtil.stringToCollect(json);
 
         String username = map.get("username");
         String password = map.get("password");
         System.out.println(username+password);
         HttpSession session = req.getSession();
-        String sessionId = session.getId();
-        System.out.println(sessionId);
         JsonUtil jsonUtil = new JsonUtil();
         String str = null;
         //查询session中的admin
         Object user = session.getAttribute("IAdmin");
         if(user != null){
             str = jsonUtil.toJSONString(user);
+            System.out.println("cunzai");
         }else{
             //重新登录
             MyAdmin admin = adminService.adminLogin(username,password);
@@ -52,6 +47,7 @@ public class adminServlet extends HttpServlet {
                 session.setAttribute("role", admin.getRole());
                 str = jsonUtil.toJSONString(admin);
             }
+            System.out.println(str);
         }
         resp.setContentType("text/html;charset=utf-8");
         PrintWriter out = resp.getWriter();
@@ -60,6 +56,4 @@ public class adminServlet extends HttpServlet {
         out.close();
 
     }
-
-
-    }
+}

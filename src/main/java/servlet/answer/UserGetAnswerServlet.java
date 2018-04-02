@@ -8,6 +8,7 @@ import service.AnswerQuestionService;
 import service.AssistanceService;
 import util.DataUtil;
 import util.EncryptUtil;
+import util.GetStringBuffer;
 import util.JsonUtil;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -24,11 +25,14 @@ public class UserGetAnswerServlet extends HttpServlet{
     //获取答案
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String str= null;
-        String string = req.getParameter("string");
-        String timestamp = req.getParameter("timestamp");
-        String nonce = req.getParameter("nonce");
-        String signature = req.getParameter("signature");
+        String data = GetStringBuffer.getString(req);
+        Map<String,String> jsonMap = JsonUtil.stringToCollect(data);
+        //获取参数
+        String str = null;
+        String string = jsonMap.get("string");
+        String timestamp = jsonMap.get("timestamp");
+        String nonce = jsonMap.get("nonce");
+        String signature = jsonMap.get("signature");
         String questionId ;
         String userAnswer ;
         String rightAnswer ;

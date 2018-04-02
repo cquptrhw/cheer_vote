@@ -60,17 +60,15 @@ public class PageInfoServiceImp implements PageInfoService {
         final Time time = new Time();
         Timestamp[]timeArray = time.getTimePeriod();
         //获取查询结果
-        Map<String,String> res=iPageInfo.getAssistanceRankInfo(openId,timeArray[0],timeArray[1]);
+        Map<String,Integer> res=iPageInfo.getAssistanceRankInfo(openId,timeArray[0],timeArray[1]);
         //初始化返回值的map
         Map<String,String> startPage = new HashMap<String, String>();
         startPage.put("assistance", String.valueOf(res.get("assistance")));
-        //获取排名超过的百分比
-//        int  rank = Integer.int(res.get("rank"));
-//        int  total =Integer.parseInt(res.get("total"));
-//        double c= rank/total;
-//        System.out.println(c);
-//        String assistanceRank = PercentUtil.getPercent(rank,total);
-//        startPage.put("assistanceRank", assistanceRank);
+        //获取排名超过的百分;
+        int rank = Integer.valueOf(res.get("rank")).intValue();
+        int total =Integer.valueOf(res.get("total")).intValue();
+        String assistanceRank = PercentUtil.getPercent(rank,total);
+        startPage.put("assistanceRank", assistanceRank);
         return null;
     }
 

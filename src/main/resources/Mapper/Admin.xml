@@ -13,7 +13,7 @@
     <!--上传啦啦队员信息-->
     <insert id="insertCheerPlayer" parameterType="HashMap" keyProperty="id" >
        INSERT INTO cheer_player(classId,playerName,introduce,ImgUrl)
-        VALUES(#{classId}, #{playerName}, #{introduce}, #{img})
+        VALUES(#{classId}, #{playerName}, #{introduce}, #{ImgUrl})
     </insert>
     <!--上传啦啦队信息-->
     <update id="insertCheerInfo" parameterType="HashMap" keyProperty="id" >
@@ -21,7 +21,7 @@
        WHERE classId = #{classId}
     </update>
     <!--上传题目-->
-    <insert id="updateQuestion" parameterType="question" keyProperty="id">
+    <insert id="updateQuestion" parameterType="Map" keyProperty="id">
         insert into question (title,A,B,C,D,answer,kind) values(#{title},#{A},#{B},#{C},#{D},#{answer},#{kind})
     </insert>
     <!--获取题目数量-->
@@ -41,7 +41,7 @@
         select * from question where concat(title,A,B,C,D,answer) like CONCAT('%',#{key},'%') ORDER by questionId ASC
     </select>
     <!--更新题目-->
-    <update id="updateQuestionById" parameterType="question" keyProperty="id">
+    <update id="updateQuestionById" parameterType="Map" keyProperty="id">
         UPDATE  question  SET title =#{title} ,A=#{A},B=#{B},C=#{C},D=#{D},answer=#{answer},kind=#{kind} where questionId = #{questionId}
     </update>
 

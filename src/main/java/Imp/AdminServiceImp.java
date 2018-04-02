@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: REN
@@ -102,7 +103,7 @@ public  class AdminServiceImp implements AdminService {
     }
     //上传题目
     @Override
-    public int updateQuestion(Question question) {
+    public int updateQuestion(Map<String ,String> question) {
         SqlSession session = sqlSessionFactoryUtil.getSqlSessionFactory().openSession();
         try {
             IAdmin iuser = session.getMapper(IAdmin.class);
@@ -162,7 +163,7 @@ public  class AdminServiceImp implements AdminService {
     }
     //更新题目
     @Override
-    public int updateQuestionById(Question question) {
+    public int updateQuestionById(Map<String,String> question) {
         SqlSession session = sqlSessionFactoryUtil.getSqlSessionFactory().openSession();
         try {
             IAdmin iuser = session.getMapper(IAdmin.class);

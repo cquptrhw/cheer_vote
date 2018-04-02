@@ -109,7 +109,6 @@ public class AssistanceServiceImp implements AssistanceService {
     @Override
     public String getCheerDistance(List<Integer> list) {
         SqlSession session = sqlSessionFactoryUtil.getSqlSessionFactory().openSession();
-        SqlSession session1 = sqlSessionFactoryUtil.getSqlSessionFactory().openSession()
         IAssistance iAssistance = session.getMapper(IAssistance.class);
         List<Cheer_assistance> cheer_assistanceList =  iAssistance.getCheerDistance(list);
         String str = JsonUtil.toJSONString(cheer_assistanceList);

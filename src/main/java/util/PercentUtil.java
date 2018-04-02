@@ -9,7 +9,9 @@ import java.text.NumberFormat;
  */
 public class PercentUtil {
     public static String getPercent(double num1, double num2) {
-        System.out.println("y");
+        if (num2 <= 100){
+            num2=100;
+        }
         // 创建一个数值格式化对象
         NumberFormat numberFormat = NumberFormat.getInstance();
         //设置精确到个位

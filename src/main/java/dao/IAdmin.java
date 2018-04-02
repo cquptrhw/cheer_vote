@@ -7,6 +7,7 @@ import dto.Question_num;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface IAdmin {
     //获取啦啦队信息上传情况
@@ -18,7 +19,7 @@ public interface IAdmin {
     //上传啦啦队信息
     public int insertCheerInfo(HashMap<String, String> map);
     //上传题目
-    int updateQuestion(Question question);
+    int updateQuestion(Map<String,String> question);
     //获取题目数量
     List<Question_num> getQuestionNum();
     //获取题目列表
@@ -28,7 +29,7 @@ public interface IAdmin {
     //查询题目
     List<Question> getQuestionByKey(String key);
     //更新题目
-    int updateQuestionById(Question question);
+    int updateQuestionById(Map<String,String> question);
 
 //    public List<Admin> getUserList();
 }

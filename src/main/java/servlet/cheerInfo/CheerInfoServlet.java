@@ -25,9 +25,9 @@ public class CheerInfoServlet extends HttpServlet {
         UploadUtil uploadUtil = new UploadUtil();
         HttpSession session =  request.getSession();
         boolean res = adminService.isLogin(session);
-//        if(!res){
-//            str = "请先登录";
-//        }else {
+        if(!res){
+            str = "请先登录";
+        }else {
             HashMap<String, String> map = uploadUtil.upload(request);
             int i = adminService.updateCheerInfo(map);
             if (i != 0) {
@@ -35,7 +35,7 @@ public class CheerInfoServlet extends HttpServlet {
             } else {
                 str = "上传失败";
             }
-//        }
+        }
 //        System.out.println(i);
         response.setContentType("text/html;charset=utf-8");
         response.getWriter().println(str);
@@ -46,9 +46,9 @@ public class CheerInfoServlet extends HttpServlet {
         String str =null;
         HttpSession session =  req.getSession();
         boolean res = adminService.isLogin(session);
-//        if(!res){
-//            str = "请先登录";
-//        }else{
+        if(!res){
+            str = "请先登录";
+        }else{
             List<Cheer_result> cheer_results = adminService.getCheerResult();
             if(cheer_results.isEmpty()){
                 str="查询错误";
@@ -56,7 +56,7 @@ public class CheerInfoServlet extends HttpServlet {
                 JsonUtil jsonUtil = new JsonUtil();
                 str = jsonUtil.listToJsonArray(cheer_results);
             }
-//        }
+        }
         resp.setContentType("text/html;charset=utf-8");
         resp.getWriter().println(str);
     }

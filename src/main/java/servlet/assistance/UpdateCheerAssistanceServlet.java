@@ -5,10 +5,7 @@ import dto.user_assistance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import service.AssistanceService;
-import util.DataUtil;
-import util.EncryptUtil;
-import util.JsonUtil;
-import util.isNumeric;
+import util.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,6 +15,8 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 /**
  * @Author: REN
  * @Description:
@@ -29,14 +28,17 @@ public class UpdateCheerAssistanceServlet extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");
+        String data = GetStringBuffer.getString(req);
+        Map<String,String> jsonMap = JsonUtil.stringToCollect(data);
+        //获取参数
+        String str = null;
+        String string = jsonMap.get("string");
+        String timestamp = jsonMap.get("timestamp");
+        String nonce = jsonMap.get("nonce");
+        String signature = jsonMap.get("signature");
         //获取openId
         String openId = "aaa";
-        //获取参数
-        String string = req.getParameter("string");
-        String timestamp = req.getParameter("timestamp");
-        String nonce = req.getParameter("nonce");
-        String signature = req.getParameter("signature");
-        String str = null;
+
         //判断参数
         isNumeric isNum = new isNumeric();//验证是否有非法输入
         List<Integer> groupIdList = new ArrayList<Integer>(); //拿出所有的groupId
