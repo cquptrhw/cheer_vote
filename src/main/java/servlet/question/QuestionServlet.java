@@ -29,6 +29,7 @@ public class QuestionServlet extends HttpServlet {
         String json = GetStringBuffer.getString(req);
         Map<String,String> map = JsonUtil.stringToCollect(json);
         String str = null;
+        String str1= null;
 
         HttpSession session =  req.getSession();
         int  res =adminService.isMainAdmin(session);
@@ -52,38 +53,47 @@ public class QuestionServlet extends HttpServlet {
                 str = "上传失败";
             }
         }
+        str1 = JsonUtil.toJSONString(str);
         resp.setContentType("text/html;charset=utf-8");
-        resp.getWriter().println(str);
+        resp.getWriter().println(str1);
         return;
     }
     //删除题目
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String str = null;
+        String str1 =null;
         AdminService adminService = new AdminServiceImp();
         req.setCharacterEncoding("utf-8");
         String questionId = req.getParameter("questionId");
+        System.out.println(questionId);
         HttpSession session =  req.getSession();
         if(questionId==null||questionId.isEmpty()){
-            str = "错误";
+            str1 = "错误";
+            str = JsonUtil.toJSONString(str1);
             resp.setContentType("text/html;charset=utf-8");
             resp.getWriter().println(str);
             return;
         }
         int  res =adminService.isMainAdmin(session);
         if(res == 1){
-            str = "请先登录";
+            str1 = "请先登录";
+
         }else if (res == 2){
-            str = "请使用主管理员账号进行此操作";
+            str1 = "请使用主管理员账号进行此操作";
+
         } else {
             int  res2 = adminService.delQuestionById(Integer.parseInt(questionId));
-            if(res!=0){
-                str= "删除成功";
+            if(res2!=0){
+                 str1= "删除成功";
+
             }else{
-                str="删除失败";
+                str1="删除失败";
+
             }
 
         }
+        str = JsonUtil.toJSONString(str1);
         resp.setContentType("text/html;charset=utf-8");
         resp.getWriter().println(str);
     }
@@ -91,6 +101,7 @@ public class QuestionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String str = null;
+        String str1 =null;
         HttpSession session =  req.getSession();
         String key = new String(req.getParameter("key").getBytes("ISO-8859-1"),"UTF-8");
         if(key==null||key.isEmpty()){
@@ -110,9 +121,9 @@ public class QuestionServlet extends HttpServlet {
             str = jsonUtil.listToJsonArray(question_nums);
             System.out.println(str);
         }
-
+        str=JsonUtil.toJSONString(str);
         resp.setContentType("text/html;charset=utf-8");
-        resp.getWriter().println(str);
+        resp.getWriter().println(str1);
 
     }
 

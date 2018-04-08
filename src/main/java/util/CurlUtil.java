@@ -1,4 +1,4 @@
-package org.redrock.util;
+package util;
 
 import java.io.*;
 import java.net.*;

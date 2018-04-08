@@ -1,16 +1,9 @@
-package org.redrock.menu;
+package menu;
 
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import jdk.nashorn.internal.objects.annotations.Getter;
-import jdk.nashorn.internal.objects.annotations.Setter;
-import org.redrock.util.AccessToken;
-import org.redrock.util.StringUtil;
-
-import java.io.*;
-import java.net.URL;
-import java.net.URLConnection;
+import util.StringUtil;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,57 +61,9 @@ public class Button {
         return array;
     }
 
-    public static void main(String[] args) throws IOException {
-        Button b1 = new Button();
-        b1.setType("scancode_waitmsg");
-        b1.setName("扫码带提示");
-        b1.setKey("rselfmenu_0_0");
-        Button b2 = new Button();
-        b2.setType("scancode_push");
-        b2.setName("扫码推事件");
-        b2.setKey("rselfmenu_0_1");
-        Button m1 = new Button();
-        m1.setName("扫码");
-        List<Button> m1SubButs = new ArrayList<>();
-        m1SubButs.add(b1);
-        m1SubButs.add(b2);
-        m1.setSubButton(m1SubButs);
-        JSONObject object = m1.toJson();
-        JSONObject data = new JSONObject();
-        JSONArray array = new JSONArray();
-        array.add(object);
-        data.put("button", array);
-        System.out.println(data);
-        AccessToken accessToken = new AccessToken();
-        String path = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=" + AccessToken.getAccessToken();
-        URL url = new URL(path);
-        URLConnection connection = url.openConnection();
-        connection.setDoOutput(true);
-        BufferedWriter writer = new BufferedWriter(
-                new OutputStreamWriter(
-                        connection.getOutputStream(), "UTF-8"
-                )
-        );
-        writer.write(data.toString());
-        writer.flush();
-        BufferedReader reader = new BufferedReader(
-                new InputStreamReader(
-                        connection.getInputStream(), "UTF-8"
-                )
-        );
-        String line;
-        StringBuilder builder = new StringBuilder();
-        while ((line = reader.readLine()) != null) {
-            builder.append(line);
-        }
-        reader.close();
-        writer.close();
-        System.out.println(builder.toString());
-    }
-
     public void addButton(Button button) {
         if (subButton == null) {
-            subButton = new ArrayList<>();
+            subButton = new ArrayList<Button>();
         }
         subButton.add(button);
     }

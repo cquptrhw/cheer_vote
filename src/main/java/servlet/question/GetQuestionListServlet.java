@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 
@@ -39,6 +40,7 @@ public class GetQuestionListServlet extends HttpServlet {
             str = "请先登录";
         }else {
             AdminService adminService = new AdminServiceImp();
+            System.out.println(kind);
             List<Question> question_nums = adminService.getQuestionList(Integer.parseInt(kind));
             JsonUtil jsonUtil = new JsonUtil();
             str = jsonUtil.listToJsonArray(question_nums);

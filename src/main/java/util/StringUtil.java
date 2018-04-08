@@ -1,4 +1,4 @@
-package org.redrock.util;
+package util;
 public class StringUtil {
 
     /**

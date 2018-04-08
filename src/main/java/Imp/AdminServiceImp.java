@@ -6,12 +6,10 @@ import dto.MyAdmin;
 import dto.Question;
 import dto.Question_num;
 import org.apache.ibatis.session.SqlSession;
-import org.json.JSONException;
 import service.AdminService;
 import util.SqlSessionFactoryUtil;
 
 import javax.servlet.http.HttpSession;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

@@ -16,6 +16,12 @@ public class Const {
     public static final String LuckUser = "LuckUser :";
     public static final String Group = "Group :";
 
+    //微信配置
+    public static final String AppId = "wxc5e0d5b55b141e56";
+    public static final String AppSecret = "782fc50a471b88e87e544885b2dcc782";
+    public static final String Token = "bbbbbbbbbb";
+    public static final String EncodingAESKey = "C0I2dBIOer5Yv8B9sgto4EVPqst5GKsXWeOVnhSunzY";
+
 
 
 }

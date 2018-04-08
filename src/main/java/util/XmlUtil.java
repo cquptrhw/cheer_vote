@@ -1,4 +1,4 @@
-package org.redrock.util;
+package util;
 
 import org.w3c.dom.*;
 import org.xml.sax.InputSource;

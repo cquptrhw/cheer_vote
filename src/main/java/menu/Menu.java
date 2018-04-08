@@ -1,16 +1,14 @@
-package org.redrock.menu;
+package menu;
 
 
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import org.redrock.util.AccessToken;
-import org.redrock.util.CurlUtil;
+import util.AccessToken;
+import util.CurlUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-
-
 
 
 public class Menu {
@@ -27,7 +25,7 @@ public class Menu {
         button2.setName("菜单");
 
         Button button6 = new Button();
-        button6.setName("放松一下");
+        button6.setName("放松2下");
 
 
         Button button3 = new Button();
@@ -89,7 +87,7 @@ public class Menu {
 
     public void addButton(Button button) {
         if (this.button == null) {
-            this.button = new ArrayList<>();
+            this.button = new ArrayList<Button>();
         }
         this.button.add(button);
     }

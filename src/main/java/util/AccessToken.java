@@ -1,4 +1,4 @@
-package org.redrock.util;
+package util;
 
 import com.alibaba.fastjson.JSONObject;
 
@@ -15,14 +15,7 @@ public class AccessToken {
                     if (getAccessTokenFromDatabase() == null) {
                         accessToken = curlForAccessToken();
                         System.out.println(accessToken);
-                        int timestamp = (int) (System.currentTimeMillis() / 1000);
-                        timestamp = timestamp + 7200;
-                        Connection connection = Mysql.getConnection();
-                        String updateSql = "update access_token set access_token = ?, timestamp = ? WHERE id = 1";
-                        PreparedStatement statement1 = connection.prepareStatement(updateSql);
-                        statement1.setString(1, accessToken);
-                        statement1.setInt(2, timestamp);
-                        boolean status = statement1.execute();
+                        JedisUtil.setString("access_token",7200,accessToken);
                     }
                 }
             }
@@ -36,18 +29,7 @@ public class AccessToken {
 
     private static String getAccessTokenFromDatabase() throws SQLException, ClassNotFoundException {
         //access_token timestamp过期时间
-        Connection connection = Mysql.getConnection();
-        if (connection == null) {
-            System.out.println("数据库连接失败");
-        }
-        int timestamp = (int) (System.currentTimeMillis() / 1000);
-        String sql = "select * from access_token where timestamp > " + timestamp;
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(sql);
-        String accessToken = null;
-        while (resultSet.next()) {
-            accessToken = resultSet.getString("access_token");
-        }
+        String accessToken = JedisUtil.getString("access_token");
         return accessToken;
     }
 

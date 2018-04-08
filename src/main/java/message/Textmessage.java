@@ -1,4 +1,4 @@
-package org.redrock.message;
+package message;
 
 import java.util.Map;
 
