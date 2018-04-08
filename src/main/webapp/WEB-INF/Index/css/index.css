@@ -1,0 +1,45 @@
+#container {
+    width: 320px;
+    position: absolute;
+    margin: 0 auto;
+    left: 50%;
+    margin-left: -160px;
+    top: 50%;
+    margin-top: -90px;
+}
+
+.zhanghao {
+    margin-bottom: 20px;
+}
+
+.zhanghao span, .mima span {
+    font-size: 17px;
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.mima {
+    margin-bottom: 55px;
+}
+
+#username, #password {
+    width: 250px;
+    height: 33px;
+    border-color: #797979;
+    border-width: 1px;
+}
+
+.login {
+    width: 250px;
+    height: 40px;
+    background-color: #199ed8;
+    border: none;
+    border-radius: 5px;
+    position: relative;
+    left: 58px;
+    cursor: pointer;
+}
+
+.login:focus {
+    outline: 0;
+}

@@ -1,0 +1,114 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#container {
+    min-width: 1000px;
+    max-width: 1000px;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 70px;
+    display: inline-block;
+    border: 1px solid #797979;
+}
+
+.header {
+    position: relative;
+    margin: 30px 0 40px 20px;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.xingji {
+    color: #199ed8;
+}
+
+#search {
+    position: absolute;
+    right: 90px;
+    line-height: 22px;
+    padding: 3px;
+    border: 1.2px solid #797979;
+    border-radius: 10px;
+}
+
+#submit {
+    position: absolute;
+    right: 30px;
+    border: 1px solid #797979;
+    border-radius: 5px;
+    line-height: 22px;
+    padding: 3px;
+    width: 50px;
+    text-align: center;
+}
+
+.body {
+    padding-bottom: 30px;
+}
+
+.ul-question {
+    padding: 0 30px;
+}
+
+.ul-question li {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.question {
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #363636;
+}
+
+.answer {
+    display: inline-block;
+    width: 140px;
+    font-size: 14px;
+    color: #363636;
+    cursor: pointer;
+}
+
+.right {
+    color: #fd542a;
+}
+
+.del {
+    font-size: 14px;
+    color: #999999;
+}
+
+.delete {
+    position: absolute;
+    right: 0px;
+    top: 12px;
+    display: inline-block;
+    width: 25px;
+    height: 22px;
+    background: url(../images/delete.png);
+    cursor: pointer;
+}
+
+li {
+    list-style: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:focus {
+    outline: 0;
+}
+
+input:focus {
+    outline: 0;
+}

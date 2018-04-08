@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>后台管理</title>
+    <link rel="stylesheet" type="text/css" href="../css/addInfo.css">
+    <script src="../js/ajax.js"></script>
+    <script src="../js/addInfo.js"></script>
+</head>
+<body>
+    <div id="container">
+        <div class="header">
+            <h2 class="title">啦啦队信息— <span class="teamName">通信与信息工程学院</span></h2>
+        </div>
+        <div class="main">
+                <div class="slogan">
+                    <span class="kouhao">口号:</span>
+                    <input type="text" id="slogan" name="slogan" maxlength="20">
+                </div>
+                <div class="intro">
+                    <span class="jianjie">简介:</span>
+                    <textarea id="introduce" name="introduce" maxlength="90"></textarea>
+                </div>
+                <div class="img-index">
+                    <span class="description1">首页展示图片</span>
+                    <input id="img-index" type="file" accept="image/gif,image/jpeg,image/jpg,image/png" name="firstImg">
+                    <img src="../images/tu.png" class="prefirst">
+                </div>
+                <div class="video">
+                    <span class="description1">详情页宣传视频</span>
+                    <input id="video" type="text" name="video">
+                </div>
+                <div class="img-slider">
+                    <span class="description2">详情页轮播图片</span>
+                    <input id="img-slider1" type="file" accept="image/gif,image/jpeg,image/jpg,image/png" name="playImg1">
+                    <img src="../images/tu.png" class="preslider1">
+                </div>
+                <div class="img-slider">
+                    <span class="description2">详情页轮播图片</span>
+                    <input id="img-slider2" type="file" accept="image/gif,image/jpeg,image/jpg,image/png" name="playImg2">
+                    <img src="../images/tu.png" class="preslider2">
+                </div>
+                <div class="img-slider">
+                    <span class="description2">详情页轮播图片</span>
+                    <input id="img-slider3" type="file" accept="image/gif,image/jpeg,image/jpg,image/png" name="playImg3">
+                    <img src="../images/tu.png" class="preslider3">
+                </div>
+                <button id="submit">上传</button>
+            </form>
+            <div> 
+                <button class="addGirlsInfo">添加图片</button>
+                <img src="../images/tu.png" class="girlsImg1">
+                <button class="viewGirlsInfo">查看</button>
+                <button class="subGirlsInfo">上传</button>
+                <div class="addGirl no">
+                    <img src="../images/tu.png" class="close">
+                    <img src="../images/tu.png" class="girlsImg2">
+                    <input type="file" accept="image/gif,image/jpeg,image/jpg,image/png" id="girlImg">
+                    <input type="text" id="girlName" placeholder="姓名">
+                    <textarea name="girlInfo" placeholder="个人简介" id="girlInfo" maxlength="50"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

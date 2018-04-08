@@ -1,0 +1,294 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#container {
+    min-width: 1000px;
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border: 1px solid #363636;
+}
+
+.header {
+    position: relative;
+    margin: 30px 0 10px 20px;
+}
+
+.main {
+    position: relative;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.teamName {
+    color: #199ed8;
+}
+
+.slogan {
+    position: relative;
+    margin: 0 auto;
+    width: 915px;
+    height: 33px;
+    margin-bottom: 10px;
+}
+
+.kouhao, .jianjie {
+    color: #363636;
+    font-size: 16px;
+}
+
+#slogan {
+    width: 850px;
+    height: 30px;
+    border-radius: 10px;
+    border: 1px solid #363636;
+    padding: 0 4px;
+    font-size: 16px;
+    color: #363636;
+}
+
+.intro {
+    position: relative;
+    margin: 0 auto;
+    width: 915px;
+    height: 75px;
+    margin-bottom: 10px;
+}
+
+.jianjie {
+    position: relative;
+    display: inline-block;
+    bottom: 55px;
+}
+
+#introduce {
+    width: 850px;
+    padding: 3px 4px;
+    font-size: 16px;
+    height: 67px;
+    border-radius: 10px;
+    border: 1px solid #363636;
+}
+
+.img-index {
+    position: relative;
+    display: inline-block;
+    margin-left: 110px;
+    width: 310px;
+    height: 160px;
+}
+
+#img-index {
+    display: inline-block;
+}
+
+.prefirst {
+    position: relative;
+    width: 306px;
+    height: 110px;
+}
+
+.description1 {
+    font-size: 12px;
+    display: inline-block;
+    width: 310px;
+    text-align: center;
+}
+
+.video {
+    position: relative;
+    display: inline-block;
+    top: -40px;
+    margin-left: 120px;
+    width: 310px;
+    height: 50px;
+}
+
+#video {
+    width: 310px;
+    line-height: 30px;
+}
+
+.prevideo {
+    position: relative;
+    width: 306px;
+    height: 110px;
+}
+
+.img-slider {
+    display: inline-block;
+    width: 236px;
+    height: 137px;
+    margin-left: 70px;
+    margin-top: 10px;
+}
+
+.description2 {
+    font-size: 12px;
+    display: inline-block;
+    width: 236px;
+    text-align: center;
+}
+
+.preslider1, .preslider2, .preslider3 {
+    width: 236px;
+    height: 89px;
+}
+
+.description3 {
+    font-size: 12px;
+    display: block;
+    width: 100px;
+    text-align: center;
+}
+
+#class {
+    opacity: 0;
+}
+
+#submit {
+    width: 100px;
+    height: 33px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 10px;
+    background: #75dcff;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+}
+
+.addGirlsInfo {
+    position: relative;
+    background: #75dcff;
+    display: block;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 140px;
+    height: 33px;
+    border: none;
+    border-radius: 5px;
+    color: #ffffff;
+}
+
+.viewGirlsInfo {
+    height: 33px;
+    width: 100px;
+    border-radius: 5px;
+    border: none;
+    display: block;
+    color: #ffffff;
+    background: #75dcff;
+    position: relative;
+    left: 70px;
+}
+
+.girlsImg1 {
+    position: relative;
+    left: 70px;
+    width: 100px;
+    height: 100px;
+}
+
+.close {
+    position: absolute;
+    right: 0;
+    display: block;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.subGirlsInfo {
+    height: 33px;
+    width: 100px;
+    border: none;
+    border-radius: 5px;
+    background: #75dcff;
+    color: #ffffff;
+    display: block;
+    position: relative;
+    left: 70px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.addGirl {
+    display: block;
+    position: absolute;
+    top: 80px;
+    left: 60px;
+    width: 870px;
+    height: 440px;
+    background: #ccc;
+    z-index: 2;
+}
+
+.girlsImg2 {
+    position: relative;
+    left: 370px;
+    margin-top: 40px;
+    width: 100px;
+    height: 100px;
+}
+
+#girlImg {
+    position: relative;
+    top: 30px;
+    left: 280px;
+}
+
+#girlName {
+    position: relative;
+    height: 29px;
+    border-radius: 5px;
+    border: none;
+    padding: 2px 2px;
+    left: -32px;
+    top: 70px;
+    font-size: 16px;
+}
+
+#girlInfo {
+    position: relative;
+    top: 100px;
+    height: 100px;
+    left: 100px;
+    padding: 3px 5px;
+    border-radius: 10px;
+    width: 711px; 
+    font-size: 16px;
+}
+
+.no {
+    opacity: 0;
+    z-index: -1;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:focus {
+    outline: 0;
+}
+
+textarea:focus {
+    outline: 0;
+}
+
+input:focus {
+    outline: 0;
+}

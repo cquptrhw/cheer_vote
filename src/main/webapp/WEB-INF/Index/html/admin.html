@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>后台管理</title>
+    <link rel="stylesheet" type="text/css" href="../css/admin.css">
+    <script src="../js/ajax.js"></script>
+    <script src="../js/admin.js"></script>
+</head>
+<body>
+    <div id="container">
+        <div class="title">
+            <ul>
+                <li id="xinxi" class="now">拉拉队信息</li>
+                <li id="timu">上传题目</li>
+            </ul>
+            <button id="exist">退出登录</button>
+        </div>
+        <div class="detail">
+            <div class="detail-xinxi show">
+                <ul class="ul-xinxi">
+                    
+                </ul>
+            </div>
+            <div class="detail-timu no">
+                <ul class="ul-timu">
+                    <li>
+                        <div class="add">
+                            <img src="../images/bstar.png" class="star1">
+                            <h4 class="star">一星</h4>
+                        </div>
+                        <span class="num"></span>
+                    </li>
+                    <li>
+                        <div class="add">
+                            <img src="../images/star.png" class="star2">
+                            <h4 class="star">二星</h4>
+                        </div>
+                        <span class="num"></span>
+                    </li>
+                    <li>
+                        <div class="add">
+                            <img src="../images/star.png" class="star3">
+                            <h4 class="star">三星</h4>
+                        </div>
+                        <span class="num"></span>
+                    </li>
+                    <li>
+                        <div class="add">
+                            <img src="../images/star.png" class="star4">
+                            <h4 class="star">四星</h4>
+                        </div>
+                        <span class="num"></span>
+                    </li>
+                    <li>
+                        <div class="add">
+                            <img src="../images/star.png" class="star5">
+                            <h4 class="star">五星</h4>
+                        </div>
+                        <span class="num"></span>
+                    </li>
+                </ul>
+                <div id="addQuestion">
+                    <div class="content">
+                        <span class="question">题目：</span>
+                        <textarea id="ti"></textarea>
+                        <span class="answer right">A</span>
+                        <input type="text" name="A" id="answerA">
+                        <span class="answer B">B</span>
+                        <input type="text" name="B" id="answerB">
+                        <span class="answer C">C</span>
+                        <input type="text" name="C" id="answerC">
+                        <span class="answer D">D</span>
+                        <input type="text" name="D" id="answerD">
+                    </div>
+                    <button id="submitQ">上传</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
