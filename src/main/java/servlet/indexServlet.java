@@ -64,51 +64,18 @@ public class indexServlet extends HttpServlet{
                     result.put(nName, nValue);
                 }
             }
-            String encrypt_type =request.getParameter("encrypt_type");
 
-                String toUserName = result.get("FromUserName");
-                String Content = result.get("Content");
-                String MsgType = result.get("MsgType");
-                String Event = result.get("Event");
+            String toUserName = result.get("FromUserName");
+            String MsgType = result.get("MsgType");
+            System.out.println(result);
+            if("text".equals(MsgType)){
+                String content = "别闹，我啥也不会说的";
+                String res = Textmessage.subscribemessage(result,toUserName,content);
+                response.setContentType("text/JavaScript; charset=utf-8");
+                response.getWriter().println(res);
+            }
 
-                String EventKey = result.get("EventKey");
-                System.out.println(result);
-                String hostid = toUserName;
-                if("text".equals(MsgType)){
-                    String content = "小王八蛋";
-                    String res = Textmessage.subscribemessage(result,toUserName,content);
-                    response.setContentType("text/JavaScript; charset=utf-8");
-                    response.getWriter().println(res);
-
-                }else if("subscribe".equals(Event)){
-                    String content = "Welcome to Newtol\n"+"回复【游戏规则】查看谁是卧底游戏规则\n"+"回复【惩罚】查看游戏惩罚\n"+"回复【redrock】查看红岩网校";
-                    String res = Textmessage.subscribemessage(result,toUserName,content);
-                    response.setContentType("text/JavaScript; charset=utf-8");
-                    response.getWriter().println(res);
-                }else if ("V1001_TODAY_MUSIC".equals(EventKey)){
-                    String content =  "正在创建谁是卧底房间,请输入游戏人数(4-20之间，不包括法官哦)，或点击下方链接创建房间 \n" +
-                            "<a href=\"http://enzvb2.natappfree.cc/form?hostId=" + toUserName+"\">点击这里创建房间</a>";
-                    String res = Textmessage.subscribemessage(result,toUserName,content);
-                    response.setContentType("text/JavaScript; charset=utf-8");
-                    response.getWriter().println(res);
-
-                } else if ("V1001_TODAY_GAME1".equals(EventKey)){
-                    String content = "快点击连接参与游戏吧<a href=\"http://enzvb2.natappfree.cc/notouch\">点击这里</a>";
-                    String res = Textmessage.subscribemessage(result,toUserName,content);
-                    response.setContentType("text/JavaScript; charset=utf-8");
-                    response.getWriter().println(res);
-                }else if ("V1001_TODAY_GAME2".equals(EventKey)){
-                    String content = "快点击连接参与游戏吧<a href=\"http://enzvb2.natappfree.cc/2048\">点击这里</a>";
-                    String res = Textmessage.subscribemessage(result,toUserName,content);
-                    response.setContentType("text/JavaScript; charset=utf-8");
-                    response.getWriter().println(res);
-                }else if("V1001_TODAY_image".equals(EventKey)){
-                    String res = Textmessage.redrockmessage(result,toUserName);
-                    response.setContentType("image/jpg; charset=utf-8");
-                    System.out.println(res);
-                    response.getWriter().print(res);
-                }
-            } catch (ParserConfigurationException e1) {
+        } catch (ParserConfigurationException e1) {
             e1.printStackTrace();
         } catch (SAXException e1) {
             e1.printStackTrace();

@@ -118,7 +118,6 @@ public class EncryptUtil {
         }
         return rs;
     }
-
     /**
      * 将byte数组变为16进制对应的字符串
      * @param byteArray byte数组

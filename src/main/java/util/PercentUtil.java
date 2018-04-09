@@ -18,6 +18,9 @@ public class PercentUtil {
         numberFormat.setMaximumFractionDigits(0);
         float percnet = (float) num1 / (float) num2 ;
         String result = numberFormat.format((1-percnet)*100);
+        if(result.equals("100")){
+            result="0";
+        }
         String str =result+"%";
         System.out.println(str);
         return str;

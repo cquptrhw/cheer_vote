@@ -18,10 +18,11 @@
 </resultMap>
 <select id="getAssistanceRankInfo" resultMap="test"  >
         select c.num,c.rank,d.total from
+        (select openId,count(distinct(openId)) as total from cheer_assistance where create_time  between #{1} and #{2})d,
         (select a.openId,a.num,(@rowNum:=@rowNum+1) as rank
-        from (select openId,sum(assistance)  as num from cheer_assistance where create_time  between #{1} and #{2} group By openId )a,
-        (Select (@rowNum :=0) ) b where openId =#{0} order by num desc) c,
-        (select openId,count(distinct(openId)) as total from cheer_assistance where create_time  between #{1} and #{2})d;
+        from
+            (select openId,sum(assistance)  as num from cheer_assistance where create_time  between #{1} and #{2} group By openId )a,
+            (Select (@rowNum :=0) ) b order by num desc) c where c.openId =#{0}
     </select>
 
 </mapper>

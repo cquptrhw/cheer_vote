@@ -5,13 +5,11 @@ import dto.Cheer_firstPage;
 import dto.Cheer_info;
 import dto.StartPage;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.naming.ServiceRef;
 import service.PageInfoService;
 import util.JsonUtil;
 import util.PercentUtil;
 import util.SqlSessionFactoryUtil;
 import util.Time;
-
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
@@ -61,14 +59,28 @@ public class PageInfoServiceImp implements PageInfoService {
         Timestamp[]timeArray = time.getTimePeriod();
         //获取查询结果
         Map<String,Integer> res=iPageInfo.getAssistanceRankInfo(openId,timeArray[0],timeArray[1]);
+        System.out.println(JsonUtil.toJSONString(res));
         //初始化返回值的map
         Map<String,String> startPage = new HashMap<String, String>();
-        startPage.put("assistance", String.valueOf(res.get("assistance")));
-        //获取排名超过的百分;
-        int rank = Integer.valueOf(res.get("rank")).intValue();
-        int total =Integer.valueOf(res.get("total")).intValue();
+        int assistance =0;
+        int rank =0;
+        int total =0;
+        if(!( res == null || res.isEmpty())){
+            if(!(res.get("num") == null)){
+                assistance = res.get("num");
+            }
+            //获取排名超过的百分;
+            if(!(res.get("rank") == null)){
+                rank = Integer.valueOf(res.get("rank")).intValue();
+            }
+            if(!(res.get("total") ==null))
+            total =Integer.valueOf(res.get("total")).intValue();
+        }
+        System.out.println(assistance);
+        startPage.put("assistance", String.valueOf(assistance));
         String assistanceRank = PercentUtil.getPercent(rank,total);
         startPage.put("assistanceRank", assistanceRank);
+        System.out.println(startPage.toString());
         return null;
     }
 
@@ -79,7 +91,8 @@ public class PageInfoServiceImp implements PageInfoService {
 //        list.add(3);
 //        list.add(1);
 //        System.out.println(JsonUtil.toJSONString(list));
-        pageInfoService.getAssistanceRankInfo("aaa");
+        pageInfoService.getAssistanceRankInfo("ccc");
+
 //        System.out.println(str);
     }
 
