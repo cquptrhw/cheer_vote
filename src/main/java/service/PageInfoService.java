@@ -16,4 +16,10 @@ public interface PageInfoService {
     public String getStartPage(String openId);
     //获取启动页助力信息
     public Map<String,String> getAssistanceRankInfo(String openId);
+    //获取启动页答对题目信息
+    public Map<String,String> getRightAnswerNumRankInfo(String openId);
+    //获取今日答题数目信息
+    public Map<String,String> getTodayNumRankInfo(String openId);
+    //获取所超过的百分比
+    public Map<String,String> getPercentUtil(Map<String,Integer> res,String parameterName);
 }

@@ -43,10 +43,16 @@ public class PageInfoServiceImp implements PageInfoService {
     //获取启动页信息
     @Override
     public String getStartPage(String openId) {
+        //获取助力数排行部分
         Map<String,String> assistanceMap = getAssistanceRankInfo(openId);
-        StartPage startPage = new StartPage();
-        startPage.setAssistance(assistanceMap.get("assistance"));
-        startPage.setAssistanceRank(assistanceMap.get("assistanceRank"));
+        Map<String,String> rightNumMap =getRightAnswerNumRankInfo(openId);
+        Map<String,String> todayNumMap =getTodayNumRankInfo(openId);
+        Map<String,String> startPage = new HashMap<>();
+        startPage.putAll(assistanceMap);
+        startPage.putAll(rightNumMap);
+        startPage.putAll(todayNumMap);
+        String str = JsonUtil.toJSONString(startPage);
+        System.out.println(str);
         return null;
     }
     //获取启动页助力信息
@@ -61,10 +67,47 @@ public class PageInfoServiceImp implements PageInfoService {
         Map<String,Integer> res=iPageInfo.getAssistanceRankInfo(openId,timeArray[0],timeArray[1]);
         System.out.println(JsonUtil.toJSONString(res));
         //初始化返回值的map
-        Map<String,String> startPage = new HashMap<String, String>();
+        Map<String,String> startPage =getPercentUtil(res,"assistance");
+        return startPage;
+    }
+    //获取启动页正确答对的排行
+    @Override
+    public Map<String, String> getRightAnswerNumRankInfo(String openId) {
+        SqlSession session = sqlSessionFactoryUtil.getSqlSessionFactory().openSession();
+        IPageInfo iPageInfo = session.getMapper(IPageInfo.class);
+        //获取查询的时间段
+        final Time time = new Time();
+        Timestamp[]timeArray = time.getTimePeriod();
+        //获取查询结果
+        Map<String,Integer> res=iPageInfo.getRightAnswerNumRankInfo(openId,timeArray[0],timeArray[1]);
+        System.out.println(JsonUtil.toJSONString(res));
+        //获取所占百分比
+        Map<String,String> startPage = getPercentUtil(res,"rightNum");
+        return startPage;
+    }
+
+    @Override
+    public Map<String, String> getTodayNumRankInfo(String openId) {
+        SqlSession session = sqlSessionFactoryUtil.getSqlSessionFactory().openSession();
+        IPageInfo iPageInfo = session.getMapper(IPageInfo.class);
+        //获取查询的时间段
+        final Time time = new Time();
+        Timestamp[]timeArray = time.getTimePeriod();
+        //获取查询结果
+        Map<String,Integer> res=iPageInfo.getTodayNumRankInfo(openId,timeArray[0],timeArray[1]);
+        System.out.println(JsonUtil.toJSONString(res));
+        //获取所占百分比
+        Map<String,String> startPage = getPercentUtil(res,"todayNum");
+        return startPage;
+    }
+
+    //获取所超过的百分比
+    @Override
+    public Map<String, String> getPercentUtil(Map<String, Integer> res, String parameterName) {
         int assistance =0;
         int rank =0;
         int total =0;
+        //判断传入的数据是否为空
         if(!( res == null || res.isEmpty())){
             if(!(res.get("num") == null)){
                 assistance = res.get("num");
@@ -74,15 +117,18 @@ public class PageInfoServiceImp implements PageInfoService {
                 rank = Integer.valueOf(res.get("rank")).intValue();
             }
             if(!(res.get("total") ==null))
-            total =Integer.valueOf(res.get("total")).intValue();
+                total =Integer.valueOf(res.get("total")).intValue();
         }
-        System.out.println(assistance);
-        startPage.put("assistance", String.valueOf(assistance));
+        Map<String,String> startPage = new HashMap();
+        //获取所超过的百分比
         String assistanceRank = PercentUtil.getPercent(rank,total);
-        startPage.put("assistanceRank", assistanceRank);
+        //将信息写入Map返回
+        startPage.put(parameterName, String.valueOf(assistance));
+        startPage.put(parameterName+"Rank", assistanceRank);
         System.out.println(startPage.toString());
-        return null;
+        return startPage;
     }
+
 
     public static void main(String[] args){
         PageInfoService pageInfoService = new PageInfoServiceImp();
@@ -91,7 +137,9 @@ public class PageInfoServiceImp implements PageInfoService {
 //        list.add(3);
 //        list.add(1);
 //        System.out.println(JsonUtil.toJSONString(list));
-        pageInfoService.getAssistanceRankInfo("ccc");
+//        pageInfoService.getAssistanceRankInfo("bb");
+//        pageInfoService.getRightAnswerNumRankInfo("kk");
+        pageInfoService.getStartPage("bb");
 
 //        System.out.println(str);
     }

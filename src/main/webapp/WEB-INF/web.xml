@@ -36,15 +36,26 @@
     <listener-class>Listener.getLuckUser</listener-class>
   </listener>
   <!--微信配置-->
-  <servlet>
-    <servlet-name>indexServlet</servlet-name>
-    <servlet-class>servlet.indexServlet</servlet-class>
-  </servlet>
-
   <servlet-mapping>
     <servlet-name>indexServlet</servlet-name>
     <url-pattern>/index</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>indexServlet</servlet-name>
+    <servlet-class>servlet.indexServlet</servlet-class>
+  </servlet>
+  <!--获取用户信息-->
+  <servlet-mapping>
+    <servlet-name>getUserInfoServlet</servlet-name>
+    <url-pattern>/index.jsp/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>getUserInfoServlet</servlet-name>
+    <servlet-class>servlet.GetUserInfoFromWeiXinServlet</servlet-class>
+  </servlet>
+
+
+
   <!--管理员登陆-->
   <servlet>
     <servlet-name>adminServlet</servlet-name>

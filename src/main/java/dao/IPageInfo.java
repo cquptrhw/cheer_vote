@@ -17,6 +17,10 @@ public interface IPageInfo {
     List<Cheer_firstPage> getCheerFirstPage();
     //获取拉拉队信息
     List<Cheer_info>  getCheerInfo();
-    //获取助力信息
+    //获取启动页助力信息
     Map<String, Integer> getAssistanceRankInfo(String openId, Timestamp startTime, Timestamp endTime);
+    //获取启动页正确答题数信息
+    Map<String,Integer> getRightAnswerNumRankInfo(String openId, Timestamp startTime, Timestamp endTime);
+    //获取启动页今日答题数信息
+    Map<String,Integer> getTodayNumRankInfo(String openId, Timestamp startTime, Timestamp endTime);
 }

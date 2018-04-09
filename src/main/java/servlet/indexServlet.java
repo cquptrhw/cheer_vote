@@ -91,8 +91,6 @@ public class indexServlet extends HttpServlet{
         String timestamp = req.getParameter("timestamp");
         String nonce = req.getParameter("nonce");
         String echostr = req.getParameter("echostr");
-        System.out.println(signature);
-        System.out.println("y");
         //检验四个参数是否有效
         if (!StringUtil.hasBlank(signature, timestamp, nonce, echostr)) {
             String[] list = {token, timestamp, nonce};

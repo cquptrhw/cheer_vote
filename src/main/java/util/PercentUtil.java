@@ -22,7 +22,6 @@ public class PercentUtil {
             result="0";
         }
         String str =result+"%";
-        System.out.println(str);
         return str;
     }
 }
