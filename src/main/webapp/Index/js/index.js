@@ -18,7 +18,7 @@ window.onload = function () {
                 if (data.username) {
                     window.document.cookie = "username=" + data.username;
                     window.document.cookie = "role=" + data.role;
-                    window.location.href = "./html/admin.html";
+                    window.location.href = "../html/admin.html";
                 } else {
                     alert("用户名或密码错误！");
                 }

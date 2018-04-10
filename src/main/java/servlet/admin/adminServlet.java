@@ -27,10 +27,9 @@ public class adminServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String json = GetStringBuffer.getString(req);
         Map<String,String> map = JsonUtil.stringToCollect(json);
-
         String username = map.get("username");
         String password = map.get("password");
-        System.out.println(username+password);
+//        System.out.println(username+password);
         HttpSession session = req.getSession();
         JsonUtil jsonUtil = new JsonUtil();
         String str = null;
@@ -38,7 +37,7 @@ public class adminServlet extends HttpServlet {
         Object user = session.getAttribute("IAdmin");
         if(user != null){
             str = jsonUtil.toJSONString(user);
-            System.out.println("cunzai");
+//            System.out.println("cunzai");
         }else{
             //重新登录
             MyAdmin admin = adminService.adminLogin(username,password);
@@ -47,7 +46,7 @@ public class adminServlet extends HttpServlet {
                 session.setAttribute("role", admin.getRole());
                 str = jsonUtil.toJSONString(admin);
             }
-            System.out.println(str);
+//            System.out.println(str);
         }
         resp.setContentType("text/html;charset=utf-8");
         PrintWriter out = resp.getWriter();

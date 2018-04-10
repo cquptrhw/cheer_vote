@@ -6,14 +6,14 @@ package dto;
  * @Date: Created in 21:24 2018/3/15
  */
 public class MyAdmin {
-    private int username ;
+    private String username ;
     private int role;
 
-    public int getUsername() {
+    public String getUsername() {
         return username;
     }
 
-    public void setUsername(int username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 

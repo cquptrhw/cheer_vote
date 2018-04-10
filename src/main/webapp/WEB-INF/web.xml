@@ -38,20 +38,31 @@
   <!--微信配置-->
   <servlet-mapping>
     <servlet-name>indexServlet</servlet-name>
-    <url-pattern>/index</url-pattern>
+    <url-pattern>/weixin</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>indexServlet</servlet-name>
-    <servlet-class>servlet.indexServlet</servlet-class>
+    <servlet-class>servlet.weiXin.indexServlet</servlet-class>
   </servlet>
+
+
+  <servlet-mapping>
+    <servlet-name>RedirectServlet</servlet-name>
+    <url-pattern>/redirect</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>RedirectServlet</servlet-name>
+    <servlet-class>servlet.weiXin.RedirectServlet</servlet-class>
+  </servlet>
+
   <!--获取用户信息-->
   <servlet-mapping>
     <servlet-name>getUserInfoServlet</servlet-name>
-    <url-pattern>/index.jsp/*</url-pattern>
+    <url-pattern>/getInfo</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>getUserInfoServlet</servlet-name>
-    <servlet-class>servlet.GetUserInfoFromWeiXinServlet</servlet-class>
+    <servlet-class>servlet.weiXin.GetUserInfoFromWeiXinServlet</servlet-class>
   </servlet>
 
 
@@ -175,7 +186,6 @@
     <servlet-name>todayNumServlet</servlet-name>
     <url-pattern>/vote/user/todayNum</url-pattern>
   </servlet-mapping>
-  <!--获取答案-->
 
 
   <!--获取题目-->

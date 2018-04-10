@@ -16,9 +16,7 @@ public class GetUserRankServlet extends HttpServlet{
     private  static  AnswerQuestionService answerQuestionService = new AnswerQuestionServiceImp();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         String str = answerQuestionService.getUserRank();
-
         resp.setContentType("text/html;charset=utf-8");
         resp.getWriter().println(str);
         return;

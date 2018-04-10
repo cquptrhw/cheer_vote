@@ -1,16 +1,19 @@
 package servlet.assistance;
 
 import Imp.AssistanceServiceImp;
+import Imp.WeiXinServiceImp;
 import dto.user_assistance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import service.AssistanceService;
+import service.WeiXinService;
 import util.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -24,7 +27,8 @@ import java.util.Map;
  */
 public class UpdateCheerAssistanceServlet extends HttpServlet{
     protected static Logger logger = LoggerFactory.getLogger(UpdateCheerAssistanceServlet.class);
-    AssistanceService assistanceService = new AssistanceServiceImp();
+    private static WeiXinService weiXinService = new WeiXinServiceImp();
+    private static  AssistanceService assistanceService = new AssistanceServiceImp();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");
@@ -36,8 +40,16 @@ public class UpdateCheerAssistanceServlet extends HttpServlet{
         String timestamp = jsonMap.get("timestamp");
         String nonce = jsonMap.get("nonce");
         String signature = jsonMap.get("signature");
+
         //获取openId
-        String openId = "aaa";
+        HttpSession session = req.getSession();
+        String openId = weiXinService.getOpenId(session);
+        if(openId == null || openId.equals("")){
+            str = "未获取信息";
+            resp.setContentType("text/html;charset=utf-8");
+            resp.getWriter().println(str);
+            return;
+        }
 
         //判断参数
         isNumeric isNum = new isNumeric();//验证是否有非法输入

@@ -21,7 +21,8 @@ public class Const {
     public static final String AppSecret = "782fc50a471b88e87e544885b2dcc782";
     public static final String Token = "bbbbbbbbbb";
     public static final String EncodingAESKey = "C0I2dBIOer5Yv8B9sgto4EVPqst5GKsXWeOVnhSunzY";
-    public static final String redirect_uri = "http://5kkn3a.natappfree.cc/info";
+    public static final String redirect_uri = "http://377f5x.natappfree.cc/getInfo";
+    public static final String startPageUrl = "http://377f5x.natappfree.cc/vote/user/question";
 
 
 }

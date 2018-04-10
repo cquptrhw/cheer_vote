@@ -62,5 +62,6 @@
         <mapper resource="Mapper/Assistance.xml"/>
         <mapper resource="Mapper/LuckUser.xml"/>
         <mapper resource="Mapper/PageInfo.xml"/>
+        <mapper resource="Mapper/WeiXin.xml"/>
     </mappers>
 </configuration>

@@ -2,10 +2,12 @@ package servlet.answer;
 
 import Imp.AnswerQuestionServiceImp;
 import Imp.AssistanceServiceImp;
+import Imp.WeiXinServiceImp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import service.AnswerQuestionService;
 import service.AssistanceService;
+import service.WeiXinService;
 import util.DataUtil;
 import util.EncryptUtil;
 import util.GetStringBuffer;
@@ -14,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Map;
@@ -22,11 +25,21 @@ public class UserGetAnswerServlet extends HttpServlet{
     private static AnswerQuestionService answerQuestionService = new AnswerQuestionServiceImp();
     private  static AssistanceService assistanceService = new AssistanceServiceImp();
     protected static Logger logger = LoggerFactory.getLogger(UserGetAnswerServlet.class);
+    private static WeiXinService weiXinService = new WeiXinServiceImp();
     //获取答案
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String data = GetStringBuffer.getString(req);
         Map<String,String> jsonMap = JsonUtil.stringToCollect(data);
+        //获取openId
+        HttpSession session = req.getSession();
+        String openId = weiXinService.getOpenId(session);
+        if(openId == null || openId.equals("")){
+            String str = "未获取信息";
+            resp.setContentType("text/html;charset=utf-8");
+            resp.getWriter().println(str);
+            return;
+        }
         //获取参数
         String str = null;
         String string = jsonMap.get("string");
@@ -36,11 +49,9 @@ public class UserGetAnswerServlet extends HttpServlet{
         String questionId ;
         String userAnswer ;
         String rightAnswer ;
-        String openId = "AAAA00";
         try {
            boolean res1 = DataUtil.getData(timestamp,nonce,string,signature);
            if(res1){
-
                //获取数据
                String json = EncryptUtil.decryptBASE64(string);
                Map map= JsonUtil.stringToCollect(json);

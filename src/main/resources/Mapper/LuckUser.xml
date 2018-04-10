@@ -7,7 +7,7 @@
     <select id="getLuckUser" resultType="luckUser">
         SELECT a.openId ,a.rightNum,b.nickName,b.headImgUrl
         from
-        (SELECT openId,count(status='1'OR NULL ) as rightNum FROM question_history WHERE create_time between #{0} and #{1} GROUP BY openId ORDER BY RAND() LIMIT 3)a,
+        (SELECT openId,count(status='1'OR NULL ) as rightNum FROM question_history WHERE created_time between #{0} and #{1} GROUP BY openId ORDER BY RAND() LIMIT 3)a,
         (SELECT * FROM user_info)b WHERE a.openId=b.openId
     </select>
     <!--插入幸运用户-->

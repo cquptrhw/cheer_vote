@@ -1,4 +1,4 @@
-package servlet;
+package servlet.weiXin;
 
 import message.Textmessage;
 import org.w3c.dom.Document;
@@ -67,7 +67,7 @@ public class indexServlet extends HttpServlet{
 
             String toUserName = result.get("FromUserName");
             String MsgType = result.get("MsgType");
-            System.out.println(result);
+//            System.out.println(result);
             if("text".equals(MsgType)){
                 String content = "别闹，我啥也不会说的";
                 String res = Textmessage.subscribemessage(result,toUserName,content);

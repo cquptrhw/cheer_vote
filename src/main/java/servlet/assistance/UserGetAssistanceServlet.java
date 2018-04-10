@@ -1,23 +1,34 @@
 package servlet.assistance;
 
 import Imp.AssistanceServiceImp;
+import Imp.WeiXinServiceImp;
 import controller.AssistanceController;
 import org.json.JSONException;
 import service.AssistanceService;
+import service.WeiXinService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 
 public class UserGetAssistanceServlet extends HttpServlet {
     private static AssistanceService assistanceService = new AssistanceServiceImp();
+    private static WeiXinService weiXinService = new WeiXinServiceImp();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String openId = "k";
+        HttpSession session = req.getSession();
+        String openId = weiXinService.getOpenId(session);
+        if(openId == null || openId.equals("")){
+            String str = "未获取信息";
+            resp.setContentType("text/html;charset=utf-8");
+            resp.getWriter().println(str);
+            return;
+        }
         int str = assistanceService.getUserAssistance(openId);
         resp.setContentType("text/html;charset=utf-8");
         resp.getWriter().println(str);
