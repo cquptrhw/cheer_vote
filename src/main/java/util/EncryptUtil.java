@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -139,7 +140,7 @@ public class EncryptUtil {
         return new String(tempArr);
     }
 //    //加密测试
-//    public static void main(String[] args) throws NoSuchAlgorithmException {
+    public static void main(String[] args) throws NoSuchAlgorithmException {
 //        //数据封装进json
 //        com.alibaba.fastjson.JSONObject jsonObject =new com.alibaba.fastjson.JSONObject();
 //        jsonObject.put("classId",2);
@@ -171,5 +172,5 @@ public class EncryptUtil {
 //        System.out.println(timeStamp);
 //        System.out.println(nonce);
 //        System.out.println(signature);
-//    }
+    }
 }

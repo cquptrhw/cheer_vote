@@ -35,28 +35,24 @@ public class GetUserInfoFromWeiXinServlet extends HttpServlet {
             System.out.println("获取");
             String access_token = String.valueOf(JsonUtil.stringToCollect(codeResult).get("access_token"));
             //获取用户信息
-            String url1 = " https://api.weixin.qq.com/sns/userinfo?access_token="+access_token+"&openid="+openId+"&lang=zh_CN";
-            String result1 = CurlUtil.getContent(url1, null, "GET");
-            Map<String,String> userInfo = JsonUtil.stringToCollect(result1);
-            System.out.println(userInfo.toString());
-            boolean res = weiXinService.insertUserInfo(userInfo);
+            String infoUrl = " https://api.weixin.qq.com/sns/userinfo?access_token="+access_token+"&openid="+openId+"&lang=zh_CN";
+            String infoResult = CurlUtil.getContent(infoUrl, null, "GET");
+            System.out.println(infoResult);
+            user = JsonUtil.stringToCollect(infoResult);
+            System.out.println(user);
+            boolean res = weiXinService.insertUserInfo(user);
             if(!res){
                 String str = "获取用户信息失败";
                 resp.setContentType("text/JavaScript; charset=utf-8");
                 resp.getWriter().println(str);
                 return;
             }
-            user.put("openId",userInfo.get("openid"));
-            user.put("headImgUrl",userInfo.get("headimgurl"));
-            user.put("nickName",userInfo.get("nickname"));
         }
         //设置session
         HttpSession session = req.getSession();
         session.setAttribute("User",user);
-
         // 设置响应内容类型
         resp.setContentType("text/html;charset=UTF-8");
-
         // 要重定向的新位置
         String site = new String(Const.startPageUrl);
         resp.setStatus(resp.SC_MOVED_TEMPORARILY);

@@ -18,8 +18,6 @@
 <form method="post" action="/vote/admin/cheer_info" enctype="multipart/form-data">
     选择一个文件:
     <input type="text" name="classId" />
-    <input type="text" name="className" />
-    <input type="text" name="groupId" />
     <input type="text" name="introduce" />
     <input type="text" name="slogan" />
     <input type="text" name="video" />

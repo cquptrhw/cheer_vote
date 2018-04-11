@@ -296,4 +296,40 @@
     <url-pattern>/vote/user/cheer_info/main</url-pattern>
   </servlet-mapping>
 
+  <!--启动页信息获取-->
+  <servlet>
+    <display-name>StartPageServlet</display-name>
+    <servlet-name>StartPageServlet</servlet-name>
+    <servlet-class>servlet.startPage.startPageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StartPageServlet</servlet-name>
+    <url-pattern>/vote/user/startPage</url-pattern>
+  </servlet-mapping>
+  <!--拉拉队队员信息获取-->
+  <servlet>
+    <display-name>CheerPlayerInfoServlet</display-name>
+    <servlet-name>CheerPlayerInfoServlet</servlet-name>
+    <servlet-class>servlet.pageInfo.CheerPlayerInfoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CheerPlayerInfoServlet</servlet-name>
+    <url-pattern>/vote/user/cheerPlayerInfo</url-pattern>
+  </servlet-mapping>
+  <!--个人信息获取-->
+  <servlet>
+    <display-name>UserInfoServlet</display-name>
+    <servlet-name>UserInfoServlet</servlet-name>
+    <servlet-class>servlet.weiXin.UserInfoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserInfoServlet</servlet-name>
+    <url-pattern>/vote/user/info</url-pattern>
+  </servlet-mapping>
+
+
+
+
+
+
 </web-app>

@@ -31,6 +31,7 @@ public class UserGetAnswerServlet extends HttpServlet{
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String data = GetStringBuffer.getString(req);
         Map<String,String> jsonMap = JsonUtil.stringToCollect(data);
+        System.out.println(jsonMap);
         //获取openId
         HttpSession session = req.getSession();
         String openId = weiXinService.getOpenId(session);
@@ -44,6 +45,7 @@ public class UserGetAnswerServlet extends HttpServlet{
         String str = null;
         String string = jsonMap.get("string");
         String timestamp = jsonMap.get("timestamp");
+        System.out.println(timestamp);
         String nonce = jsonMap.get("nonce");
         String signature = jsonMap.get("signature");
         String questionId ;

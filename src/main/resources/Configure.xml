@@ -19,6 +19,7 @@
         <typeAlias alias="cheer_firstPage" type="dto.Cheer_firstPage"/>
         <typeAlias alias="cheer_info" type="dto.Cheer_info"/>
         <typeAlias alias="startPage" type="dto.StartPage"/>
+        <typeAlias type="dto.Cheer_playerInfo" alias="Cheer_playerInfo"/>
     </typeAliases>
 
     <environments default="development">

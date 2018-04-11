@@ -45,6 +45,7 @@ public class WeiXinServiceImp implements WeiXinService{
         if(!(user == null || user.isEmpty())) {
             openId = user.get("openId");
         }
+        System.out.println(user);
         return openId;
     }
 

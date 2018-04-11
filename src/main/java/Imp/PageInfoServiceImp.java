@@ -3,6 +3,7 @@ package Imp;
 import dao.IPageInfo;
 import dto.Cheer_firstPage;
 import dto.Cheer_info;
+import dto.Cheer_playerInfo;
 import dto.StartPage;
 import org.apache.ibatis.session.SqlSession;
 import service.PageInfoService;
@@ -33,10 +34,10 @@ public class PageInfoServiceImp implements PageInfoService {
     }
     //获取啦啦队详情页信息
     @Override
-    public String getCheerInfo() {
+    public String getCheerInfo(String classId) {
         SqlSession session = sqlSessionFactoryUtil.getSqlSessionFactory().openSession();
         IPageInfo iPageInfo = session.getMapper(IPageInfo.class);
-        List<Cheer_info> cheer_infoList = iPageInfo.getCheerInfo();
+        List<Cheer_info> cheer_infoList = iPageInfo.getCheerInfo(classId);
         String str = JsonUtil.toJSONString(cheer_infoList);
         return str;
     }
@@ -53,7 +54,7 @@ public class PageInfoServiceImp implements PageInfoService {
         startPage.putAll(todayNumMap);
         String str = JsonUtil.toJSONString(startPage);
         System.out.println(str);
-        return null;
+        return str;
     }
     //获取启动页助力信息
     @Override
@@ -65,7 +66,7 @@ public class PageInfoServiceImp implements PageInfoService {
         Timestamp[]timeArray = time.getTimePeriod();
         //获取查询结果
         Map<String,Integer> res=iPageInfo.getAssistanceRankInfo(openId,timeArray[0],timeArray[1]);
-        System.out.println(JsonUtil.toJSONString(res));
+//        System.out.println(JsonUtil.toJSONString(res));
         //初始化返回值的map
         Map<String,String> startPage =getPercentUtil(res,"assistance");
         return startPage;
@@ -80,7 +81,7 @@ public class PageInfoServiceImp implements PageInfoService {
         Timestamp[]timeArray = time.getTimePeriod();
         //获取查询结果
         Map<String,Integer> res=iPageInfo.getRightAnswerNumRankInfo(openId,timeArray[0],timeArray[1]);
-        System.out.println(JsonUtil.toJSONString(res));
+//        System.out.println(JsonUtil.toJSONString(res));
         //获取所占百分比
         Map<String,String> startPage = getPercentUtil(res,"rightNum");
         return startPage;
@@ -95,7 +96,7 @@ public class PageInfoServiceImp implements PageInfoService {
         Timestamp[]timeArray = time.getTimePeriod();
         //获取查询结果
         Map<String,Integer> res=iPageInfo.getTodayNumRankInfo(openId,timeArray[0],timeArray[1]);
-        System.out.println(JsonUtil.toJSONString(res));
+//        System.out.println(JsonUtil.toJSONString(res));
         //获取所占百分比
         Map<String,String> startPage = getPercentUtil(res,"todayNum");
         return startPage;
@@ -125,8 +126,17 @@ public class PageInfoServiceImp implements PageInfoService {
         //将信息写入Map返回
         startPage.put(parameterName, String.valueOf(assistance));
         startPage.put(parameterName+"Rank", assistanceRank);
-        System.out.println(startPage.toString());
+//        System.out.println(startPage.toString());
         return startPage;
+    }
+    //获取啦啦队员信息
+    @Override
+    public String getCheerPlayerInfo(String classId) {
+        SqlSession session = sqlSessionFactoryUtil.getSqlSessionFactory().openSession();
+        IPageInfo iPageInfo = session.getMapper(IPageInfo.class);
+        List<Cheer_playerInfo> cheer_playerInfos = iPageInfo.getCheerPlayerInfo(classId);
+        String str = JsonUtil.toJSONString(cheer_playerInfos);
+        return str;
     }
 
 
@@ -139,7 +149,8 @@ public class PageInfoServiceImp implements PageInfoService {
 //        System.out.println(JsonUtil.toJSONString(list));
 //        pageInfoService.getAssistanceRankInfo("bb");
 //        pageInfoService.getRightAnswerNumRankInfo("kk");
-        pageInfoService.getStartPage("bb");
+//        pageInfoService.getStartPage("bb");
+        System.out.println(pageInfoService.getCheerPlayerInfo("9"));
 
 //        System.out.println(str);
     }
