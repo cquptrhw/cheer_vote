@@ -25,14 +25,13 @@ public class UserGetAssistanceServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         HttpSession session = req.getSession();
-        String openId ="aa";
-//        String openId = weiXinService.getOpenId(session);
-//        if(openId == null || openId.equals("")){
-//            String str = "未获取信息";
-//            resp.setContentType("text/html;charset=utf-8");
-//            resp.getWriter().println(str);
-//            return;
-//        }
+        String openId = weiXinService.getOpenId(session);
+        if(openId == null || openId.equals("")){
+            String str = "未获取信息";
+            resp.setContentType("text/html;charset=utf-8");
+            resp.getWriter().println(str);
+            return;
+        }
         int num = assistanceService.getUserAssistance(openId);
         Map<String,Integer> assistance = new HashMap<>();
         assistance.put("assistance",num);

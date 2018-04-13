@@ -24,15 +24,14 @@ public class startPageServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String str =null;
         HttpSession session =  req.getSession();
-        String openId = "aa";
-//        String openId = weiXinService.getOpenId(session);
-//
-//        if(openId == null || openId.equals("")){
-//            str = "未获取信息";
-//            resp.setContentType("text/html;charset=utf-8");
-//            resp.getWriter().println(str);
-//            return;
-//        }
+        String openId = weiXinService.getOpenId(session);
+
+        if(openId == null || openId.equals("")){
+            str = "未获取信息";
+            resp.setContentType("text/html;charset=utf-8");
+            resp.getWriter().println(str);
+            return;
+        }
         str = pageInfoService.getStartPage(openId);
         resp.setContentType("text/html;charset=utf-8");
         resp.getWriter().println(str);
