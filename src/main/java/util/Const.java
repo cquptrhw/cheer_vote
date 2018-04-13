@@ -21,8 +21,8 @@ public class Const {
     public static final String AppSecret = "782fc50a471b88e87e544885b2dcc782";
     public static final String Token = "bbbbbbbbbb";
     public static final String EncodingAESKey = "C0I2dBIOer5Yv8B9sgto4EVPqst5GKsXWeOVnhSunzY";
-    public static final String redirect_uri = "http://9t5gw8.natappfree.cc/getInfo";
-    public static final String startPageUrl = "http://119.28.190.133:2333/";
+    public static final String redirect_uri = "http://fyxmg4.natappfree.cc/getInfo";
+    public static final String startPageUrl = "http://www.newtol.cn:2333/";
 
 
 }

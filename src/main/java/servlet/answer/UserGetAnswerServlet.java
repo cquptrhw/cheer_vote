@@ -30,13 +30,15 @@ public class UserGetAnswerServlet extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String data = GetStringBuffer.getString(req);
+        System.out.println(data);
         Map<String,String> jsonMap = JsonUtil.stringToCollect(data);
-        System.out.println(jsonMap);
+        System.out.println("jsonMap"+jsonMap);
         //获取openId
         HttpSession session = req.getSession();
         String openId = weiXinService.getOpenId(session);
         if(openId == null || openId.equals("")){
             String str = "未获取信息";
+            System.out.println("no info");
             resp.setContentType("text/html;charset=utf-8");
             resp.getWriter().println(str);
             return;
@@ -72,6 +74,7 @@ public class UserGetAnswerServlet extends HttpServlet{
                    rightAnswer =answerQuestionService.getAnswerFromRedis(questionId);
                    //插入正确答案
                    map.put("rightAnswer",rightAnswer);
+                   System.out.println("成功");
 
                    if(userAnswer.equals(rightAnswer)){
                        //回答正确
@@ -83,10 +86,9 @@ public class UserGetAnswerServlet extends HttpServlet{
                        boolean res = assistanceService.addUserAssistance(openId,num);
                        if(!res){
                            logger.error("错误信息 ：更新分数错误");
-
                        }
-
                    }else{
+                       System.out.println("shibai");
                        map.put("status",0);
                        str = JsonUtil.toJSONString(map);
                    }

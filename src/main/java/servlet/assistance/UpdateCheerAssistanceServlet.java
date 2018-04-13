@@ -43,6 +43,7 @@ public class UpdateCheerAssistanceServlet extends HttpServlet{
 
         //获取openId
         HttpSession session = req.getSession();
+
         String openId = weiXinService.getOpenId(session);
         if(openId == null || openId.equals("")){
             str = "未获取信息";

@@ -61,7 +61,7 @@ public class UploadUtil {
 
         // 构造临时路径来存储上传的文件
         // 这个路径相对当前应用的目录
-        String uploadPath = request.getServletContext().getRealPath("./") + File.separator + UPLOAD_DIRECTORY;
+        String uploadPath = request.getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY;
 
 
         // 如果目录不存在则创建
@@ -76,8 +76,6 @@ public class UploadUtil {
             // 解析请求的内容提取文件数据
             List items = upload.parseRequest(request);
             Iterator iter = items.iterator();// 遍历表单中提交过来的内容
-
-
             while (iter.hasNext()) {
                 FileItem item = (FileItem) iter.next();
                 if (item.isFormField()) { // 如果是表单域 ，就是非文件上传元素

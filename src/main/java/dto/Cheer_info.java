@@ -13,6 +13,15 @@ public class Cheer_info {
     private String video;
     private String playImg2;
     private String playImg3;
+    private String classId;
+
+    public String getClassId() {
+        return classId;
+    }
+
+    public void setClassId(String classId) {
+        this.classId = classId;
+    }
 
     public String getPlayImg1() {
         return playImg1;

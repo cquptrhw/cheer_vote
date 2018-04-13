@@ -37,7 +37,7 @@ public class PageInfoServiceImp implements PageInfoService {
     public String getCheerInfo(String classId) {
         SqlSession session = sqlSessionFactoryUtil.getSqlSessionFactory().openSession();
         IPageInfo iPageInfo = session.getMapper(IPageInfo.class);
-        List<Cheer_info> cheer_infoList = iPageInfo.getCheerInfo(classId);
+        Cheer_info cheer_infoList = iPageInfo.getCheerInfo(classId);
         String str = JsonUtil.toJSONString(cheer_infoList);
         return str;
     }

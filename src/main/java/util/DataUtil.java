@@ -17,9 +17,12 @@ public class DataUtil {
     public static boolean getData(String timestamp, String nonce, String string, String singnature) throws NoSuchAlgorithmException {
         //检验时间的有效性
         if(isTime(Long.parseLong(timestamp))){
+            System.out.println("timestamp"+timestamp);
+            System.out.println("nonce"+nonce);
+            System.out.println("string"+string);
             //检验数据的有效性
             String str = EncryptUtil.sha1(EncryptUtil.md5(string+timestamp+nonce)+"cheer_vote") ;
-            System.out.println(str);
+            System.out.println("singature"+str);
             if(singnature.equals(str)){
                 return true;
             }else {

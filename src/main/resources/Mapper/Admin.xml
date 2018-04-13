@@ -8,7 +8,7 @@
     </select>
     <!--获取是否上传-->
     <select id="getResultList" resultType="cheer_result">
-        select * from cheer_info
+        select * from cheer_info ORDER by classId ASC
     </select>
     <!--上传啦啦队员信息-->
     <insert id="insertCheerPlayer" parameterType="HashMap" keyProperty="id" >

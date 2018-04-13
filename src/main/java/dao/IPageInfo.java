@@ -17,7 +17,7 @@ public interface IPageInfo {
     //啦啦队首页信息获取
     List<Cheer_firstPage> getCheerFirstPage();
     //获取拉拉队信息
-    List<Cheer_info>  getCheerInfo(String classId);
+    Cheer_info  getCheerInfo(String classId);
     //获取启动页助力信息
     Map<String, Integer> getAssistanceRankInfo(String openId, Timestamp startTime, Timestamp endTime);
     //获取启动页正确答题数信息

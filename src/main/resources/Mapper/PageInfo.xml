@@ -4,7 +4,7 @@
 <mapper namespace="dao.IPageInfo">
     <!--获取啦啦队首页信息-->
     <select id="getCheerFirstPage" resultType="cheer_firstPage">
-        SELECT className,slogan,firstImg FROM cheer_info ORDER BY RAND()
+        SELECT classId,className,slogan,firstImg FROM cheer_info ORDER BY RAND()
     </select>
     <!--获取拉拉队详情页信息-->
     <select id="getCheerInfo" resultType="cheer_info">

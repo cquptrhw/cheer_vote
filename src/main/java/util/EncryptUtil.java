@@ -141,7 +141,7 @@ public class EncryptUtil {
     }
 //    //加密测试
     public static void main(String[] args) throws NoSuchAlgorithmException {
-//        //数据封装进json
+        //数据封装进json
 //        com.alibaba.fastjson.JSONObject jsonObject =new com.alibaba.fastjson.JSONObject();
 //        jsonObject.put("classId",2);
 //        jsonObject.put("groupId",3);
@@ -153,7 +153,7 @@ public class EncryptUtil {
 //        jsonObject1.put("groupId",7);
 //        jsonObject1.put("num",5);
 //        jsonArray.add(jsonObject1);
-//
+
 //        //将json转为string
 //        String data = jsonArray.toString();
 //        System.out.println(data);
@@ -165,12 +165,9 @@ public class EncryptUtil {
 //        String nonce = "a";
 //        //获取到的signature
 //        String  signature = EncryptUtil.sha1(EncryptUtil.md5(string1+timeStamp+nonce)+"cheer_vote");
-////        System.out.println("signature : " +str );
-//        boolean res =DataUtil.getData(timeStamp,nonce,string1,signature);
-////        System.out.println(JsonUtil.toJSONString(map));
-//        System.out.println(string1);
-//        System.out.println(timeStamp);
-//        System.out.println(nonce);
-//        System.out.println(signature);
+//        System.out.println("signature : " +str );
+        boolean res =DataUtil.getData("1523587709","a","eyJxdWVzdGlvbklkIjoyMDYsImFuc3dlciI6IkEifQ==","25b639e0115eb8f6334a6858908ce1543ef92a13");
+//        System.out.println(JsonUtil.toJSONString(map));
+
     }
 }

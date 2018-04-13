@@ -65,13 +65,13 @@ public class AssistanceServiceImp implements AssistanceService {
                     logger.error("错误原因 :插入失败");
                 }else {
                     assistance=0;
-
                 }
             }else{
                 assistance = k;
             }
             session.close();
         }else{
+            System.out.println("assistance"+num);
             assistance = Integer.parseInt(num);
         }
         //插入redis进行缓存

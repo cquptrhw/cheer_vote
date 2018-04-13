@@ -154,20 +154,21 @@ public class AnswerQuestionServiceImp implements AnswerQuestionService {
         IQuestion iQuestion = session.getMapper(IQuestion.class);
         final Time time = new Time();
         Timestamp[]timeArray = time.getTimePeriod();
+        System.out.println(timeArray[0]+".."+timeArray[1]);
         List<LuckUser> luckUserList = iQuestion.getUserRank(timeArray[0],timeArray[1]);
         String str = JsonUtil.toJSONString(luckUserList);
         session.close();
         return str;
     }
 
-//
-//    public static void main(String[] args){
-//        AnswerQuestionService messageService = new AnswerQuestionServiceImp();
-////        HashMap m1 = new HashMap();
-////        m1.put("openId", "8");
-////        m1.put("classId", "31");
-////        m1.put("content", "你好");
-//       int  str = messageService.getTodayNumFromMysql("a");
-//        System.out.println(str);
-//    }
+
+    public static void main(String[] args){
+        AnswerQuestionService messageService = new AnswerQuestionServiceImp();
+//        HashMap m1 = new HashMap();
+//        m1.put("openId", "8");
+//        m1.put("classId", "31");
+//        m1.put("content", "你好");
+       String  str = messageService.getUserRank();
+        System.out.println(str);
+    }
 }

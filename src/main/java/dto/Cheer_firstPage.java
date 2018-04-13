@@ -10,6 +10,16 @@ public class Cheer_firstPage {
     private String slogan;
     private String firstImg;
 
+    public String getClassId() {
+        return classId;
+    }
+
+    public void setClassId(String classId) {
+        this.classId = classId;
+    }
+
+    private String classId;
+
     public String getClassName() {
         return className;
     }
