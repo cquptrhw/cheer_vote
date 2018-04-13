@@ -11,9 +11,8 @@ import com.sun.org.apache.xml.internal.security.keys.content.KeyValue;
 import dto.user_assistance;
 import org.json.JSONException;
 import service.AssistanceService;
-
 import java.sql.SQLException;
-import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
