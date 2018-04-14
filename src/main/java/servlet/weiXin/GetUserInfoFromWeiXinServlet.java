@@ -82,19 +82,29 @@ public class GetUserInfoFromWeiXinServlet extends HttpServlet {
             nickname = UrlUtil.getURLDecoderString(nickname);
             imgurl = UrlUtil.getURLDecoderString(imgurl);
             openid =UrlUtil.getURLDecoderString(openid);
-            Map<String,String> userInfo = new HashMap<>();
-            userInfo.put("openId",openid);
-            userInfo.put("headImgUrl",imgurl);
-            userInfo.put("nickName",nickname);
-            session.setAttribute("User",userInfo);
-            boolean res = weiXinService.insertUserInfo(userInfo);
-            if(!res){
-                String str = "false";
-                response.setContentType("text/JavaScript; charset=utf-8");
-                response.getWriter().println(str);
+            //判断数据库是否存在
+            Map<String, String> mysqlUser = weiXinService.getUserInfo(openid);
+            if(mysqlUser == null || mysqlUser.isEmpty()){
+                Map<String,String> userInfo = new HashMap<>();
+                userInfo.put("openId",openid);
+                userInfo.put("headImgUrl",imgurl);
+                userInfo.put("nickName",nickname);
+                session.setAttribute("User",userInfo);
+                boolean res = weiXinService.insertUserInfo(userInfo);
+                if(!res){
+                    String str = "false";
+                    response.setContentType("text/JavaScript; charset=utf-8");
+                    response.getWriter().println(str);
+                }
             }
 
+
+
         }
+         //要重定向的新位置
+        String site = new String(Const.startPage);
+        response.setStatus(response.SC_MOVED_TEMPORARILY);
+        response.setHeader("Location", site);
         return ;
     }
 }
