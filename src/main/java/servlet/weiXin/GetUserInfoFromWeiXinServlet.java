@@ -69,7 +69,7 @@ public class GetUserInfoFromWeiXinServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
-        String user = (String)(session.getAttribute("User"));
+        Map user = (Map) session.getAttribute("User");
         if (user == null || user.isEmpty()) {
             String openid = request.getParameter("openid");
             String nickname = request.getParameter("nickname");
