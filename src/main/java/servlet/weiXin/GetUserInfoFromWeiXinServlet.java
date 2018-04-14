@@ -4,6 +4,8 @@ import Imp.WeiXinServiceImp;
 import service.WeiXinService;
 
 import util.JsonUtil;
+import util.UrlUtil;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Map;
 
-import static org.apache.catalina.util.RequestUtil.URLDecode;
+
 
 /**
  * @Author: REN
@@ -75,9 +77,9 @@ public class GetUserInfoFromWeiXinServlet extends HttpServlet {
 //                    response.sendRedirect(redirectUrl);
 //                    return;
 //                }
-            nickname = URLDecode(nickname);
-            imgurl = URLDecode(imgurl);
-            openid = URLDecode(openid);
+            nickname = UrlUtil.getURLDecoderString(nickname);
+            imgurl = UrlUtil.getURLDecoderString(imgurl);
+            openid =UrlUtil.getURLDecoderString(openid);
 
             userInfo.put("openId",openid);
             userInfo.put("headImgUrl",imgurl);
