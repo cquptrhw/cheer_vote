@@ -34,7 +34,7 @@ public class UrlUtil {
         return result;
     }
     public static void main(String[] args) {
-        String str = "测试1";
+        String str = "%E8%92%8B%E5%A4%A9%E6%98%9F";
         System.out.println(getURLEncoderString(str));
         System.out.println(getURLDecoderString(str));
 

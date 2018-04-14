@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -69,7 +70,8 @@ public class GetUserInfoFromWeiXinServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
         String user = (String)(session.getAttribute("User"));
-        Map<String,String> userInfo = JsonUtil.stringToCollect(user);
+        Map<String,String> userInfo = new HashMap<>();
+        userInfo = JsonUtil.stringToCollect(user);
         if (userInfo == null || userInfo.isEmpty()) {
             String openid = request.getParameter("openid");
             String nickname = request.getParameter("nickname");
