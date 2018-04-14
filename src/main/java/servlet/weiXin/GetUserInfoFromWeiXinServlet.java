@@ -3,7 +3,9 @@ package servlet.weiXin;
 import Imp.WeiXinServiceImp;
 import service.WeiXinService;
 
+import util.Const;
 import util.JsonUtil;
+import util.StringUtil;
 import util.UrlUtil;
 
 import javax.servlet.http.HttpServlet;
@@ -69,18 +71,17 @@ public class GetUserInfoFromWeiXinServlet extends HttpServlet {
         String user = (String)(session.getAttribute("User"));
         Map<String,String> userInfo = JsonUtil.stringToCollect(user);
         if (userInfo == null || userInfo.isEmpty()) {
-                String openid = request.getParameter("openid");
-                String nickname = request.getParameter("nickname");
-                String imgurl = request.getParameter("headimgurl");
-//                if (StringUtil.hasBlank(openid, nickname, imgurl)) {
-//                    String redirectUrl = apiUrl + URLEncoder.encode(Const.redirect_uri, "UTF-8");
-//                    response.sendRedirect(redirectUrl);
-//                    return;
-//                }
+            String openid = request.getParameter("openid");
+            String nickname = request.getParameter("nickname");
+            String imgurl = request.getParameter("headimgurl");
+                if (StringUtil.hasBlank(openid, nickname, imgurl)) {
+                    String redirectUrl = Const.user_info + UrlUtil.getURLEncoderString(Const.redirect_uri);
+                    response.sendRedirect(redirectUrl);
+                    return;
+                }
             nickname = UrlUtil.getURLDecoderString(nickname);
             imgurl = UrlUtil.getURLDecoderString(imgurl);
             openid =UrlUtil.getURLDecoderString(openid);
-
             userInfo.put("openId",openid);
             userInfo.put("headImgUrl",imgurl);
             userInfo.put("nickName",nickname);

@@ -21,8 +21,7 @@ public class Menu {
         Button button1 = new Button();
         button1.setType("view");
         button1.setName("啦啦队投票");
-//        button1.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid="+ Const.AppId+"&redirect_uri="+Const.redirect_uri+"&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect");
-        button1.setUrl(Const.user_info+URLEncoder.encode(Const.redirect_uri, "UTF-8"));
+        button1.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid="+ Const.AppId+"&redirect_uri="+Const.redirect_uri+"&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect");
         menu.addButton(button1);
         String result = updateMenu(menu);
         System.out.println(result);
