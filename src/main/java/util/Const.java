@@ -1,5 +1,7 @@
 package util;
 
+
+
 /**
  * @Author: REN
  * @Description:
@@ -22,7 +24,8 @@ public class Const {
     public static final String Token = "bbbbbbbbbb";
     public static final String EncodingAESKey = "C0I2dBIOer5Yv8B9sgto4EVPqst5GKsXWeOVnhSunzY";
     public static final String redirect_uri = "http://fyxmg4.natappfree.cc/getInfo";
-    public static final String startPageUrl = "http://www.newtol.cn:2333/";
+    public static final String user_info ="https://wx.idsbllp.cn/MagicLoop/index.php?s=/addon/Api/Api/oauth&redirect=";
+    public static final String startPageUrl = "http://www.newtol.cn:8000/";
 
 
 }

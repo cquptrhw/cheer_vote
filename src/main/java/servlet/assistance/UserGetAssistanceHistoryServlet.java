@@ -2,7 +2,6 @@ package servlet.assistance;
 
 import Imp.AssistanceServiceImp;
 import Imp.WeiXinServiceImp;
-import controller.AssistanceController;
 import org.json.JSONException;
 import service.AssistanceService;
 import service.WeiXinService;
@@ -26,7 +25,6 @@ public class UserGetAssistanceHistoryServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-
         String openId = weiXinService.getOpenId(session);
         if(openId == null || openId.equals("")){
             String str = "未获取信息";
