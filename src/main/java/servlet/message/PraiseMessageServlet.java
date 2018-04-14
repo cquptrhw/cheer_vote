@@ -2,8 +2,6 @@ package servlet.message;
 
 import Imp.MessageServiceImp;
 import Imp.WeiXinServiceImp;
-import controller.MessageController;
-import org.json.JSONException;
 import service.MessageService;
 import service.WeiXinService;
 import util.GetStringBuffer;

@@ -2,8 +2,7 @@ package servlet.assistance;
 
 import Imp.AssistanceServiceImp;
 import Imp.WeiXinServiceImp;
-import controller.AssistanceController;
-import org.json.JSONException;
+
 import service.AssistanceService;
 import service.WeiXinService;
 import util.JsonUtil;
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 

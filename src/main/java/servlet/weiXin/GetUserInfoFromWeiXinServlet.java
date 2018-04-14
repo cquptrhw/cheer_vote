@@ -2,19 +2,13 @@ package servlet.weiXin;
 
 import Imp.WeiXinServiceImp;
 import service.WeiXinService;
-import util.Const;
-import util.CurlUtil;
-import util.JsonUtil;
-import util.StringUtil;
 
-import javax.servlet.*;
+import util.JsonUtil;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.net.URLEncoder;
-import java.util.HashMap;
 import java.util.Map;
 
 import static org.apache.catalina.util.RequestUtil.URLDecode;

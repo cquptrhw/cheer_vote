@@ -1,8 +1,6 @@
 package servlet.answer;
 
 import Imp.AnswerQuestionServiceImp;
-import controller.AnswerController;
-import org.json.JSONException;
 import service.AnswerQuestionService;
 
 import javax.servlet.ServletException;
@@ -10,7 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 
 public class GetUserRankServlet extends HttpServlet{
     private  static  AnswerQuestionService answerQuestionService = new AnswerQuestionServiceImp();
