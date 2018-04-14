@@ -70,9 +70,7 @@ public class GetUserInfoFromWeiXinServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
         String user = (String)(session.getAttribute("User"));
-        Map<String,String> userInfo = new HashMap<>();
-        userInfo = JsonUtil.stringToCollect(user);
-        if (userInfo == null || userInfo.isEmpty()) {
+        if (user == null || user.isEmpty()) {
             String openid = request.getParameter("openid");
             String nickname = request.getParameter("nickname");
             String imgurl = request.getParameter("headimgurl");
@@ -84,6 +82,7 @@ public class GetUserInfoFromWeiXinServlet extends HttpServlet {
             nickname = UrlUtil.getURLDecoderString(nickname);
             imgurl = UrlUtil.getURLDecoderString(imgurl);
             openid =UrlUtil.getURLDecoderString(openid);
+            Map<String,String> userInfo = new HashMap<>();
             userInfo.put("openId",openid);
             userInfo.put("headImgUrl",imgurl);
             userInfo.put("nickName",nickname);
