@@ -74,11 +74,11 @@ public class GetUserInfoFromWeiXinServlet extends HttpServlet {
             String openid = request.getParameter("openid");
             String nickname = request.getParameter("nickname");
             String imgurl = request.getParameter("headimgurl");
-                if (StringUtil.hasBlank(openid, nickname, imgurl)) {
-                    String redirectUrl = Const.user_info + UrlUtil.getURLEncoderString(Const.redirect_uri);
-                    response.sendRedirect(redirectUrl);
-                    return;
-                }
+            if (StringUtil.hasBlank(openid, nickname, imgurl)) {
+                String redirectUrl = Const.user_info + UrlUtil.getURLEncoderString(Const.redirect_uri);
+                response.sendRedirect(redirectUrl);
+                return;
+            }
             nickname = UrlUtil.getURLDecoderString(nickname);
             imgurl = UrlUtil.getURLDecoderString(imgurl);
             openid =UrlUtil.getURLDecoderString(openid);
@@ -97,11 +97,8 @@ public class GetUserInfoFromWeiXinServlet extends HttpServlet {
                     response.getWriter().println(str);
                 }
             }
-
-
-
         }
-         //要重定向的新位置
+        //要重定向的新位置
         String site = new String(Const.startPage);
         response.setStatus(response.SC_MOVED_TEMPORARILY);
         response.setHeader("Location", site);
