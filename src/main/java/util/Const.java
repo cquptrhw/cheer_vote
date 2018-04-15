@@ -25,7 +25,7 @@ public class Const {
     public static final String EncodingAESKey = "C0I2dBIOer5Yv8B9sgto4EVPqst5GKsXWeOVnhSunzY";
     public static final String redirect_uri = "https://wx.yyeke.com/cheer_vote/getInfo";
     public static final String user_info ="https://wx.idsbllp.cn/MagicLoop/index.php?s=/addon/Api/Api/oauth&redirect=";
-    public static final String startPage = "http://www.newtol.cn:8000/";
+    public static final String startPage = "http://wx.yyeke.com/nodejs/cheerVote/dist/index.html";
 
 
 }
