@@ -96,8 +96,12 @@ public class GetUserInfoFromWeiXinServlet extends HttpServlet {
                     response.setContentType("text/JavaScript; charset=utf-8");
                     response.getWriter().println(str);
                 }
+                mysqlUser = userInfo;
             }
+            user = mysqlUser;
         }
+        //设置session
+        session.setAttribute("User",user);
         //要重定向的新位置
         String site = new String(Const.startPage);
         response.setStatus(response.SC_MOVED_TEMPORARILY);
