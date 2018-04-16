@@ -36,7 +36,10 @@ public class AssistanceServiceImp implements AssistanceService {
         IAssistance iAssistance = session.getMapper(IAssistance.class);
         int i = iAssistance.addUserAssistance(openId,assistance);
         //更改redis数据
-        JedisUtil.getJedis().hset(Const.Assistance,openId, String.valueOf(assistance));
+        Jedis jedis = JedisUtil.getJedis();
+        jedis.hset(Const.Assistance,openId, String.valueOf(assistance));
+        JedisUtil.returnResource(jedis);
+
         session.close();
         if(i!=1){
             return false;
@@ -49,12 +52,13 @@ public class AssistanceServiceImp implements AssistanceService {
     //获取用户的助力数
     @Override
     public int getUserAssistance(String openId) {
-        String num = JedisUtil.getJedis().hget(Const.Assistance,openId);
+        Jedis jedis = JedisUtil.getJedis();
+        String num = jedis.hget(Const.Assistance,openId);
         int assistance = 0;
         //判断redis中是否有助力数
         if(num == null||num.isEmpty()){
             SqlSession session = sqlSessionFactoryUtil.getSqlSessionFactory().openSession();
-            //从mysql获取用户的助力数,若为零就执行插入
+            //从mysql获取用户的助力数,若为NULL就执行插入
             IAssistance iAssistance = session.getMapper(IAssistance.class);
                 //判断Mysql中是否存在
                 Integer k = iAssistance.getUserAssistance(openId);
@@ -75,8 +79,8 @@ public class AssistanceServiceImp implements AssistanceService {
             assistance = Integer.parseInt(num);
         }
         //插入redis进行缓存
-        JedisUtil.getJedis().hset(Const.Assistance,openId, String.valueOf(assistance));
-
+        jedis.hset(Const.Assistance,openId, String.valueOf(assistance));
+        JedisUtil.returnResource(jedis);
         return assistance;
     }
 
@@ -87,7 +91,6 @@ public class AssistanceServiceImp implements AssistanceService {
         IAssistance iAssistance = session.getMapper(IAssistance.class);
         List<Assistance_history> assistance_historyList=iAssistance.getAssistanceHistory(openId);
         String str = JsonUtil.toJSONString(assistance_historyList);
-//        System.out.println(str);
         session.close();
         return str;
     }
@@ -98,6 +101,7 @@ public class AssistanceServiceImp implements AssistanceService {
         SqlSession session = sqlSessionFactoryUtil.getSqlSessionFactory().openSession();
         IAssistance iAssistance = session.getMapper(IAssistance.class);
         int i = iAssistance.updateCheerAssistance(user_assistanceList);
+        session.close();
         if(i!=0){
             return true;
         }else {
@@ -112,6 +116,7 @@ public class AssistanceServiceImp implements AssistanceService {
         IAssistance iAssistance = session.getMapper(IAssistance.class);
         List<Cheer_assistance> cheer_assistanceList =  iAssistance.getCheerDistance(list);
         String str = JsonUtil.toJSONString(cheer_assistanceList);
+        session.close();
         return str;
     }
     //获取战队排行
@@ -126,22 +131,23 @@ public class AssistanceServiceImp implements AssistanceService {
             group_rank.setClassName(group);
         }
         String str = JsonUtil.toJSONString(group_rankList);
+        session.close();
         return str;
     }
     //获取战队成员
     @Override
     public String getCheerNameByGroupId(String groupId) {
         //从redis中获取组队信息
-        String group = JedisUtil.getJedis().hget(Const.Group,groupId);
-
+        Jedis jedis = JedisUtil.getJedis();
+        String group = jedis.hget(Const.Group,groupId);
         if(group==null||group.isEmpty()){   //判断redis中是否存在
             SqlSession session = sqlSessionFactoryUtil.getSqlSessionFactory().openSession();
             IAssistance iAssistance = session.getMapper(IAssistance.class);
             List list= iAssistance.getCheerNameByGroupId(groupId);
             group = JsonUtil.toJSONString(list);
-            JedisUtil.getJedis().hset(Const.Group,groupId,group);
+            jedis.hset(Const.Group,groupId,group);
         }
-
+        JedisUtil.returnResource(jedis);
         return group;
     }
 
@@ -163,7 +169,8 @@ public class AssistanceServiceImp implements AssistanceService {
 //        list.add(3);
 //        list.add(1);
 //        System.out.println(JsonUtil.toJSONString(list));
-        String str = assistanceService.getGroupRank();
+//        String str = assistanceService.getGroupRank();
+        int str = assistanceService.getUserAssistance("aa");
         System.out.println(str);
     }
 

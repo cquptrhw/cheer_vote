@@ -22,6 +22,7 @@ public class WeiXinServiceImp implements WeiXinService{
         SqlSession session = sqlSessionFactoryUtil.getSqlSessionFactory().openSession();
         IUser iUser = session.getMapper(IUser.class);
         int i = iUser.insertUserInfo(userInfo);
+        session.close();
         if(i!=0){
             return true;
         }else {
@@ -45,7 +46,6 @@ public class WeiXinServiceImp implements WeiXinService{
         if(!(user == null || user.isEmpty())) {
             openId = user.get("openId");
         }
-        System.out.println(user);
         return openId;
     }
 

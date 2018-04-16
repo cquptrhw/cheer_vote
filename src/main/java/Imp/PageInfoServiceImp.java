@@ -30,6 +30,7 @@ public class PageInfoServiceImp implements PageInfoService {
         IPageInfo iPageInfo = session.getMapper(IPageInfo.class);
         List<Cheer_firstPage>  cheer_firstPageList= iPageInfo.getCheerFirstPage();
         String str = JsonUtil.toJSONString(cheer_firstPageList);
+        session.close();
         return str;
     }
     //获取啦啦队详情页信息
@@ -39,6 +40,7 @@ public class PageInfoServiceImp implements PageInfoService {
         IPageInfo iPageInfo = session.getMapper(IPageInfo.class);
         Cheer_info cheer_infoList = iPageInfo.getCheerInfo(classId);
         String str = JsonUtil.toJSONString(cheer_infoList);
+        session.close();
         return str;
     }
     //获取启动页信息
@@ -53,7 +55,6 @@ public class PageInfoServiceImp implements PageInfoService {
         startPage.putAll(rightNumMap);
         startPage.putAll(todayNumMap);
         String str = JsonUtil.toJSONString(startPage);
-        System.out.println(str);
         return str;
     }
     //获取启动页助力信息
@@ -69,6 +70,7 @@ public class PageInfoServiceImp implements PageInfoService {
 //        System.out.println(JsonUtil.toJSONString(res));
         //初始化返回值的map
         Map<String,String> startPage =getPercentUtil(res,"assistance");
+        session.close();
         return startPage;
     }
     //获取启动页正确答对的排行
@@ -84,7 +86,9 @@ public class PageInfoServiceImp implements PageInfoService {
 //        System.out.println(JsonUtil.toJSONString(res));
         //获取所占百分比
         Map<String,String> startPage = getPercentUtil(res,"rightNum");
+        session.close();
         return startPage;
+
     }
 
     @Override
@@ -99,6 +103,7 @@ public class PageInfoServiceImp implements PageInfoService {
 //        System.out.println(JsonUtil.toJSONString(res));
         //获取所占百分比
         Map<String,String> startPage = getPercentUtil(res,"todayNum");
+        session.close();
         return startPage;
     }
 
@@ -136,6 +141,7 @@ public class PageInfoServiceImp implements PageInfoService {
         IPageInfo iPageInfo = session.getMapper(IPageInfo.class);
         List<Cheer_playerInfo> cheer_playerInfos = iPageInfo.getCheerPlayerInfo(classId);
         String str = JsonUtil.toJSONString(cheer_playerInfos);
+        session.close();
         return str;
     }
 

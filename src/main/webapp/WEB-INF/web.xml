@@ -42,7 +42,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>indexServlet</servlet-name>
-    <servlet-class>servlet.weiXin.indexServlet</servlet-class>
+    <servlet-class>servlet.weiXin.IndexServlet</servlet-class>
   </servlet>
 
 

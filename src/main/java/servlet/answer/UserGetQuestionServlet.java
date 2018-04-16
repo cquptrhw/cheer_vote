@@ -21,7 +21,7 @@ public class UserGetQuestionServlet extends HttpServlet{
         HttpSession session = req.getSession();
         String openId = weiXinService.getOpenId(session);
         if(openId == null || openId.equals("")){
-            String str = "未获取信息";
+            String str = "未获取身份信息";
             resp.setContentType("text/html;charset=utf-8");
             resp.getWriter().println(str);
             return;

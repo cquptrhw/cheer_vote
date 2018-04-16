@@ -2,6 +2,7 @@ package Imp;
 
 import dao.LuckUser;
 import org.apache.ibatis.session.SqlSession;
+import redis.clients.jedis.Jedis;
 import service.GetLuckUserService;
 import util.*;
 
@@ -41,15 +42,17 @@ public class GetLuckUserServiceImp implements GetLuckUserService {
     //查询当日的幸运用户
     @Override
     public String getLuckUserList() {
-        String str = JedisUtil.getString(Const.LuckUser);
+        Jedis jedis = JedisUtil.getJedis();
+        String str = jedis.get(Const.LuckUser);
         if(str== null||str.isEmpty()){
             //如果从redis没有查到，就去mysql获取
             SqlSession session = sqlSessionFactoryUtil.getSqlSessionFactory().openSession();
             LuckUser luckUser = session.getMapper(LuckUser.class);
-           str =  luckUser.getLuckUserList();
+            str =  luckUser.getLuckUserList();
            //将查询结果插入redis
-            JedisUtil.setString(Const.LuckUser,str);
+            jedis.set(Const.LuckUser,str);
         }
+        JedisUtil.returnResource(jedis);
         return str;
     }
 

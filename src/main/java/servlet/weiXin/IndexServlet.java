@@ -30,7 +30,7 @@ import java.util.Map;
  * @Description:
  * @Date: Created in 20:01 2018/4/8
  */
-public class indexServlet extends HttpServlet{
+public class IndexServlet extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {

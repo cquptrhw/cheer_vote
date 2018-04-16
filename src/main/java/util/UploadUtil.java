@@ -61,8 +61,7 @@ public class UploadUtil {
 
         // 构造临时路径来存储上传的文件
         // 这个路径相对当前应用的目录
-//        String uploadPath = request.getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY;
-        String uploadPath = new File(request.getServletContext().getRealPath("")).getParentFile().getAbsolutePath() + File.separator + UPLOAD_DIRECTORY ;
+        String uploadPath = request.getServletContext().getRealPath("./") + File.separator + UPLOAD_DIRECTORY;
 
         // 如果目录不存在则创建
         File uploadDir = new File(uploadPath);
@@ -85,7 +84,7 @@ public class UploadUtil {
                 } else {
                     String type = item.getFieldName();
                     String fileName = new File(item.getName()).getName();
-                    String filePath = uploadPath + "/upload/" + fileName;
+                    String filePath = uploadPath + fileName;
                     File storeFile = new File(filePath);
                     // 在控制台输出文件的上传路径
                     map.put(type, filePath);

@@ -5,6 +5,7 @@ import Imp.WeiXinServiceImp;
 import dto.user_assistance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import redis.clients.jedis.Jedis;
 import service.AssistanceService;
 import service.WeiXinService;
 import util.*;
@@ -42,9 +43,11 @@ public class UpdateCheerAssistanceServlet extends HttpServlet{
         String nonce = jsonMap.get("nonce");
         String signature = jsonMap.get("signature");
 
+
+        Jedis jedis = JedisUtil.getJedis();
+
         //获取openId
         HttpSession session = req.getSession();
-
         String openId = weiXinService.getOpenId(session);
         if(openId == null || openId.equals("")){
             str = "未获取信息";
@@ -53,7 +56,7 @@ public class UpdateCheerAssistanceServlet extends HttpServlet{
             return;
         }
 
-        if(JedisUtil.getString("IsAssistance"+openId)=="1"){
+        if(jedis.get("IsAssistance"+openId)== "1"){
             str = "别投得太快，稍微休息一下";
             resp.setContentType("text/html;charset=utf-8");
             resp.getWriter().println(str);

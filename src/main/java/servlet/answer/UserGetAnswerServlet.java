@@ -30,26 +30,17 @@ public class UserGetAnswerServlet extends HttpServlet{
         String data = GetStringBuffer.getString(req);
         System.out.println(data);
         Map<String,String> jsonMap = JsonUtil.stringToCollect(data);
-        System.out.println("jsonMap"+jsonMap);
+//        System.out.println("jsonMap"+jsonMap);
         //获取openId
         HttpSession session = req.getSession();
         String openId = weiXinService.getOpenId(session);
         if(openId == null || openId.equals("")){
-            String str = "未获取信息";
+            String str = "未获取身份信息";
             System.out.println("no info");
             resp.setContentType("text/html;charset=utf-8");
             resp.getWriter().println(str);
             return;
         }
-
-//        //判断是否在答题
-//        if(JedisUtil.getString("IsAnswer"+openId)=="1"){
-//            String str = "别投得太快，稍微休息一下";
-//            resp.setContentType("text/html;charset=utf-8");
-//            resp.getWriter().println(str);
-//            return;
-//        }
-//        JedisUtil.setString("IsAnswer"+openId,"1");
         //获取参数
         String str = null;
         String string = jsonMap.get("string");
@@ -60,6 +51,7 @@ public class UserGetAnswerServlet extends HttpServlet{
         String userAnswer ;
         String rightAnswer ;
         try {
+            //验证数据
            boolean res1 = DataUtil.getData(timestamp,nonce,string,signature);
            if(res1){
                //获取数据
@@ -68,11 +60,11 @@ public class UserGetAnswerServlet extends HttpServlet{
                map.put("openId",openId);
                //判断用户是否已经答过此题
                boolean re =answerQuestionService.isAnswer(map);
-               if(re){
-                   //答过此题
+               if(re){     //答过此题
                    str = "你今天答过此题了哦";
                    resp.setContentType("text/html;charset=utf-8");
                    resp.getWriter().println(str);
+                   return;
                }else {    //没有答过
                    //获取正确答案
                    questionId = String.valueOf(map.get("questionId"));
@@ -80,10 +72,7 @@ public class UserGetAnswerServlet extends HttpServlet{
                    rightAnswer =answerQuestionService.getAnswerFromRedis(questionId);
                    //插入正确答案
                    map.put("rightAnswer",rightAnswer);
-//                   System.out.println("成功");
-
-                   if(userAnswer.equals(rightAnswer)&& userAnswer != null){
-                       //回答正确
+                   if(userAnswer.equals(rightAnswer) && userAnswer != null){    //回答正确
                        map.put("status",1);
                        str = JsonUtil.toJSONString(map);
                        //获取用户的助力数
@@ -93,8 +82,7 @@ public class UserGetAnswerServlet extends HttpServlet{
                        if(!res){
                            logger.error("错误信息 ：更新分数错误");
                        }
-                   }else{
-//                       System.out.println("shibai");
+                   }else{    //回答错误
                        map.put("status",0);
                        str = JsonUtil.toJSONString(map);
                    }
@@ -103,20 +91,16 @@ public class UserGetAnswerServlet extends HttpServlet{
                    //插入答题历史
                    answerQuestionService.addAnswerHistory(map);
                }
-
-
            }else {
                str = "请检查数据是否过期，或者数据被修改";
                resp.setContentType("text/html;charset=utf-8");
                resp.getWriter().println(str);
+               return;
            }
-
-
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
             logger.error("错误信息"+e.getMessage());
         }
-//        JedisUtil.setString("IsAnswer"+openId,"0");
         return;
     }
 }

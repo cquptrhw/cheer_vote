@@ -30,6 +30,7 @@ public class UserGetAssistanceServlet extends HttpServlet {
             resp.getWriter().println(str);
             return;
         }
+
         int num = assistanceService.getUserAssistance(openId);
         Map<String,Integer> assistance = new HashMap<>();
         assistance.put("assistance",num);

@@ -25,7 +25,7 @@ public class GetTodayNumServlet extends HttpServlet {
         HttpSession session = req.getSession();
         String openId = weiXinService.getOpenId(session);
         if(openId == null || openId.equals("")){
-            String str = "未获取信息";
+            String str = "未获取到用户身份";
             resp.setContentType("text/html;charset=utf-8");
             resp.getWriter().println(str);
             return;
