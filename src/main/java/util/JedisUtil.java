@@ -182,11 +182,15 @@ public class JedisUtil {
         }
 
         public void run() {
+            String openId = "aa";
+            String questionId = "1";
             Date date = new Date();
             DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String time = format.format(date);
-            JedisUtil.setString("foo", time);
-            String foo = JedisUtil.getString("foo");
+            Jedis jedis =JedisUtil.getJedis();
+            jedis.set(openId,questionId);
+            String foo = jedis.get(openId);
+            JedisUtil.returnResource(jedis);
             System.out.println("存储的时间:" + foo + " 第："+i+"个线程" +"当前时间："+new Timestamp(System.currentTimeMillis()));
         }
     }

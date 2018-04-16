@@ -49,8 +49,7 @@ public class AssistanceServiceImp implements AssistanceService {
     //获取用户的助力数
     @Override
     public int getUserAssistance(String openId) {
-//        String num = JedisUtil.getJedis().hget(Const.Assistance,openId);
-        String num =null;
+        String num = JedisUtil.getJedis().hget(Const.Assistance,openId);
         int assistance = 0;
         //判断redis中是否有助力数
         if(num == null||num.isEmpty()){
@@ -72,9 +71,9 @@ public class AssistanceServiceImp implements AssistanceService {
                 }
                 session.close();
         }
-//        else{
-//            assistance = Integer.parseInt(num);
-//        }
+        else{
+            assistance = Integer.parseInt(num);
+        }
         //插入redis进行缓存
         JedisUtil.getJedis().hset(Const.Assistance,openId, String.valueOf(assistance));
 

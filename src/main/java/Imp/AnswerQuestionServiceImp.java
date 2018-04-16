@@ -127,6 +127,9 @@ public class AnswerQuestionServiceImp implements AnswerQuestionService {
         //往redis中插入答题记录
         String openId = String.valueOf(map.get("openId"));
         String questionId = String.valueOf(map.get("questionId"));
+        if(openId == null|| questionId == null){
+            return false;
+        }
         long diff = Time.getTimeDiff();
         Long res = JedisUtil.getJedis().sadd(Const.IsAnswer+openId,questionId);
         JedisUtil.getJedis().pexpire(Const.IsAnswer+openId,diff);

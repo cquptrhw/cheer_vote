@@ -80,7 +80,7 @@ public class UserGetAnswerServlet extends HttpServlet{
                    rightAnswer =answerQuestionService.getAnswerFromRedis(questionId);
                    //插入正确答案
                    map.put("rightAnswer",rightAnswer);
-                   System.out.println("成功");
+//                   System.out.println("成功");
 
                    if(userAnswer.equals(rightAnswer)&& userAnswer != null){
                        //回答正确
@@ -94,7 +94,7 @@ public class UserGetAnswerServlet extends HttpServlet{
                            logger.error("错误信息 ：更新分数错误");
                        }
                    }else{
-                       System.out.println("shibai");
+//                       System.out.println("shibai");
                        map.put("status",0);
                        str = JsonUtil.toJSONString(map);
                    }
