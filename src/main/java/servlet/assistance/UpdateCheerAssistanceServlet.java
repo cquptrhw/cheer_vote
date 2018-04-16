@@ -31,6 +31,7 @@ public class UpdateCheerAssistanceServlet extends HttpServlet{
     private static  AssistanceService assistanceService = new AssistanceServiceImp();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         req.setCharacterEncoding("utf-8");
         String data = GetStringBuffer.getString(req);
         Map<String,String> jsonMap = JsonUtil.stringToCollect(data);
@@ -51,6 +52,14 @@ public class UpdateCheerAssistanceServlet extends HttpServlet{
             resp.getWriter().println(str);
             return;
         }
+        if(JedisUtil.getString("IsAssistance"+openId)=="1"){
+            str = "别投得太快，稍微休息一下";
+            resp.setContentType("text/html;charset=utf-8");
+            resp.getWriter().println(str);
+            return;
+        }
+
+        JedisUtil.setString("IsAssistance"+openId,"1");
 
         //判断参数
         isNumeric isNum = new isNumeric();//验证是否有非法输入
@@ -63,7 +72,6 @@ public class UpdateCheerAssistanceServlet extends HttpServlet{
                 List<user_assistance> user_assistanceList = JsonUtil.toList(json,user_assistance.class);
                 //加入openId,并判断num是否为数字
                 for (user_assistance user_assistance:user_assistanceList){
-
                     String assistance = user_assistance.getNum();
                     if (isNum.isNumeric(assistance)){
                         acount = acount + Integer.parseInt(assistance);
@@ -82,8 +90,8 @@ public class UpdateCheerAssistanceServlet extends HttpServlet{
                     boolean k  = assistanceService.updateCheerAssistance(user_assistanceList);
                     if(k){
                         //扣除用户助力数
-                        assistance = assistance -acount;
-                        boolean ress =assistanceService.addUserAssistance(openId,assistance);
+                        int assistance1 = assistance - acount;
+                        boolean ress =assistanceService.addUserAssistance(openId,assistance1);
                         if(ress){
                             //助力成功后，重新获取
                             str = assistanceService.getCheerDistance(groupIdList);

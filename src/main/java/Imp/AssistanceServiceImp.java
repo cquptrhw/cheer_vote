@@ -56,22 +56,21 @@ public class AssistanceServiceImp implements AssistanceService {
             SqlSession session = sqlSessionFactoryUtil.getSqlSessionFactory().openSession();
             //从mysql获取用户的助力数,若为零就执行插入
             IAssistance iAssistance = session.getMapper(IAssistance.class);
-            //判断Mysql中是否存在
-            Integer k = iAssistance.getUserAssistance(openId);
-            if(k==null){
-                //不存在就在mysql中插入空数据
-                int i = iAssistance.insertUserAssistance(openId);
-                if(i!=1) {
-                    logger.error("错误原因 :插入失败");
-                }else {
-                    assistance=0;
+                //判断Mysql中是否存在
+                Integer k = iAssistance.getUserAssistance(openId);
+                if(k==null){
+                    //不存在就在mysql中插入空数据
+                    int i = iAssistance.insertUserAssistance(openId);
+                    if(i!=1) {
+                        logger.error("错误原因 :插入失败");
+                    }else {
+                        assistance=0;
+                    }
+                }else{
+                    assistance = k;
                 }
-            }else{
-                assistance = k;
-            }
-            session.close();
+                session.close();
         }else{
-            System.out.println("assistance"+num);
             assistance = Integer.parseInt(num);
         }
         //插入redis进行缓存
