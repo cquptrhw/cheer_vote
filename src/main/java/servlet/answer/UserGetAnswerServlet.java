@@ -42,14 +42,14 @@ public class UserGetAnswerServlet extends HttpServlet{
             return;
         }
 
-        //判断是否在答题
-        if(JedisUtil.getString("IsAnswer"+openId)=="1"){
-            String str = "别投得太快，稍微休息一下";
-            resp.setContentType("text/html;charset=utf-8");
-            resp.getWriter().println(str);
-            return;
-        }
-        JedisUtil.setString("IsAnswer"+openId,"1");
+//        //判断是否在答题
+//        if(JedisUtil.getString("IsAnswer"+openId)=="1"){
+//            String str = "别投得太快，稍微休息一下";
+//            resp.setContentType("text/html;charset=utf-8");
+//            resp.getWriter().println(str);
+//            return;
+//        }
+//        JedisUtil.setString("IsAnswer"+openId,"1");
         //获取参数
         String str = null;
         String string = jsonMap.get("string");
@@ -117,7 +117,7 @@ public class UserGetAnswerServlet extends HttpServlet{
             e.printStackTrace();
             logger.error("错误信息"+e.getMessage());
         }
-        JedisUtil.setString("IsAnswer"+openId,"0");
+//        JedisUtil.setString("IsAnswer"+openId,"0");
         return;
     }
 }
