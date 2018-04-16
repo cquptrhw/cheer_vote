@@ -106,10 +106,11 @@ public class JedisUtil {
                 jedis = jedisPool.getResource();
             }
         } catch (Exception e) {
-            logger.error("Get jedis error : "+e);
-        }finally{
-            returnResource(jedis);
+            logger.error("Get jedis error : " + e);
         }
+//        }finally{
+//            returnResource(jedis);
+//        }
         return jedis;
     }
 
