@@ -54,7 +54,6 @@ public class UserGetAnswerServlet extends HttpServlet{
         String str = null;
         String string = jsonMap.get("string");
         String timestamp = jsonMap.get("timestamp");
-        System.out.println(timestamp);
         String nonce = jsonMap.get("nonce");
         String signature = jsonMap.get("signature");
         String questionId ;
