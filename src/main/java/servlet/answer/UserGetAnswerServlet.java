@@ -8,10 +8,8 @@ import org.slf4j.LoggerFactory;
 import service.AnswerQuestionService;
 import service.AssistanceService;
 import service.WeiXinService;
-import util.DataUtil;
-import util.EncryptUtil;
-import util.GetStringBuffer;
-import util.JsonUtil;
+import util.*;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -43,6 +41,15 @@ public class UserGetAnswerServlet extends HttpServlet{
             resp.getWriter().println(str);
             return;
         }
+
+        //判断是否在答题
+        if(JedisUtil.getString("IsAssistance"+openId)=="1"){
+            String str = "别投得太快，稍微休息一下";
+            resp.setContentType("text/html;charset=utf-8");
+            resp.getWriter().println(str);
+            return;
+        }
+        JedisUtil.setString("IsAssistance"+openId,"1");
         //获取参数
         String str = null;
         String string = jsonMap.get("string");
@@ -110,6 +117,7 @@ public class UserGetAnswerServlet extends HttpServlet{
             e.printStackTrace();
             logger.error("错误信息"+e.getMessage());
         }
+        JedisUtil.setString("IsAssistance"+openId,"0");
         return;
     }
 }

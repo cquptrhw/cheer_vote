@@ -116,7 +116,7 @@ public class UpdateCheerAssistanceServlet extends HttpServlet{
             e.printStackTrace();
             logger.error("错误信息"+e.getMessage());
         }
-
+        JedisUtil.setString("IsAssistance"+openId,"0");
 
         resp.setContentType("text/html;charset=utf-8");
         resp.getWriter().println(str);
