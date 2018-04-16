@@ -35,9 +35,7 @@ public class QuestionServlet extends HttpServlet {
         int  res =adminService.isMainAdmin(session);
         if(res == 1){
             str = "请先登录";
-        }else if (res == 2){
-            str = "请使用主管理员账号进行此操作";
-        } else {
+        }else {
 //            Question ques = new Question();
 //            ques.setTitle(map.get("question"));
 //            ques.setA(map.get("A"));
