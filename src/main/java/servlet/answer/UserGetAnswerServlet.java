@@ -83,7 +83,7 @@ public class UserGetAnswerServlet extends HttpServlet{
                    map.put("rightAnswer",rightAnswer);
                    System.out.println("成功");
 
-                   if(userAnswer.equals(rightAnswer)){
+                   if(userAnswer.equals(rightAnswer)&& userAnswer != null){
                        //回答正确
                        map.put("status",1);
                        str = JsonUtil.toJSONString(map);
