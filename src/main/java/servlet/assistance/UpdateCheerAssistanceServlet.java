@@ -53,14 +53,14 @@ public class UpdateCheerAssistanceServlet extends HttpServlet{
             return;
         }
 
-//        if(JedisUtil.getString("IsAssistance"+openId)=="1"){
-//            str = "别投得太快，稍微休息一下";
-//            resp.setContentType("text/html;charset=utf-8");
-//            resp.getWriter().println(str);
-//            return;
-//        }
+        if(JedisUtil.getString("IsAssistance"+openId)=="1"){
+            str = "别投得太快，稍微休息一下";
+            resp.setContentType("text/html;charset=utf-8");
+            resp.getWriter().println(str);
+            return;
+        }
 
-//        JedisUtil.setString("IsAssistance"+openId,"1");
+        JedisUtil.setString("IsAssistance"+openId,"1");
 
         //判断参数
         isNumeric isNum = new isNumeric();//验证是否有非法输入
@@ -117,7 +117,7 @@ public class UpdateCheerAssistanceServlet extends HttpServlet{
             e.printStackTrace();
             logger.error("错误信息"+e.getMessage());
         }
-//        JedisUtil.setString("IsAssistance"+openId,"0");
+        JedisUtil.setString("IsAssistance"+openId,"0");
 
         resp.setContentType("text/html;charset=utf-8");
         resp.getWriter().println(str);
