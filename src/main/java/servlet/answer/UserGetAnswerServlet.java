@@ -49,7 +49,7 @@ public class UserGetAnswerServlet extends HttpServlet{
             resp.getWriter().println(str);
             return;
         }
-        JedisUtil.setString("IsAssistance"+openId,"1");
+        JedisUtil.setString("IsAnswer"+openId,"1");
         //获取参数
         String str = null;
         String string = jsonMap.get("string");
