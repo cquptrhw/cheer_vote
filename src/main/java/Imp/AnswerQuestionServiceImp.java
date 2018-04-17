@@ -181,7 +181,7 @@ public class AnswerQuestionServiceImp implements AnswerQuestionService {
 //        m1.put("classId", "31");
 //        m1.put("content", "你好");
 //       String  str = messageService.getUserRank();
-        int  str = messageService.getTodayNum("aa");
+        int  str = messageService.getTodayNum("a");
         System.out.println(str);
     }
 }
