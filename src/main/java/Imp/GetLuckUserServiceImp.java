@@ -42,7 +42,7 @@ public class GetLuckUserServiceImp implements GetLuckUserService {
     //查询当日的幸运用户
     @Override
     public String getLuckUserList() {
-        Jedis jedis = JedisUtil.getJedis();
+        Jedis jedis = new Jedis("localhost");
         String str = jedis.get(Const.LuckUser);
         if(str== null||str.isEmpty()){
             //如果从redis没有查到，就去mysql获取
@@ -52,7 +52,7 @@ public class GetLuckUserServiceImp implements GetLuckUserService {
            //将查询结果插入redis
             jedis.set(Const.LuckUser,str);
         }
-        JedisUtil.returnResource(jedis);
+        jedis.close();
         return str;
     }
 

@@ -84,10 +84,10 @@ public class UploadUtil {
                 } else {
                     String type = item.getFieldName();
                     String fileName = new File(item.getName()).getName();
-                    String filePath = uploadPath + fileName;
+                    String filePath = uploadPath +"/"+ fileName;
                     File storeFile = new File(filePath);
                     // 在控制台输出文件的上传路径
-                    map.put(type, filePath);
+                    map.put(type, UPLOAD_DIRECTORY+"/"+fileName);
                     // 保存文件到硬盘
                     item.write(storeFile);
                 }

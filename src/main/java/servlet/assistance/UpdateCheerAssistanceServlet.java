@@ -44,7 +44,7 @@ public class UpdateCheerAssistanceServlet extends HttpServlet{
         String signature = jsonMap.get("signature");
 
 
-        Jedis jedis = JedisUtil.getJedis();
+        Jedis jedis = new Jedis("localhost");
 
         //获取openId
         HttpSession session = req.getSession();
@@ -63,7 +63,7 @@ public class UpdateCheerAssistanceServlet extends HttpServlet{
             return;
         }
 
-        JedisUtil.setString("IsAssistance"+openId,"1");
+        jedis.set("IsAssistance"+openId,"1");
 
         //判断参数
         isNumeric isNum = new isNumeric();//验证是否有非法输入
@@ -120,7 +120,7 @@ public class UpdateCheerAssistanceServlet extends HttpServlet{
             e.printStackTrace();
             logger.error("错误信息"+e.getMessage());
         }
-        JedisUtil.setString("IsAssistance"+openId,"0");
+        jedis.set("IsAssistance"+openId,"0");
 
         resp.setContentType("text/html;charset=utf-8");
         resp.getWriter().println(str);

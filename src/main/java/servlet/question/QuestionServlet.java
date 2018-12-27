@@ -119,7 +119,7 @@ public class QuestionServlet extends HttpServlet {
             str = jsonUtil.listToJsonArray(question_nums);
             System.out.println(str);
         }
-        str=JsonUtil.toJSONString(str);
+        str1=JsonUtil.toJSONString(str);
         resp.setContentType("text/html;charset=utf-8");
         resp.getWriter().println(str1);
 

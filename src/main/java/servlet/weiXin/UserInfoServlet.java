@@ -22,6 +22,7 @@ public class UserInfoServlet extends HttpServlet {
         HttpSession session = req.getSession();
         String str = JsonUtil.toJSONString(session.getAttribute("User"));
         resp.setContentType("text/html;charset=utf-8");
+        System.out.println(str);
         resp.getWriter().println(str);
         return;
     }

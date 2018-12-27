@@ -27,6 +27,7 @@ public class UserGetAnswerServlet extends HttpServlet{
     //获取答案
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         String data = GetStringBuffer.getString(req);
         System.out.println(data);
         Map<String,String> jsonMap = JsonUtil.stringToCollect(data);
@@ -34,6 +35,7 @@ public class UserGetAnswerServlet extends HttpServlet{
         //获取openId
         HttpSession session = req.getSession();
         String openId = weiXinService.getOpenId(session);
+        System.out.println("OPENID"+openId);
         if(openId == null || openId.equals("")){
             String str = "未获取身份信息";
             System.out.println("no info");
@@ -56,12 +58,14 @@ public class UserGetAnswerServlet extends HttpServlet{
            if(res1){
                //获取数据
                String json = EncryptUtil.decryptBASE64(string);
+
                Map map= JsonUtil.stringToCollect(json);
+
                map.put("openId",openId);
                //判断用户是否已经答过此题
                boolean re =answerQuestionService.isAnswer(map);
                if(re){     //答过此题
-                   str = "你今天答过此题了哦";
+                   str = "over";
                    resp.setContentType("text/html;charset=utf-8");
                    resp.getWriter().println(str);
                    return;
@@ -80,26 +84,27 @@ public class UserGetAnswerServlet extends HttpServlet{
                        int num =assistance+1;
                        boolean res = assistanceService.addUserAssistance(openId,num);
                        if(!res){
-                           logger.error("错误信息 ：更新分数错误");
+                           logger.error("goods id error");
                        }
                    }else{    //回答错误
                        map.put("status",0);
                        str = JsonUtil.toJSONString(map);
                    }
                    resp.setContentType("text/html;charset=utf-8");
+                   System.out.println("result"+str);
                    resp.getWriter().println(str);
                    //插入答题历史
                    answerQuestionService.addAnswerHistory(map);
                }
            }else {
-               str = "请检查数据是否过期，或者数据被修改";
+               str = "timeout";
                resp.setContentType("text/html;charset=utf-8");
                resp.getWriter().println(str);
                return;
            }
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-            logger.error("错误信息"+e.getMessage());
+            logger.error("error"+e.getMessage());
         }
         return;
     }

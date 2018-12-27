@@ -2,6 +2,7 @@ package servlet.answer;
 
 import Imp.AnswerQuestionServiceImp;
 import Imp.WeiXinServiceImp;
+import com.alibaba.fastjson.JSONObject;
 import service.AnswerQuestionService;
 import service.WeiXinService;
 
@@ -31,8 +32,11 @@ public class GetTodayNumServlet extends HttpServlet {
             return;
         }
         int todayNum = answerQuestionService.getTodayNum(openId);
+        JSONObject jsonObject1 =new JSONObject();
+        jsonObject1.put("todayNum",todayNum);
+        String str = jsonObject1.toString();
         resp.setContentType("text/html;charset=utf-8");
-        resp.getWriter().println(todayNum);
+        resp.getWriter().println(str);
         return;
     }
 }

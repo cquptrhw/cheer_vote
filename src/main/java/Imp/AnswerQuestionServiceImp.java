@@ -24,7 +24,7 @@ public class AnswerQuestionServiceImp implements AnswerQuestionService {
     //获取今日答题数
     @Override
     public int getTodayNum(String openId) {
-        Jedis jedis = JedisUtil.getJedis();
+        Jedis jedis = new Jedis("localhost");
         String num = jedis.hget(Const.todayNum,openId);
         int todayNum =0;
         if(num == null || num.isEmpty()){
@@ -32,7 +32,7 @@ public class AnswerQuestionServiceImp implements AnswerQuestionService {
         }else{
             todayNum= Integer.parseInt(num);
         }
-        JedisUtil.returnResource(jedis);
+        jedis.close();
         return todayNum;
     }
     //从mysql获取今日答题数
@@ -44,17 +44,17 @@ public class AnswerQuestionServiceImp implements AnswerQuestionService {
         Timestamp[]timeArray = time.getTimePeriod();
         int todayNum = iQuestion.getTodayNumFromMysql(openId,timeArray[0],timeArray[1]);
         session.close();
-        Jedis jedis = JedisUtil.getJedis();
+        Jedis jedis = new Jedis("localhost");
         jedis.hset(Const.todayNum,openId,String.valueOf(todayNum));
         jedis.pexpire(Const.todayNum,Time.getTimeDiff());
-        JedisUtil.returnResource(jedis);
+        jedis.close();
         return todayNum;
     }
 
     //从Redis获取题目
     @Override
     public String getQuestionFromRedis(String openId, int todayNum) {
-        Jedis jedis  = JedisUtil.getJedis();
+        Jedis jedis = new Jedis("localhost");
         String key = Const.questionKey+openId;
         int num = todayNum+1;
         String fileds = Const.questionField+num;
@@ -70,7 +70,7 @@ public class AnswerQuestionServiceImp implements AnswerQuestionService {
         jedis.hset(Const.todayNum,openId,String.valueOf(num));
         jedis.pexpire(Const.todayNum,Time.getTimeDiff());
         question = JsonUtil.toJSONString(map);
-        JedisUtil.returnResource(jedis);
+        jedis.close();
         return question;
     }
     //从mysql获取题目
@@ -82,7 +82,7 @@ public class AnswerQuestionServiceImp implements AnswerQuestionService {
         int num =0;
         SqlSession session = sqlSessionFactoryUtil.getSqlSessionFactory().openSession();
         IQuestion iQuestion = session.getMapper(IQuestion.class);
-        Jedis jedis = JedisUtil.getJedis();
+        Jedis jedis = new Jedis("localhost");
         for(; kind<=5; kind++) {
             List<Qusetion_user> list = iQuestion.getQuestionFromMysql(kind);
             for(Qusetion_user qusetion_user :list){
@@ -101,18 +101,19 @@ public class AnswerQuestionServiceImp implements AnswerQuestionService {
                 jedis.pexpire(key2,diff);
             }
         }
-        JedisUtil.returnResource(jedis);
+        jedis.close();
         session.close();
         return true;
     }
     //从redis获取答案
     @Override
     public String getAnswerFromRedis(String questionId) {
-        Jedis jedis = JedisUtil.getJedis();
+        Jedis jedis = new Jedis("localhost");
         String str = jedis.hget(Const.Answer,questionId);
         if(str == null ||str.isEmpty()){
             str = getAnswerFromMysql(questionId);
         }
+        jedis.close();
         return str;
     }
     //从Mysql获取答案
@@ -133,7 +134,7 @@ public class AnswerQuestionServiceImp implements AnswerQuestionService {
         int i = iQuestion.insertAnswerHistory(map);
         session.close();
         //往redis中插入答题记录
-        Jedis jedis = JedisUtil.getJedis();
+        Jedis jedis = new Jedis("localhost");
         String openId = String.valueOf(map.get("openId"));
         String questionId = String.valueOf(map.get("questionId"));
         if(openId == null|| questionId == null){
@@ -142,6 +143,7 @@ public class AnswerQuestionServiceImp implements AnswerQuestionService {
         long diff = Time.getTimeDiff();
         Long res =jedis.sadd(Const.IsAnswer+openId,questionId);
        jedis.pexpire(Const.IsAnswer+openId,diff);
+       jedis.close();
         if(i != 1 || res != 1){
             logger.error("错误信息 :"+openId+"插入答题历史错误");
             return false;
@@ -154,9 +156,11 @@ public class AnswerQuestionServiceImp implements AnswerQuestionService {
     public boolean isAnswer(Map map) {
         String openId = String.valueOf(map.get("openId"));
         String questionId = String.valueOf(map.get("questionId"));
-        Jedis jedis = JedisUtil.getJedis();
+        Jedis jedis = new Jedis("localhost");
+        System.out.println(openId);
+        System.out.println(questionId);
         boolean res = jedis.sismember(Const.IsAnswer+openId,questionId);
-        JedisUtil.returnResource(jedis);
+        jedis.close();
         return res;
     }
     //获取用户答题榜单
@@ -165,7 +169,7 @@ public class AnswerQuestionServiceImp implements AnswerQuestionService {
         SqlSession session = sqlSessionFactoryUtil.getSqlSessionFactory().openSession();
         IQuestion iQuestion = session.getMapper(IQuestion.class);
         final Time time = new Time();
-        Timestamp[]timeArray = time.getTimePeriod();
+        Timestamp[]timeArray = time.getTimePeriodList();
         System.out.println(timeArray[0]+".."+timeArray[1]);
         List<LuckUser> luckUserList = iQuestion.getUserRank(timeArray[0],timeArray[1]);
         String str = JsonUtil.toJSONString(luckUserList);

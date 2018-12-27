@@ -1,9 +1,10 @@
 package Listener;
 
 import Imp.GetLuckUserServiceImp;
+import redis.clients.jedis.Jedis;
 import service.GetLuckUserService;
 import util.Const;
-import util.JedisUtil;
+
 import util.Time;
 
 import javax.servlet.ServletContextEvent;
@@ -25,6 +26,7 @@ public class getLuckUser  implements ServletContextListener {
         final Time time = new Time();
         final long diff= time.getTimeDiff();
         System.out.println(diff);
+        final Jedis jedis = new Jedis("localhost");
         //设置自启方法 晚上八点获取幸运用户
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -33,7 +35,7 @@ public class getLuckUser  implements ServletContextListener {
                  //得到幸运用户选取的时间段
                 String str = getLuckUserService.getLuckUser();
                 //写入redis
-                JedisUtil.setString(Const.LuckUser,str);
+                jedis.set(Const.LuckUser,str);
                 //写入mysql
                 getLuckUserService.insertLuckUser(str);
             }
@@ -45,5 +47,13 @@ public class getLuckUser  implements ServletContextListener {
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
 
+    }
+
+    public static void main(String[] args) {
+        int i,sum = 0;
+        for(i=0;i<10;++i,sum+=i){
+            System.out.println(i);
+        }
+        System.out.println(i);
     }
 }

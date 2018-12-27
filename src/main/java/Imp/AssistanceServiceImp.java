@@ -13,11 +13,9 @@ import redis.clients.jedis.Jedis;
 import service.AssistanceService;
 import servlet.answer.UserGetAnswerServlet;
 import util.Const;
-import util.JedisUtil;
+;
 import util.JsonUtil;
 import util.SqlSessionFactoryUtil;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,9 +34,9 @@ public class AssistanceServiceImp implements AssistanceService {
         IAssistance iAssistance = session.getMapper(IAssistance.class);
         int i = iAssistance.addUserAssistance(openId,assistance);
         //更改redis数据
-        Jedis jedis = JedisUtil.getJedis();
+        Jedis jedis = new Jedis("localhost");
         jedis.hset(Const.Assistance,openId, String.valueOf(assistance));
-        JedisUtil.returnResource(jedis);
+        jedis.close();
 
         session.close();
         if(i!=1){
@@ -52,8 +50,9 @@ public class AssistanceServiceImp implements AssistanceService {
     //获取用户的助力数
     @Override
     public int getUserAssistance(String openId) {
-        Jedis jedis = JedisUtil.getJedis();
+        Jedis jedis = new Jedis("localhost");
         String num = jedis.hget(Const.Assistance,openId);
+        System.out.println("NUm"+num);
         int assistance = 0;
         //判断redis中是否有助力数
         if(num == null||num.isEmpty()){
@@ -80,7 +79,7 @@ public class AssistanceServiceImp implements AssistanceService {
         }
         //插入redis进行缓存
         jedis.hset(Const.Assistance,openId, String.valueOf(assistance));
-        JedisUtil.returnResource(jedis);
+        jedis.close();
         return assistance;
     }
 
@@ -138,7 +137,7 @@ public class AssistanceServiceImp implements AssistanceService {
     @Override
     public String getCheerNameByGroupId(String groupId) {
         //从redis中获取组队信息
-        Jedis jedis = JedisUtil.getJedis();
+        Jedis jedis = new Jedis("localhost");
         String group = jedis.hget(Const.Group,groupId);
         if(group==null||group.isEmpty()){   //判断redis中是否存在
             SqlSession session = sqlSessionFactoryUtil.getSqlSessionFactory().openSession();
@@ -146,8 +145,9 @@ public class AssistanceServiceImp implements AssistanceService {
             List list= iAssistance.getCheerNameByGroupId(groupId);
             group = JsonUtil.toJSONString(list);
             jedis.hset(Const.Group,groupId,group);
+            session.close();
         }
-        JedisUtil.returnResource(jedis);
+        jedis.close();
         return group;
     }
 

@@ -64,7 +64,7 @@ public class PageInfoServiceImp implements PageInfoService {
         IPageInfo iPageInfo = session.getMapper(IPageInfo.class);
         //获取查询的时间段
         final Time time = new Time();
-        Timestamp[]timeArray = time.getTimePeriod();
+        Timestamp[]timeArray = time.getTimePeriodList();
         //获取查询结果
         Map<String,Integer> res=iPageInfo.getAssistanceRankInfo(openId,timeArray[0],timeArray[1]);
 //        System.out.println(JsonUtil.toJSONString(res));
@@ -80,7 +80,7 @@ public class PageInfoServiceImp implements PageInfoService {
         IPageInfo iPageInfo = session.getMapper(IPageInfo.class);
         //获取查询的时间段
         final Time time = new Time();
-        Timestamp[]timeArray = time.getTimePeriod();
+        Timestamp[]timeArray = time.getTimePeriodList();
         //获取查询结果
         Map<String,Integer> res=iPageInfo.getRightAnswerNumRankInfo(openId,timeArray[0],timeArray[1]);
 //        System.out.println(JsonUtil.toJSONString(res));
@@ -97,7 +97,7 @@ public class PageInfoServiceImp implements PageInfoService {
         IPageInfo iPageInfo = session.getMapper(IPageInfo.class);
         //获取查询的时间段
         final Time time = new Time();
-        Timestamp[]timeArray = time.getTimePeriod();
+        Timestamp[]timeArray = time.getTimePeriodList();
         //获取查询结果
         Map<String,Integer> res=iPageInfo.getTodayNumRankInfo(openId,timeArray[0],timeArray[1]);
 //        System.out.println(JsonUtil.toJSONString(res));

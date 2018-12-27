@@ -1,6 +1,5 @@
 package util;
 
-import Imp.AssistanceServiceImp;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -8,10 +7,6 @@ import com.alibaba.fastjson.serializer.JSONLibDataFormatSerializer;
 import com.alibaba.fastjson.serializer.SerializeConfig;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.sun.org.apache.xml.internal.security.keys.content.KeyValue;
-import dto.user_assistance;
-import org.json.JSONException;
-import service.AssistanceService;
-import java.sql.SQLException;
 
 import java.util.List;
 import java.util.Map;
@@ -119,26 +114,26 @@ public class JsonUtil {
         return s;
     }
 
-    public static void main(String[] args) throws SQLException, JSONException {
-        JSONObject jsonObject =new JSONObject();
-        jsonObject.put("classId",2);
-        jsonObject.put("groupId",3);
-        jsonObject.put("num",5);
-        jsonObject.put("openId","aaa");
-        JSONArray jsonArray = new JSONArray();
-        jsonArray.add(jsonObject);
-        JSONObject jsonObject1 =new JSONObject();
-        jsonObject1.put("classId",2);
-        jsonObject1.put("groupId",7);
-        jsonObject1.put("num",5);
-        jsonObject1.put("openId","bbb");
-        jsonArray.add(jsonObject1);
-        String str = jsonArray.toString();
-        List<user_assistance> user_assistanceList = toList(str, user_assistance.class);
-        AssistanceService assistanceService = new AssistanceServiceImp();
-        assistanceService.updateCheerAssistance(user_assistanceList);
-        System.out.println(toJSONString(toList(str, user_assistance.class)));
-    }
+//    public static void main(String[] args) throws SQLException, JSONException {
+//        JSONObject jsonObject =new JSONObject();
+//        jsonObject.put("classId",2);
+//        jsonObject.put("groupId",3);
+//        jsonObject.put("num",5);
+//        jsonObject.put("openId","aaa");
+//        JSONArray jsonArray = new JSONArray();
+//        jsonArray.add(jsonObject);
+//        JSONObject jsonObject1 =new JSONObject();
+//        jsonObject1.put("classId",2);
+//        jsonObject1.put("groupId",7);
+//        jsonObject1.put("num",5);
+//        jsonObject1.put("openId","bbb");
+//        jsonArray.add(jsonObject1);
+//        String str = jsonArray.toString();
+//        List<user_assistance> user_assistanceList = toList(str, user_assistance.class);
+//        AssistanceService assistanceService = new AssistanceServiceImp();
+//        assistanceService.updateCheerAssistance(user_assistanceList);
+//        System.out.println(toJSONString(toList(str, user_assistance.class)));
+//    }
 
 
 }

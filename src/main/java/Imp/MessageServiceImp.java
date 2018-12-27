@@ -5,7 +5,6 @@ import dto.Message_user;
 import org.apache.ibatis.session.SqlSession;
 import redis.clients.jedis.Jedis;
 import service.MessageService;
-import util.JedisUtil;
 import util.JsonUtil;
 import util.SqlSessionFactoryUtil;
 
@@ -38,12 +37,15 @@ public class MessageServiceImp implements MessageService {
     //判断用户是否已经登录
     @Override
     public String isLogin(String sessionId) {
-        String openId = JedisUtil.getString(sessionId);
+        Jedis jedis = new Jedis("localhost");
+        String openId = jedis.get(sessionId);
+        jedis.close();
         if(openId == null || openId.isEmpty()){
             return null;
         }else {
             return openId;
         }
+
     }
     //用户点赞
     @Override
@@ -89,14 +91,18 @@ public class MessageServiceImp implements MessageService {
     @Override
     public boolean isPraise(String openId ,String contentId) {
         String key="message :"+contentId;
-        boolean i =JedisUtil.getJedis().sismember(key,openId);
+        Jedis jedis = new Jedis("localhost");
+        boolean i = jedis.sismember(key,openId);
+        jedis.close();
         return i;
     }
     //将用户插入点赞列表
     @Override
     public Long insertOpenIdToRedis(String openId, String contentId){
         String key="message :"+contentId;
-        Long i =JedisUtil.getJedis().sadd(key,openId);
+        Jedis jedis = new Jedis("localhost");
+        Long i =jedis.sadd(key,openId);
+        jedis.close();
         return i;
     }
     //获取文章的点赞数
@@ -104,7 +110,8 @@ public class MessageServiceImp implements MessageService {
     public Long getPraiseById(String contentId) {
         String key="message :"+contentId;
 //        System.out.println(key);
-        Jedis jedis= JedisUtil.getJedis();
+
+        Jedis jedis = new Jedis("localhost");
         long  i=jedis.scard(key);
 //        System.out.println(i);
         return i;

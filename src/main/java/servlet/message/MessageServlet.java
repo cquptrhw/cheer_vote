@@ -37,10 +37,13 @@ public class MessageServlet extends HttpServlet {
     //上传留言
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        //获取参数
+        String str = null;
+        req.setCharacterEncoding("utf-8");
         String data = GetStringBuffer.getString(req);
         Map<String,String> jsonMap = JsonUtil.stringToCollect(data);
         //获取参数
-        String str = null;
         String string = jsonMap.get("string");
         String timestamp = jsonMap.get("timestamp");
         String nonce = jsonMap.get("nonce");
@@ -83,7 +86,8 @@ public class MessageServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int  page = Integer.parseInt(req.getParameter("page"));
+//        int  page = Integer.parseInt(req.getParameter("page"));
+        int page=1;
         String classId = req.getParameter("classId");
         String str = messageService.getMessageList(classId,page);
         resp.setContentType("text/html;charset=utf-8");

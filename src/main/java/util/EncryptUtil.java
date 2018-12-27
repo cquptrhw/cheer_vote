@@ -1,9 +1,4 @@
 package util;
-
-import Imp.AssistanceServiceImp;
-import com.alibaba.fastjson.JSONArray;
-import org.json.JSONObject;
-import service.AssistanceService;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
@@ -11,8 +6,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @Author: REN
@@ -62,6 +55,7 @@ public class EncryptUtil {
         try {
             bt = (new BASE64Decoder()).decodeBuffer(key);
             return new String(bt,"utf-8");//如果出现乱码可以改成： String(bt, "utf-8")或 gbk
+
         } catch (IOException e) {
             e.printStackTrace();
             return "";
@@ -148,17 +142,19 @@ public class EncryptUtil {
 //        jsonObject.put("num",5);
 //        JSONArray jsonArray = new JSONArray();
 //        jsonArray.add(jsonObject);
-//        com.alibaba.fastjson.JSONObject jsonObject1 =new com.alibaba.fastjson.JSONObject();
-//        jsonObject1.put("classId",2);
-//        jsonObject1.put("groupId",7);
-//        jsonObject1.put("num",5);
-//        jsonArray.add(jsonObject1);
+        com.alibaba.fastjson.JSONObject jsonObject1 =new com.alibaba.fastjson.JSONObject();
+        jsonObject1.put("classId",2);
+        jsonObject1.put("groupId",7);
+        jsonObject1.put("num",5);
+        //jsonArray.add(jsonObject1);
 
-//        //将json转为string
-//        String data = jsonArray.toString();
-//        System.out.println(data);
-//        //对string进行base64编码
-//        String string1 = encryptBASE64(data);
+        //将json转为string
+        //String data = jsonArray.toString();
+        String data = jsonObject1.toString();
+        System.out.println(data);
+        //对string进行base64编码
+        String string1 = encryptBASE64(data);
+        System.out.println(string1);
 //        //获取unix时间戳
 //        String timeStamp = String.valueOf((System.currentTimeMillis()/1000));
 //        //随机获取的字符串
@@ -166,7 +162,7 @@ public class EncryptUtil {
 //        //获取到的signature
 //        String  signature = EncryptUtil.sha1(EncryptUtil.md5(string1+timeStamp+nonce)+"cheer_vote");
 //        System.out.println("signature : " +str );
-        boolean res =DataUtil.getData("1523587709","a","eyJxdWVzdGlvbklkIjoyMDYsImFuc3dlciI6IkEifQ==","25b639e0115eb8f6334a6858908ce1543ef92a13");
+        //boolean res =DataUtil.getData("1523587709","a","eyJxdWVzdGlvbklkIjoyMDYsImFuc3dlciI6IkEifQ==","25b639e0115eb8f6334a6858908ce1543ef92a13");
 //        System.out.println(JsonUtil.toJSONString(map));
 
     }

@@ -1,5 +1,6 @@
 package Imp;
 
+import com.alibaba.fastjson.JSONException;
 import dao.IAdmin;
 import dto.Cheer_result;
 import dto.MyAdmin;
@@ -7,9 +8,11 @@ import dto.Question;
 import dto.Question_num;
 import org.apache.ibatis.session.SqlSession;
 import service.AdminService;
+import util.JsonUtil;
 import util.SqlSessionFactoryUtil;
 
 import javax.servlet.http.HttpSession;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -171,20 +174,25 @@ public  class AdminServiceImp implements AdminService {
         }
     }
 
-//    public static void main(String[] args) throws SQLException, JSONException {
+//    public static void main(String[] args) {
 //        AdminService adminService = new AdminServiceImp();
-//        Question ques = new Question();
-//        ques.setTitle("question");
-//        ques.setA("A");
-//        ques.setB("B");
-//        ques.setC("C");
-//        ques.setD("D");
-//        ques.setAnswer("answer");
-//        ques.setKind("kind");
-//        ques.setQuestionId(2);
-//        int i = adminService.updateQuestionById(ques);
+////        Question ques = new Question();
+////        ques.setTitle("question");
+////        ques.setA("A");
+////        ques.setB("B");
+////        ques.setC("C");
+////        ques.setD("D");
+////        ques.setAnswer("answer");
+////        ques.setKind("kind");
+////        ques.setQuestionId(2);
+////        int i = adminService.updateQuestionById(ques);
+////
+////        System.out.println(i);
+//        JsonUtil jsonUtil = new JsonUtil();
 //
-//        System.out.println(i);
+//        List <Question> questions = adminService.getQuestionByKey("你好");
+//        String str = jsonUtil.listToJsonArray(questions);
+//        System.out.println(str);
 //    }
 
 
