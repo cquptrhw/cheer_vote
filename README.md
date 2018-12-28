@@ -1,3 +1,5 @@
+
+
 # 啦啦队项目接口文档
 
 ## 目录
@@ -36,8 +38,8 @@ json{
   - 1 已经上传
   - 0 尚未上传
 
-```
-json[{
+```json
+[{
 	"classId": 3,
 	"className": "计算机",
 	"result": 1
@@ -60,28 +62,21 @@ json[{
 
 - sessionId
 
-  #### POST参数
+#### POST参数
 
 - classId 啦啦队代号
-
 - slogan 口号
-
 - introduce 简介
-
 - firstImg 首页宣传图 
-
 - video 详情页宣传视视频
-
 - playImg1 轮播图1
-
 - playImg2 轮播图2
-
 - playImg3 轮播图3
 
 #### Return
 
-```
-json{
+```json
+{
 	"上传成功"
 }
 ```
@@ -90,20 +85,17 @@ json{
 
 - sessionId
 
-  #### POST参数
+#### POST参数
 
 - classId 啦啦队代号
-
 - img 图片
-
 - playerName 姓名
-
 - introduce 简介
 
 #### Return
 
 ```
-json{
+{
 	"上传成功"
 }
 ```
@@ -112,39 +104,33 @@ json{
 
 - sessionId 
 
-  #### POST参数
+#### POST参数
 
 - question 题目
-
 - A 答案
-
 - B 答案
-
 - C 答案
-
 - D 答案
-
 - answer 正确答案
-
 - kind 题目难度类型
-
   - 1-5分别代表1-5星难度
 
-```json{
-		"title": "ndaofo",
-		"kind": "3",
-		"A": "xadda",
-		"B": "传递是",
-		"C": "按错发",
-		"D": "啊啊我",
-		"answer": "A"
+```json
+{
+    "title": "ndaofo",
+	"kind": "3",
+	"A": "xadda",
+	"B": "传递是",
+	"C": "按错发",
+	"D": "啊啊我",
+	"answer": "A"
 }
 ```
 
 #### Return
 
-```
-json{
+```json
+{
 	"上传成功"
 }
 ```
@@ -155,8 +141,8 @@ json{
 
 #### Return
 
-```
-json[{
+```json
+[{
 	"kind": 1,
 	"total": 4
 }, {
@@ -178,14 +164,14 @@ json[{
 
 - sessionId 
 
-  #### GET参数
+#### GET参数
 
 - kind 题目种类
 
 #### Return
 
-```
-json[ {
+```json
+[ {
 	"A": "你好1",
 	"B": "12456",
 	"C": "撒旦da",
@@ -224,8 +210,8 @@ json[ {
 
 #### Return
 
-```
-json{
+```json
+{
 	"删除成功"
 }
 ```
@@ -239,8 +225,8 @@ json{
 
 #### Return
 
-```
-json[{
+```json
+[{
 	"A": "222222",
 	"B": "12456",
 	"C": "你好",
@@ -283,29 +269,31 @@ json[{
 - answer 正确答案
 - questionId 题号
 
-```json{
-		"questionId": "5",
-		"title": "ndaofo",
-		"A": "xadda",
-		"B": "传递是",
-		"C": "按错发",
-		"D": "啊啊我",
-		"answer": "A",
-		"kind":"1"
+```json
+{		
+    "questionId": "5",
+	"title": "ndaofo",
+	"A": "xadda",
+	"B": "传递是",
+	"C": "按错发",
+	"D": "啊啊我",
+	"answer": "A",
+	"kind":"1"
 }
 ```
 
 #### Return
 
-```json{
-		"questionId": "5",
-		"title": "ndaofo",
-		"A": "xadda",
-		"B": "传递是",
-		"C": "按错发",
-		"D": "啊啊我",
-		"answer": "A",
-		"kind":"1"
+```json
+{		
+    "questionId": "5",
+	"title": "ndaofo",
+	"A": "xadda",
+	"B": "传递是",
+	"C": "按错发",
+	"D": "啊啊我",
+	"answer": "A",
+	"kind":"1"
 }
 ```
 
@@ -321,10 +309,11 @@ json[{
 
   - base64(json)后的字符串
 
-    - ```json{
-      "classId":"5",
+    - ```json
+      {
+          "classId":"5",
       	"content":"你好啊"
-      }```
+      }
       ```
 
     - content 留言内容
@@ -339,8 +328,8 @@ json[{
 
 #### Return
 
-```
-json{
+```json
+{
    	"contentId": "5",
 	"content": "ndaofo",
 	"classId":"5",
@@ -352,28 +341,33 @@ json{
 
 - sessionId 
 
-  #### POST参数
+#### POST参数
 
 - contentId 被点赞文章id
 
-  #### Return
+#### Return
 
-```
-json{
+```json
+{
 	"contentId": "2",
 	"praiseNum": "2",
 	"message": "点赞成功"
 }
+```
 
-###获取留言 vote/user/message/{page}/{classId} [GET]
-+ sessionId 
-####GET参数
-+ page
-	+ 页数
-+ classId 
- 	+ 啦啦队id
-####Return
-​```json[{
+### 获取留言 vote/user/message/{page}/{classId} [GET]
+
+- sessionId 
+
+#### GET参数
+
+- page：页数
+- classId ：啦啦队id
+
+#### Return
+
+```json
+[{
 	"content": "你好",
 	"contentId": 12,
 	"created_time": "2018-03-21 23:36:36.0",
@@ -410,10 +404,10 @@ json{
 
 - sessionId
 
-  #### Return
+#### Return
 
-```
-json{
+```json
+{
 	"todayNum": 6,
 }
 ```
@@ -422,10 +416,10 @@ json{
 
 - sessionId 
 
-  #### Return
+#### Return
 
-```
-json{
+```json
+{
 	"A": "你好8",
 	"B": "12456",
 	"C": "撒旦da",
@@ -447,13 +441,11 @@ json{
 
   - base64(json)后的字符串
 
-  - ```json{
-    "questionId":5,
-    "userAnswer":"B"
-    }```
-    + questionId 题目id
-    + openId 答题者openId
-    + answer 答题者选择的答案
+  - ```json
+    {
+        "questionId":5,
+    	"userAnswer":"B"
+    }
     ```
 
 - timestamp 
@@ -461,10 +453,15 @@ json{
 - nonce
 
 - signature
-  ####Return
 
-```
-json{
+#### Return 
+
+- questionId 题目id
+- openId 答题者openId
+- answer 答题者选择的答案
+
+```json
+{
 	"rightAnswer": "C",
 	"questionId": 3,
 	"userAnswer": "C",
@@ -482,8 +479,8 @@ json{
 - nickname 用户名
 - rightNum 今日答题正确数
 
-```
-json[{
+```json
+[{
 	"headImgUrl": "aaaaaaaaaaaaaaaaaaaaa",
 	"nickname": "aaaaaa",
 	"rightNum": "1"
@@ -502,10 +499,10 @@ json[{
 
 - sessionId
 
-  #### Return
+#### Return
 
-```
-json[{
+```json
+[{
 	"headImgUrl": "aaaaaaaaaaaaaaaaaaaaa",
 	"nickname": "aaaaaa",
 	"rightNum": "2"
@@ -526,10 +523,10 @@ json[{
 
 - sessionId
 
-  #### Return 
+#### Return
 
-```
-json{
+```json
+{
 	"assistance":255
 }	
 ```
@@ -538,10 +535,10 @@ json{
 
 - sessionId
 
-  #### Return
+#### Return
 
-```
-json[{
+```json
+[{
 	"assistance": 1,
 	"classId": "1",
 	"className": "计算机",
@@ -575,18 +572,18 @@ json[{
 
   - base64(json)后的字符串
 
-  - ```json{
-    "data":[{
-    			"classId": "5",
-    			"num": "10"，
-    			"groupId":2
-    		},{
-               	"classId": "6",
-    			"num": "5",
-    			"groupId":3
-    		}
-    		]
-    }```
+  - ```json
+    {
+        "data":[{
+    				"classId": "5",
+    				"num": "10"，
+    				"groupId":2
+    			},{
+               		"classId": "6",
+    				"num": "5",
+    				"groupId":3
+    			}]
+    }
     ```
 
   - classId 今日已经回答题数
@@ -623,10 +620,10 @@ json[{
 
 - sessionId
 
-  #### Return
+#### Return
 
-```
-json[{
+```json
+[{
 	"className": "[\"自动化\"]",
 	"distance": 2,
 	"groupId": "1",
@@ -655,14 +652,14 @@ json[{
 
 - sessionId
 
-  #### GET参数
+#### GET参数
 
 - classId 啦啦队id
 
 #### Return
 
-```
-json[{
+```json
+[{
 	"className": "计算机",
 	"firstImg": "https://www.bejson.com/",
 	"introduce": "aaaaaa",
@@ -709,10 +706,10 @@ json[{
 
 - sessionId
 
-  #### Return
+#### Return
 
-```
-json[{
+```json
+[{
 	"className": "自动化",
 	"firstImg": "https://www.bejson.com/",
 	"slogan": "滚"
@@ -731,7 +728,7 @@ json[{
 
 - sessionId
 
-  #### Return
+#### Return
 
 ```json
 {
@@ -748,18 +745,17 @@ json[{
 
 - sessionId
 
-  #### Return
+#### Return
 
-```
+```json
 {
-	"headImgUrl": "http://thirdwx.qlogo.cn/mmopen/vi_32/MLtIOC9Jq8JHVzfuZvHw75R8hflN0YZwQlsDZ3CXS5ovNTia3W5MPQHbFcx1Y66Fg5kwmlEHfPjSWwUcSMjXIYw/132",
-	"openId": "o6sBL0r9h8WVC6XuHuU2Q_3E-Niw",
+	"headImgUrl": 	 "http://thirdwx.qlogo.cn/mmopen/vi_32/MLtIOC9Jq8JHVzfuZvHw75R8hflN0YZwQlsDZ3CXS5ovNTia3W5MPQHbFcx1Y66Fg5kwmlEHfPjSWwUcSMjXIY",
+	"openId": "o6sBL0r9h8WVC6XuHu",
 	"nickName": "Augustus"
 }	
-
 ```
 
-## 说明
+## 注释
 
 ### 学院和其对应的学院id
 
